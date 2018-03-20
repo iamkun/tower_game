@@ -5,7 +5,7 @@
 
 ## Demo 预览
 <p align="center"><img src="http://obdhoyfg4.bkt.clouddn.com/tower-preview.gif"/></p>
-<h2 align="center"><a href="http://fe.bmqb.com/tower_game/index.html">在线预览地址</a></h2>
+<h2 align="center"><a href="http://fe.bmqb.com/tower_game/index.html">在线预览地址 (Demo Link)</a></h2>
 <h4 align="center">手机设备可以扫描下方二维码</h4>
 <p align="center">
   <img src="https://o2qq673j2.qnssl.com/tower-game-qr.png" />
@@ -35,8 +35,8 @@ npm start
 ```
 打开 `http://localhost:8082`
 
-- 图片、音频资源可以直接替换 `image` 目录下对应的资源文件
-- 游戏规则可以修改 `index.js` 目录中 传入的 `option` 对象
+- 图片、音频资源可以直接替换 `assets` 目录下对应的资源文件
+- 游戏规则可以修改 `index.html` 文件 `L480` 的 `option` 对象
 
 ## Option 自定义选项
 
