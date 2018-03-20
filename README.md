@@ -1,7 +1,7 @@
 <h1 align="center">盖楼游戏</h1>
 <p align="center"><img src="https://o2qq673j2.qnssl.com/tower-loading.gif"/></p>
 
-> 一个基于 Canvas 的盖楼游戏
+> 一个基于 Canvas 的盖楼游戏 Tower Building Game
 
 ## Demo 预览
 <p align="center"><img src="http://obdhoyfg4.bkt.clouddn.com/tower-preview.gif"/></p>
