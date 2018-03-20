@@ -28,8 +28,8 @@
 ## Customise 自定义
 
 ```
-git clone bmqb@tower-game
-cd tower-game
+git clone https://github.com/bmqb/tower_game.git
+cd tower_game
 npm install
 npm start
 ```
