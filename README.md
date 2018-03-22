@@ -9,7 +9,7 @@
 
 ## Demo 预览
 <p align="center"><img src="http://obdhoyfg4.bkt.clouddn.com/tower-preview.gif"/></p>
-<h2 align="center"><a href="http://fe.bmqb.com/tower_game/index.html?v=2">在线预览地址 (Demo Link)</a></h2>
+<h2 align="center"><a href="http://fe.bmqb.com/tower_game/demo.html?v=1">在线预览地址 (Demo Link)</a></h2>
 <h4 align="center">手机设备可以扫描下方二维码</h4>
 <p align="center">
   <img src="https://o2qq673j2.qnssl.com/tower-game-qr-code.png" />
