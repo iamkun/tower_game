@@ -383,7 +383,7 @@
             <img
                     src="./assets/main-index-title.png"
                     class="title swing">
-            </div>
+        </div>
         <div class="action-2"><img id="start"
                                    src="./assets/main-index-start.png"
                                    class="start"></div>
@@ -526,7 +526,7 @@
   })
 
   $('.js-reload').on('click', function () {
-    window.location.href = window.location.href
+    window.location.href = window.location.href + '?s=' + (+new Date())
   })
 
   $('.js-invite').on('click', function () {

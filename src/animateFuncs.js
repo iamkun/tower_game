@@ -78,6 +78,7 @@ export const startAnimate = (engine) => {
   const lastBlock = engine.getInstance(`block_${engine.getVariable(constant.blockCount)}`)
   if (!lastBlock || [constant.land, constant.out].indexOf(lastBlock.status) > -1) {
     if (checkMoveDown(engine) && getMoveDownValue(engine)) return
+    if (engine.checkTimeMovement(constant.hookUpMovement)) return
     const angleBase = getAngleBase(engine)
     const initialAngle = (Math.PI
         * engine.utils.random(angleBase, angleBase + 5)
