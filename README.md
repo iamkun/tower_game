@@ -1,35 +1,41 @@
 [![LICENSE](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
 
-<h1 align="center">盖楼游戏</h1>
+English | [简体中文](./README.zh-CN.md)
+
+<h1 align="center">Tower Building Game</h1>
 <p align="center"><img src="https://o2qq673j2.qnssl.com/tower-loading.gif"/></p>
 
-> 一个基于 Canvas 的盖楼游戏
+> a tower building game based on Canvas 
 
 > Tower Building Game (Tower Bloxx Deluxe Skyscraper)
 
-## Demo 预览
+## Demo
 <p align="center"><img src="http://obdhoyfg4.bkt.clouddn.com/tower-preview.gif"/></p>
-<h2 align="center"><a href="http://fe.bmqb.com/tower_game/demo.html?v=1">在线预览地址 (Demo Link)</a></h2>
-<h4 align="center">手机设备可以扫描下方二维码</h4>
+<h2 align="center"><a href="http://fe.bmqb.com/tower_game/demo.html?v=1">Link to online Demo (Demo Link)</a></h2>
+<h4 align="center">Mobile Devices can scan following QR code:</h4>
 <p align="center">
   <img src="https://o2qq673j2.qnssl.com/tower-game-qr-code.png" />
 </p>
 
-## Game Rule 游戏规则
+## Game Rule
 
-以下为默认游戏规则，也可参照下节自定义游戏参数
+The following are the default game rule:
 
-- 每局游戏生命值为3，掉落一块楼层生命值减1，掉落3块后游戏结束，单局游戏无时间限制
+- In every game player starts with 3 hp. Every time a Tower block is dropped player is deduct 1 hp; game ends when hp is depleted. 
 
-- 成功盖楼加25分，完美盖楼加50分，连续完美盖楼额外加25分，楼层掉落扣除生命值1，单局游戏共有3次掉落机会
+- Player is rewarded with 25 point for every succesful stacked blocks(Success). If a block is stacked pefectly (Perfect) on top of the previous one, then player
+rewarded with 50 points instead. Consecutive Perfects awards additional 25 points.
 
-栗子：第一块完美盖楼加50分，第二块连续完美盖楼加75分，第三块连续完美盖楼加100分，依此类推……
+**Note: Each Success or Perfect constitutes a floor**
+
+  For example, the first Perfect awards 50 point. The second consecutive Perfect awards 75 points.
+ The third consecutive Perfect awards 100 points.  etc.
 
 <p align="center">
   <img src="https://o2qq673j2.qnssl.com/Fv7ewqHHXeAnUAlF7AI9ndQulEOC" />
 </p>
 
-## Customise 自定义
+## Customizing the game rule
 
 ```
 git clone https://github.com/bmqb/tower_game.git
@@ -37,33 +43,35 @@ cd tower_game
 npm install
 npm start
 ```
-打开 `http://localhost:8082`
+Open `http://localhost:8082` in a web browser.
 
-- 图片、音频资源可以直接替换 `assets` 目录下对应的资源文件
-- 游戏规则可以修改 `index.html` 文件 `L480` 的 `option` 对象
+- To customize image and sound resource files directly replace the corresponding file under `assets` directory. 
+- To customize game rules modify the `option` object in `index.html`.
 
-## Option 自定义选项
+## Option 
 
-可以使用以下 `option` 表格里的参数，完成游戏自定义，**所有参数都是非必填项**
+Use following table of `option` constants to complete customization of game rules.
+
+**Note: all constants are optionally included**
 
 | Option | Type | Description |
 |---------|--------|-------------|
-| width          | number | 游戏主画面宽度 |
-| height         | number | 游戏主画面高度 |
-| canvasId       | string | Canvas 的 DOM ID |
-| soundOn        | boolean | 是否开启声音 |
-| successScore   | number | 成功盖楼分数 |
-| perfectScore   | number | 完美盖楼额外奖励分数 |
-| <a href="#hookspeed">hookSpeed</a> | function | 钩子平移速度 |
-| <a href="#hookangle">hookAngle</a> | function | 钩子摆动角度 |
-| <a href="#landblockspeed">landBlockSpeed</a> | function | 下方楼房横向速度 |
-| <a href="#setgamescore">setGameScore</a> | function | 当前游戏分数hook |
-| <a href="#setgamesuccess">setGameSuccess</a> | function | 当前游戏成功次数hook |
-| <a href="#setgamefailed">setGameFailed</a> | function | 当前游戏失败次数hook |
+| width          | number | Width of game interface |
+| height         | number | Height of game interface |
+| canvasId       | string | DOM ID in Canvas |
+| soundOn        | boolean | If sound is on |
+| successScore   | number | Points awarded for success |
+| perfectScore   | number | Additional points awarded for perfect |
+| <a href="#hookspeed">hookSpeed</a> | function | Speed of hook's movement |
+| <a href="#hookangle">hookAngle</a> | function | Angle of hook |
+| <a href="#landblockspeed">landBlockSpeed</a> | function | Speed of block sway |
+| <a href="#setgamescore">setGameScore</a> | function | hook for current score |
+| <a href="#setgamesuccess">setGameSuccess</a> | function | hook for number of current succesful game |
+| <a href="#setgamefailed">setGameFailed</a> | function | hook for number of current failed game |
 
 #### hookSpeed
-钩子平移速度
-函数接收两个参数，当前成功楼层和当前分数，返回速度数值
+Speed of hook's movement
+This function takes in two parameters, currentFloor and currentScore, and returns a speed value.
 ```
 function(currentFloor, currentScore) {
   return number
@@ -71,8 +79,8 @@ function(currentFloor, currentScore) {
 ```
 
 #### hookAngle
-钩子摆动角度
-函数接收两个参数，当前成功楼层和当前分数，返回角度数值
+Angle of hook
+This function takes in two parameters, currentFloor and currentScore, and returns a angle value.
 ```
 function(currentFloor, currentScore) {
   return number
@@ -80,8 +88,8 @@ function(currentFloor, currentScore) {
 ```
 
 #### landBlockSpeed
-下方楼房平移速度
-函数接收两个参数，当前成功楼层和当前分数，返回速度数值
+Speed of block sway
+This function takes in two parameters, currentFloor and currentScore, and returns a speed value.
 ```
 function(currentFloor, currentScore) {
   return number
@@ -89,8 +97,8 @@ function(currentFloor, currentScore) {
 ```
 
 #### setGameScore
-当前游戏分数hook
-函数接收一个参数，当前游戏分数
+hook for current score
+This function takes in one parameters, score, and sets currentScore to score.
 ```
 function(score) {
   // your logic
@@ -98,8 +106,8 @@ function(score) {
 ```
 
 #### setGameSuccess
-当前游戏成功次数hook
-函数接收一个参数，当前游戏成功次数
+hook for number of current succesful game
+This function takes in one parameters, score, and sets GameSuccess to successCount.
 ```
 function(successCount) {
   // your logic
@@ -107,8 +115,8 @@ function(successCount) {
 ```
 
 #### setGameFailed
-当前游戏失败次数hook
-函数接收一个参数，当前游戏失败次数
+hook for number of current failed game
+This function takes in one parameters, score, and sets GameFailed to failedCount.
 ```
 function(failedCount) {
   // your logic
