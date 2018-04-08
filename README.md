@@ -5,9 +5,7 @@ English | [简体中文](./README.zh-CN.md)
 <h1 align="center">Tower Building Game</h1>
 <p align="center"><img src="https://o2qq673j2.qnssl.com/tower-loading.gif"/></p>
 
-> a tower building game based on Canvas 
-
-> Tower Building Game (Tower Bloxx Deluxe Skyscraper)
+> a tower building game based on ES6 and Canvas (Tower Bloxx Deluxe Skyscraper)
 
 ## Demo
 <p align="center"><img src="http://obdhoyfg4.bkt.clouddn.com/tower-preview.gif"/></p>
