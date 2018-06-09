@@ -461,7 +461,7 @@
 				n = e.getVariable(s.gameScore, 0),
 				a = Number(t) > 99 ? .1 * e.width : 0;
 			(0, r.drawYellowString)(e, {
-				string: "层",
+				string: "floor",
 				size: .06 * e.width,
 				x: .24 * e.width + a,
 				y: .12 * e.width,

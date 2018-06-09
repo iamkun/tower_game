@@ -401,7 +401,7 @@
                                 class="over-img">
                             <div id="score" class="over-score font-wenxue"></div>
                             <div id="over-zero" class="hide">
-                                <div class="tip"><p>再来一次吧！</p>
+                                <div class="tip"><p>Try Again!</p>
                                     <img
                                             src="./assets/main-modal-again-b.png"
                                             class="over-button-b js-reload"><img
@@ -450,7 +450,7 @@
     var failed = status.failed
     if (failed > 0 && !loadError) {
       loadError = true
-      alert('加载失败 请刷新后重试')
+      alert('Loading is fail... Please try again.')
       return
     }
     var percent = parseInt((success / total) * 100);
