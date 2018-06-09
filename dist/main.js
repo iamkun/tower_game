@@ -196,7 +196,7 @@
 			u = .1 * c;
 		s.save(), s.beginPath();
 		var l = s.createLinearGradient(0, 0, 0, r);
-		l.addColorStop(0, "#FAD961"), l.addColorStop(1, "#F76B1C"), s.fillStyle = l, s.lineWidth = u, s.strokeStyle = "#FFF", s.textAlign = o || "center", s.font = "".concat(c, "px ").concat("wenxue"), s.strokeText(i, a, r), s.fillText(i, a, r), s.restore()
+		l.addColorStop(0, "#FAD961"), l.addColorStop(1, "#F76B1C"), s.fillStyle = l, s.lineWidth = u, s.strokeStyle = "#FFF", s.textAlign = o || "center", s.font = "bold ".concat(c, "px ").concat("wenxue"), s.strokeText(i, a, r), s.fillText(i, a, r), s.restore()
 	}
 }, function(e, t, i) {
 	"use strict";
