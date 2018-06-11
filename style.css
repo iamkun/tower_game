@@ -1,0 +1,294 @@
+* {
+     margin: 0;
+     padding: 0 
+}
+ img {
+     width: 100% 
+}
+ html {
+     background: #FFF;
+     height: 100% 
+}
+ body {
+     font-family: "Helvetica Neue", Arial, Helvetica, sans-serif;
+     margin: 0 auto;
+     text-align: center;
+     width: 100%;
+     height: 100%;
+     background: #F95240 url(./assets/main-bg.png) 
+}
+ @media screen and (min-height: 560px) {
+     html {
+         font-size: 100px 
+    }
+}
+ @media screen and (min-height: 640px) {
+     html {
+         font-size: 112.5px 
+    }
+}
+ @media screen and (min-height: 720px) {
+     html {
+         font-size: 125px 
+    }
+}
+ @media screen and (min-height: 800px) {
+     html {
+         font-size: 137.5px 
+    }
+}
+ @media screen and (min-height: 880px) {
+     html {
+         font-size: 150px 
+    }
+}
+ @media screen and (min-height: 960px) {
+     html {
+         font-size: 162.5px 
+    }
+}
+ @media screen and (min-height: 1040px) {
+     html {
+         font-size: 180px 
+    }
+}
+ @media screen and (min-height: 1200px) {
+     html {
+         font-size: 200px 
+    }
+}
+ html {
+     font-size: 17.6vh 
+}
+ #canvas {
+     position: fixed;
+     left: 0;
+     top: 0;
+     right: 0;
+     bottom: 0;
+     margin: auto;
+}
+ a {
+     text-decoration: none 
+}
+ li, ul, ol {
+     list-style-type: none;
+     padding: 0;
+     margin: 0 
+}
+ .hide {
+     display: none 
+}
+ .clear {
+     clear: both 
+}
+ .loading {
+     background-color: #F05A50;
+     height: 100%;
+     width: 100%;
+}
+ .loading .main {
+     width: 60%;
+     margin: 0 auto;
+     color: #FFF 
+}
+ .loading .main img {
+     width: 60%;
+     margin: 1rem auto 0 
+}
+ .loading .main .title {
+     font-size: .3rem 
+}
+ .loading .main .text {
+     font-size: .15rem 
+}
+ .loading .main .bar {
+     height: .12rem;
+     width: 100%;
+     border: 3px solid #FFF;
+     border-radius: .6rem;
+     margin: .1rem 0;
+}
+ .loading .main .bar .sub {
+     height: .1rem;
+     width: 98%;
+     margin: .008rem auto 0;
+}
+ .loading .main .bar .percent {
+     height: 100%;
+     width: 0;
+     background-color: #FFF;
+     border-radius: .6rem;
+}
+ .loading .logo {
+     position: absolute;
+     bottom: .3rem;
+     left: 0;
+     right: 0 
+}
+ .loading .logo img {
+     width: 1rem 
+}
+ .content {
+     height: 100vh;
+     margin: 0 auto;
+     position: relative;
+}
+ .landing .title {
+     width: 60%;
+}
+ .landing .logo {
+     width: 30%;
+     position: absolute;
+     right: .2rem;
+     top: .2rem;
+}
+ .landing .action-2 {
+     position: absolute;
+     bottom: .2rem;
+     width: 100%;
+}
+ .landing .start {
+     width: 65%;
+}
+ .slideTop {
+     -webkit-animation: st 1s ease-in-out;
+     animation: st 1s ease-in-out;
+}
+ @-webkit-keyframes st {
+     0% {
+         transform: translateZ(0) 
+    }
+     100% {
+         transform: translate3d(0, -100%, 0) 
+    }
+}
+ @keyframes st {
+     0% {
+         transform: translateZ(0) 
+    }
+     100% {
+         transform: translate3d(0, -100%, 0) 
+    }
+}
+ .slideBottom {
+     -webkit-animation: sb 1s ease-in-out;
+     animation: sb 1s ease-in-out;
+}
+ @-webkit-keyframes sb {
+     0% {
+         transform: translateZ(0) 
+    }
+     100% {
+         transform: translate3d(0, 200%, 0) 
+    }
+}
+ @keyframes sb {
+     0% {
+         transform: translateZ(0) 
+    }
+     100% {
+         transform: translate3d(0, 200%, 0) 
+    }
+}
+ .swing {
+     -webkit-animation: sw 2s ease-in-out alternate infinite;
+     animation: sw 2s ease-in-out alternate infinite;
+}
+ @-webkit-keyframes sw {
+     0% {
+         transform: rotate(5deg);
+         transform-origin: top center;
+    }
+     100% {
+         transform: rotate(-5deg);
+         transform-origin: top center;
+    }
+}
+ @keyframes sw {
+     0% {
+         transform: rotate(5deg);
+         transform-origin: top center;
+    }
+     100% {
+         transform: rotate(-5deg);
+         transform-origin: top center;
+    }
+}
+ .modal .mask {
+     background-color: #000;
+     opacity: .6;
+     position: fixed;
+     height: 100%;
+     width: 100%;
+     top: 0;
+     left: 0;
+}
+ .modal .modal-content {
+     position: fixed;
+     height: 100%;
+     width: 90%;
+     margin-top: .3rem;
+     top: 0;
+}
+ .modal .main {
+     width: 85%;
+     margin: 0 auto;
+}
+ .modal .container {
+     position: relative 
+}
+ .modal .bg {
+     width: 100%;
+     position: absolute;
+     top: 0;
+     left: 0 
+}
+ .modal .modal-main {
+     width: 100%;
+     position: absolute;
+     top: 0;
+     left: 0;
+     margin-top: -0.4rem;
+}
+ .modal .over-img {
+     width: 80%;
+     margin: .8rem auto 0 
+}
+ .modal .over-score {
+     margin-top: -0.2rem;
+     font-size: .5rem;
+     color: #FF735C;
+     text-shadow: -2px -2px 0 #FFF, 2px -2px 0 #FFF, -2px 2px 0 #FFF, 2px 2px 0 #FFF;
+}
+ .modal .tip {
+     font-size: .16rem;
+     color: #9B724E;
+}
+ .modal .over-button-b {
+     width: 70%;
+     margin: 0.1rem auto 0 
+}
+ .wxShare {
+     background: #000;
+     position: absolute;
+     top: 0;
+     left: 0;
+     width: 100%;
+     height: 100%;
+     z-index: 11;
+     opacity: .9 
+}
+ .wxShare img {
+     width: 50%;
+     float: right;
+     margin: 10px 10px 0 0 
+}
+ @font-face {
+     font-family: 'wenxue';
+     src: url('./assets/wenxue.eot');
+     src: url('./assets/wenxue.eot'), url('./assets/wenxue.woff'), url('./assets/wenxue.ttf'), url('./assets/wenxue.svg');
+}
+ .font-wenxue {
+     font-family: 'wenxue';
+}
