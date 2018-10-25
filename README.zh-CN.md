@@ -10,7 +10,7 @@
 > Tower Building Game (Tower Bloxx Deluxe Skyscraper)
 
 ## Demo 预览
-<p align="center"><img src="http://obdhoyfg4.bkt.clouddn.com/tower-preview.gif"/></p>
+<p align="center"><img src="https://user-images.githubusercontent.com/17680888/47480922-93a20c00-d864-11e8-8f7c-6d1d60184730.gif"/></p>
 <h2 align="center"><a href="https://iamkun.github.io/tower_game">在线预览地址 (Demo Link)</a></h2>
 <h4 align="center">手机设备可以扫描下方二维码</h4>
 <p align="center">
