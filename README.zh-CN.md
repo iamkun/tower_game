@@ -11,10 +11,10 @@
 
 ## Demo 预览
 <p align="center"><img src="http://obdhoyfg4.bkt.clouddn.com/tower-preview.gif"/></p>
-<h2 align="center"><a href="http://fe.bmqb.com/tower_game/demo.html?v=1">在线预览地址 (Demo Link)</a></h2>
+<h2 align="center"><a href="https://iamkun.github.io/tower_game">在线预览地址 (Demo Link)</a></h2>
 <h4 align="center">手机设备可以扫描下方二维码</h4>
 <p align="center">
-  <img src="https://o2qq673j2.qnssl.com/tower-game-qr-code.png" />
+  <img src="https://user-images.githubusercontent.com/17680888/47480646-abc55b80-d863-11e8-9337-4ea768ebe55d.png" />
 </p>
 
 ## Game Rule 游戏规则
@@ -34,7 +34,7 @@
 ## Customise 自定义
 
 ```
-git clone https://github.com/bmqb/tower_game.git
+git clone https://github.com/iamkun/tower_game.git
 cd tower_game
 npm install
 npm start
@@ -116,12 +116,6 @@ function(failedCount) {
   // your logic
 }
 ```
-
-## Join us
-
-<img src="https://ofw30mjf6.qnssl.com/images/logo-with-R.9c82.png" width="300" height="96"/>
-
- [加入我们](https://www.bmqb.com/a/jobs)
 
 ## License
 

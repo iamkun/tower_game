@@ -9,17 +9,17 @@ English | [简体中文](./README.zh-CN.md)
 
 ## Demo
 <p align="center"><img src="http://obdhoyfg4.bkt.clouddn.com/tower-preview.gif"/></p>
-<h2 align="center"><a href="http://fe.bmqb.com/tower_game/demo.html?v=1">Link to online Demo (Demo Link)</a></h2>
+<h2 align="center"><a href="https://iamkun.github.io/tower_game">Link to online Demo (Demo Link)</a></h2>
 <h4 align="center">Mobile Devices can scan following QR code:</h4>
 <p align="center">
-  <img src="https://o2qq673j2.qnssl.com/tower-game-qr-code.png" />
+  <img src="https://user-images.githubusercontent.com/17680888/47480646-abc55b80-d863-11e8-9337-4ea768ebe55d.png" />
 </p>
 
 ## Game Rule
 
 The following are the default game rule:
 
-- In every game player starts with 3 hp. Every time a Tower block is dropped player is deduct 1 hp; game ends when hp is depleted. 
+- In every game player starts with 3 hp. Every time a Tower block is dropped player is deduct 1 hp; game ends when hp is depleted.
 
 - Player is rewarded with 25 point for every succesful stacked blocks(Success). If a block is stacked pefectly (Perfect) on top of the previous one, then player
 rewarded with 50 points instead. Consecutive Perfects awards additional 25 points.
@@ -36,17 +36,17 @@ rewarded with 50 points instead. Consecutive Perfects awards additional 25 point
 ## Customizing the game rule
 
 ```
-git clone https://github.com/bmqb/tower_game.git
+git clone https://github.com/iamkun/tower_game.git
 cd tower_game
 npm install
 npm start
 ```
 Open `http://localhost:8082` in a web browser.
 
-- To customize image and sound resource files directly replace the corresponding file under `assets` directory. 
+- To customize image and sound resource files directly replace the corresponding file under `assets` directory.
 - To customize game rules modify the `option` object in `index.html`.
 
-## Option 
+## Option
 
 Use following table of `option` constants to complete customization of game rules.
 
