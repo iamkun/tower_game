@@ -30,7 +30,7 @@ rewarded with 50 points instead. Consecutive Perfects awards additional 25 point
  The third consecutive Perfect awards 100 points.  etc.
 
 <p align="center">
-  <img src="https://user-images.githubusercontent.com/17680888/47473105-d9021180-d843-11e8-8c19-b6b78d86cbdf.png" />
+  <img width="550" src="https://user-images.githubusercontent.com/17680888/47473105-d9021180-d843-11e8-8c19-b6b78d86cbdf.png" />
 </p>
 
 ## Customizing the game rule
