@@ -72,6 +72,9 @@
     game = TowerGame(option)
     game.load(function () {
       game.init()
+      setTimeout(function () {
+        game.playBgm()
+      })
     }, updateLoading)
   }
 
@@ -88,15 +91,15 @@
     setTimeout(function () {
       $('.landing').hide()
     }, 950)
-    setTimeout(function () {
-      game.playBgm()
-    })
   }
 
   // click event
   $('#start').on('click', function () {
     if (gameStart) return
     gameStart = true
+    setTimeout(function () {
+      game.playBgm()
+    })
     indexHide()
     setTimeout(game.start, 400)
   })
