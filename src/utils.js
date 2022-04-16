@@ -155,10 +155,9 @@ export const addScore = (engine, isPerfect) => {
 
 export const drawYellowString = (engine, option) => {
   const {
-    string, size, x, y, textAlign
+    string, size, x, y, textAlign, fontName = 'wenxue', fontWeight = 'normal'
   } = option
   const { ctx } = engine
-  const fontName = 'wenxue'
   const fontSize = size
   const lineSize = fontSize * 0.1
   ctx.save()
@@ -170,7 +169,7 @@ export const drawYellowString = (engine, option) => {
   ctx.lineWidth = lineSize
   ctx.strokeStyle = '#FFF'
   ctx.textAlign = textAlign || 'center'
-  ctx.font = `${fontSize}px ${fontName}`
+  ctx.font = `${fontWeight} ${fontSize}px ${fontName}`
   ctx.strokeText(string, x, y)
   ctx.fillText(string, x, y)
   ctx.restore()
