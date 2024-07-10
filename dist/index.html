@@ -544,6 +544,7 @@
     </div>
     <script src="./dist/bundle.js"></script>
     <script src="./assets/zepto-1.1.6.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
     <script>
       var domReady,
         loadFinish,
@@ -601,6 +602,7 @@
         $("#modal").show();
         $("#over-modal").show();
         $("#over-zero").show();
+        console.log("score 2: ", score);
       }
 
       // game customization options
@@ -610,14 +612,19 @@
         canvasId: "canvas",
         soundOn: true,
         setGameScore: function (s) {
+          console.log("s: ", s);
           score = s;
         },
         setGameSuccess: function (s) {
+          console.log("scr: ", s);
           successCount = s;
         },
         setGameFailed: function (f) {
           $("#score").text(score);
-          if (f >= 3) overShowOver();
+          if (f >= 3) {
+            overShowOver();
+            console.log("final: ", score);
+          }
         },
       };
 

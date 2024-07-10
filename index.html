@@ -544,6 +544,7 @@
     </div>
     <script src="./dist/bundle.js"></script>
     <script src="./assets/zepto-1.1.6.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
     <script>
       var domReady,
         loadFinish,
@@ -552,7 +553,8 @@
         gameStart,
         game,
         score,
-        successCount;
+        successCount,
+        tokenId;
       // init window height and width
       var gameWidth = window.innerWidth;
       var gameHeight = window.innerHeight;
@@ -597,10 +599,20 @@
         });
       }
 
+      function updateScoreToSupabase() {
+        const supabaseUrl = "https://upmkwrmqxnywczhpitxq.supabase.co";
+        const supabaseKey =
+          "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InVwbWt3cm1xeG55d2N6aHBpdHhxIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MTcyMjUzNjYsImV4cCI6MjAzMjgwMTM2Nn0.YfpqRfWwyV4EaJP3MToJsXPEYdY1yXYWLPSL0cNygQU";
+        const supabase = supabase.createClient(supabaseUrl, supabaseKey);
+
+        
+      }
+
       function overShowOver() {
         $("#modal").show();
         $("#over-modal").show();
         $("#over-zero").show();
+        console.log("score 2: ", score);
       }
 
       // game customization options
@@ -610,14 +622,19 @@
         canvasId: "canvas",
         soundOn: true,
         setGameScore: function (s) {
+          console.log("s: ", s);
           score = s;
         },
         setGameSuccess: function (s) {
+          console.log("scr: ", s);
           successCount = s;
         },
         setGameFailed: function (f) {
           $("#score").text(score);
-          if (f >= 3) overShowOver();
+          if (f >= 3) {
+            overShowOver();
+            console.log("final: ", score);
+          }
         },
       };
 
