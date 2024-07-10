@@ -18,10 +18,23 @@ module.exports = {
           },
         },
       },
+      {
+        test: /\.(png|jpg|gif|svg|eot|ttf|woff|woff2)$/,
+        use: [
+          {
+            loader: "file-loader",
+            options: {
+              name: "[name].[hash].[ext]",
+              outputPath: "assets",
+            },
+          },
+        ],
+      },
+      {
+        test: /\.css$/,
+        use: ["style-loader", "css-loader"],
+      },
     ],
-  },
-  resolve: {
-    extensions: [".js"],
   },
   mode: "production",
 };
