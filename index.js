@@ -7,7 +7,7 @@ const host = "http://localhost:8082";
 server.use("/assets", express.static(path.resolve(__dirname, "./assets")));
 server.use("/dist", express.static(path.resolve(__dirname, "./dist")));
 
-app.get("*", (req, res) => {
+server.get("*", (req, res) => {
   res.sendFile(path.resolve(__dirname, "dist", "index.html"));
 });
 
