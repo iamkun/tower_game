@@ -1,4 +1,5 @@
 const path = require("path");
+const CopyWebpackPlugin = require("copy-webpack-plugin");
 
 module.exports = {
   entry: "./src/index.js",
@@ -19,12 +20,12 @@ module.exports = {
         },
       },
       {
-        test: /\.(png|jpg|gif|svg|eot|ttf|woff|woff2)$/,
+        test: /\.(png|jpg|gif|svg|eot|ttf|woff|woff2|mp3|ogg)$/,
         use: [
           {
             loader: "file-loader",
             options: {
-              name: "[name].[hash].[ext]",
+              name: "[name].[ext]",
               outputPath: "assets",
             },
           },
@@ -36,5 +37,13 @@ module.exports = {
       },
     ],
   },
+  plugins: [
+    new CopyWebpackPlugin({
+      patterns: [
+        { from: "assets", to: "assets" },
+        { from: "index.html", to: "" },
+      ],
+    }),
+  ],
   mode: "production",
 };
