@@ -396,6 +396,20 @@
         margin-top: 30px;
       }
 
+      .side-panel-body .switch-wallet {
+        margin-left: 30px;
+        margin-right: 30px;
+        padding: 15px 60px;
+        background-color: #018a08;
+        color: white;
+        border: none;
+        border-radius: 20px;
+        cursor: pointer;
+        font-size: 16px;
+        margin-top: 30px;
+        text-overflow: ellipsis;
+      }
+
       .side-panel-body .connect-button:hover {
         background-color: #27ae60;
       }
@@ -485,6 +499,7 @@
             <button id="connect-wallet" class="connect-button">
               Connect Wallet to play
             </button>
+            <button id="switch-wallet" class="switch-wallet hide"></button>
           </div>
         </div>
       </div>
@@ -505,9 +520,9 @@
           <div class="action-1">
             <img src="./assets/main-index-title.png" class="title swing hook" />
           </div>
-          <div class="action-2">
+          <!-- <div class="action-2">
             <img id="start" src="./assets/main-index-start.png" class="start" />
-          </div>
+          </div> -->
         </div>
         <div id="modal" class="modal hide">
           <div class="mask"></div>
@@ -554,7 +569,10 @@
         game,
         score,
         successCount,
-        tokenId;
+        tokenId,
+        supabase,
+        gameId = "2329dcdc-a26c-4abd-b7ad-8c3a36b9c502";
+
       // init window height and width
       var gameWidth = window.innerWidth;
       var gameHeight = window.innerHeight;
@@ -599,20 +617,58 @@
         });
       }
 
-      function updateScoreToSupabase() {
+      function createSupabaseClient() {
         const supabaseUrl = "https://upmkwrmqxnywczhpitxq.supabase.co";
         const supabaseKey =
           "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InVwbWt3cm1xeG55d2N6aHBpdHhxIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MTcyMjUzNjYsImV4cCI6MjAzMjgwMTM2Nn0.YfpqRfWwyV4EaJP3MToJsXPEYdY1yXYWLPSL0cNygQU";
-        const supabase = supabase.createClient(supabaseUrl, supabaseKey);
-
-        
+        supabase = supabase.createClient(supabaseUrl, supabaseKey);
       }
+
+      createSupabaseClient();
+
+      const updatePoints = async (newPoints) => {
+        try {
+          // Fetch the current points
+          let { data: currentData, error: fetchError } = await supabase
+            .from("points")
+            .select("*")
+            .eq("tokenid", tokenId)
+            .eq("game_id", gameId)
+            .single();
+
+          if (fetchError) {
+            if (fetchError.message.includes("No rows found")) {
+              // If no existing points found, set currentPoints to 0
+              currentData = { points: 0, tokenId, gameId };
+            } else {
+              throw fetchError;
+            }
+          }
+
+          // Add new points to the current points
+          currentData.points = (currentData?.points || 0) + newPoints;
+
+          // Update the points in the database
+          const { data, error } = await supabase
+            .from("points")
+            .upsert({
+              ...currentData,
+            })
+            .eq("tokenid", tokenId)
+            .eq("gameId", gameId)
+            .single();
+
+          if (error) throw error;
+          console.log("Points updated successfully:", data);
+        } catch (error) {
+          console.error("Error updating points:", error);
+        }
+      };
 
       function overShowOver() {
         $("#modal").show();
         $("#over-modal").show();
         $("#over-zero").show();
-        console.log("score 2: ", score);
       }
 
       // game customization options
@@ -626,14 +682,13 @@
           score = s;
         },
         setGameSuccess: function (s) {
-          console.log("scr: ", s);
           successCount = s;
         },
         setGameFailed: function (f) {
           $("#score").text(score);
           if (f >= 3) {
             overShowOver();
-            console.log("final: ", score);
+            updatePoints(score);
           }
         },
       };
@@ -715,41 +770,10 @@
       // Import ethers.js
 
       // Ethereum provider (MetaMask)
-
+      let walletConnected = false;
       // NFT Contract details (replace with actual contract address and ABI)
-      const contractAddress = "0x47ade447c2b2769e29533bd80e5d7cca089333a2";
+      const contractAddress = "0x9f089f3fc58770b591d075f82429ccb94fd67564";
       const contractABI = [
-        {
-          inputs: [
-            {
-              internalType: "address",
-              name: "to",
-              type: "address",
-            },
-            {
-              internalType: "uint256",
-              name: "tokenId",
-              type: "uint256",
-            },
-          ],
-          name: "approve",
-          outputs: [],
-          stateMutability: "nonpayable",
-          type: "function",
-        },
-        {
-          inputs: [
-            {
-              internalType: "uint256",
-              name: "tokenId",
-              type: "uint256",
-            },
-          ],
-          name: "burn",
-          outputs: [],
-          stateMutability: "nonpayable",
-          type: "function",
-        },
         {
           inputs: [
             {
@@ -760,131 +784,6 @@
           ],
           stateMutability: "nonpayable",
           type: "constructor",
-        },
-        {
-          inputs: [
-            {
-              internalType: "address",
-              name: "sender",
-              type: "address",
-            },
-            {
-              internalType: "uint256",
-              name: "tokenId",
-              type: "uint256",
-            },
-            {
-              internalType: "address",
-              name: "owner",
-              type: "address",
-            },
-          ],
-          name: "ERC721IncorrectOwner",
-          type: "error",
-        },
-        {
-          inputs: [
-            {
-              internalType: "address",
-              name: "operator",
-              type: "address",
-            },
-            {
-              internalType: "uint256",
-              name: "tokenId",
-              type: "uint256",
-            },
-          ],
-          name: "ERC721InsufficientApproval",
-          type: "error",
-        },
-        {
-          inputs: [
-            {
-              internalType: "address",
-              name: "approver",
-              type: "address",
-            },
-          ],
-          name: "ERC721InvalidApprover",
-          type: "error",
-        },
-        {
-          inputs: [
-            {
-              internalType: "address",
-              name: "operator",
-              type: "address",
-            },
-          ],
-          name: "ERC721InvalidOperator",
-          type: "error",
-        },
-        {
-          inputs: [
-            {
-              internalType: "address",
-              name: "owner",
-              type: "address",
-            },
-          ],
-          name: "ERC721InvalidOwner",
-          type: "error",
-        },
-        {
-          inputs: [
-            {
-              internalType: "address",
-              name: "receiver",
-              type: "address",
-            },
-          ],
-          name: "ERC721InvalidReceiver",
-          type: "error",
-        },
-        {
-          inputs: [
-            {
-              internalType: "address",
-              name: "sender",
-              type: "address",
-            },
-          ],
-          name: "ERC721InvalidSender",
-          type: "error",
-        },
-        {
-          inputs: [
-            {
-              internalType: "uint256",
-              name: "tokenId",
-              type: "uint256",
-            },
-          ],
-          name: "ERC721NonexistentToken",
-          type: "error",
-        },
-        {
-          inputs: [
-            {
-              internalType: "address",
-              name: "owner",
-              type: "address",
-            },
-          ],
-          name: "OwnableInvalidOwner",
-          type: "error",
-        },
-        {
-          inputs: [
-            {
-              internalType: "address",
-              name: "account",
-              type: "address",
-            },
-          ],
-          name: "OwnableUnauthorizedAccount",
-          type: "error",
         },
         {
           anonymous: false,
@@ -937,36 +836,35 @@
           type: "event",
         },
         {
-          anonymous: false,
           inputs: [
             {
-              indexed: false,
-              internalType: "uint256",
-              name: "_fromTokenId",
-              type: "uint256",
+              internalType: "address",
+              name: "to",
+              type: "address",
             },
             {
-              indexed: false,
               internalType: "uint256",
-              name: "_toTokenId",
+              name: "tokenId",
               type: "uint256",
             },
           ],
-          name: "BatchMetadataUpdate",
-          type: "event",
+          name: "approve",
+          outputs: [],
+          stateMutability: "nonpayable",
+          type: "function",
         },
         {
-          anonymous: false,
           inputs: [
             {
-              indexed: false,
               internalType: "uint256",
-              name: "_tokenId",
+              name: "tokenId",
               type: "uint256",
             },
           ],
-          name: "MetadataUpdate",
-          type: "event",
+          name: "burn",
+          outputs: [],
+          stateMutability: "nonpayable",
+          type: "function",
         },
         {
           anonymous: false,
@@ -1151,6 +1049,19 @@
           inputs: [
             {
               internalType: "address",
+              name: "to",
+              type: "address",
+            },
+          ],
+          name: "withdrawAll",
+          outputs: [],
+          stateMutability: "nonpayable",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "address",
               name: "owner",
               type: "address",
             },
@@ -1316,6 +1227,49 @@
           inputs: [
             {
               internalType: "uint256",
+              name: "index",
+              type: "uint256",
+            },
+          ],
+          name: "tokenByIndex",
+          outputs: [
+            {
+              internalType: "uint256",
+              name: "",
+              type: "uint256",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "address",
+              name: "owner",
+              type: "address",
+            },
+            {
+              internalType: "uint256",
+              name: "index",
+              type: "uint256",
+            },
+          ],
+          name: "tokenOfOwnerByIndex",
+          outputs: [
+            {
+              internalType: "uint256",
+              name: "",
+              type: "uint256",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "uint256",
               name: "tokenId",
               type: "uint256",
             },
@@ -1364,8 +1318,17 @@
           type: "function",
         },
       ];
-
       let provider;
+
+      function updateWalletButton() {
+        if (walletConnected) {
+          document.getElementById("connect-wallet").classList.add("hide");
+          document.getElementById("switch-wallet").classList.remove("hide");
+        } else {
+          document.getElementById("connect-wallet").classList.remove("hide");
+          document.getElementById("switch-wallet").classList.add("hide");
+        }
+      }
 
       async function initializeProvider() {
         provider = new ethers.providers.Web3Provider(window.ethereum, "any");
@@ -1374,9 +1337,16 @@
       // Request accounts to connect wallet
       async function connectWallet() {
         try {
+          await provider.send("wallet_requestPermissions", [
+            { eth_accounts: {} },
+          ]);
+
           await provider.send("eth_requestAccounts", []);
           const signer = provider.getSigner();
           const address = await signer.getAddress();
+          walletConnected = true;
+          updateWalletButton();
+          document.getElementById("switch-wallet").innerHTML = address;
           return address;
         } catch (error) {
           console.error("Error connecting to wallet:", error);
@@ -1390,14 +1360,55 @@
           contractABI,
           provider
         );
+
         try {
           const balance = await contract.balanceOf(address);
           const nftStatus = `Balance of NFTs for address ${address}: ${balance.toString()}`;
+
           if (balance.gt(0)) {
             console.log("NFT is present for the given address.");
+            tokenId = (
+              await contract.tokenOfOwnerByIndex(address, 0)
+            ).toString();
+
+            if (gameStart) return;
+            gameStart = true;
+            setTimeout(function () {
+              game.playBgm();
+            });
+            indexHide();
+            setTimeout(game.start, 400);
+
+            // Inserting the tokenId into Supabase for tracking
+            const insertData = async () => {
+              try {
+                const response = await supabase
+                  .from("points")
+                  .select("*")
+                  .eq("tokenid", tokenId)
+                  .eq("game_id", gameId)
+                  .single();
+                console.log("existing data: ", response);
+
+                if (!response.data) {
+                  console.log("Inside repose");
+                  const { data, error } = await supabase
+                    .from("points")
+                    .insert([{ tokenid: tokenId, points: 0, game_id: gameId }])
+                    .single();
+                }
+              } catch (error) {
+                console.error("Error inserting token ID:", error);
+              }
+            };
+
+            insertData();
+
             return true;
           } else {
-            console.log("No NFT found for the given address.");
+            alert(
+              "You need a based game minted nft in your wallet to play this game"
+            );
             return false;
           }
         } catch (error) {
@@ -1408,7 +1419,9 @@
 
       // Main function to connect wallet and check NFT
       async function main() {
+        console.log("trying to connect to wallet: ");
         const address = await connectWallet();
+        console.log("address: ", address);
         if (address) {
           await checkNFT(address);
         }
