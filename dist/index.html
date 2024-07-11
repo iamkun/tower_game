@@ -460,41 +460,11 @@
               </div>
               <div class="info-item">
                 <p>Participants</p>
-                <p>198/200</p>
+                <p id="p-count">198/200</p>
               </div>
             </div>
             <div class="leaderboard">
               <p>Leaderboard</p>
-              <div class="leaderboard-header">
-                <span>#</span>
-                <span>Player Address</span>
-                <span>Score</span>
-              </div>
-              <div class="leaderboard-entry">
-                <span>01</span>
-                <span>zoraman.eth</span>
-                <span>23564</span>
-              </div>
-              <div class="leaderboard-entry">
-                <span>02</span>
-                <span>fitnesscryptoguru.eth</span>
-                <span>23564</span>
-              </div>
-              <div class="leaderboard-entry">
-                <span>03</span>
-                <span>sithame.eth</span>
-                <span>23564</span>
-              </div>
-              <div class="leaderboard-entry">
-                <span>04</span>
-                <span>0xf1cA...dDEa</span>
-                <span>23564</span>
-              </div>
-              <div class="leaderboard-entry">
-                <span>05</span>
-                <span>0x356E...f21D</span>
-                <span>23564</span>
-              </div>
             </div>
             <button id="connect-wallet" class="connect-button">
               Connect Wallet to play
@@ -571,7 +541,8 @@
         successCount,
         tokenId,
         supabase,
-        gameId = "2329dcdc-a26c-4abd-b7ad-8c3a36b9c502";
+        gameId = "2329dcdc-a26c-4abd-b7ad-8c3a36b9c502",
+        noOfParticipants = 0;
 
       // init window height and width
       var gameWidth = window.innerWidth;
@@ -625,6 +596,66 @@
       }
 
       createSupabaseClient();
+
+      async function fetchLeaderboardData() {
+        try {
+          const { data, error } = await supabase
+            .from("points")
+            .select("*")
+            .eq("game_id", gameId)
+            .order("points", { ascending: false });
+
+          if (error) throw error;
+          updateLeaderboard(data);
+          noOfParticipants = data?.length ?? 1;
+
+          document.getElementById(
+            "p-count"
+          ).innerHTML = `${noOfParticipants}/200`;
+        } catch (error) {
+          console.error("Error fetching leaderboard data:", error);
+        }
+      }
+
+      function updateLeaderboard(data) {
+        const leaderboard = document.querySelector(".leaderboard");
+        const leaderboardEntries = data
+          .map(
+            (entry, index) => `
+    <div class="leaderboard-entry">
+      <span>${index + 1}</span>
+      <span>${entry.tokenid}</span>
+      <span>${entry.points}</span>
+    </div>
+  `
+          )
+          .join("");
+        leaderboard.innerHTML = `
+    <p>Leaderboard</p>
+    <div class="leaderboard-header">
+      <span>#</span>
+      <span>Token Id</span>
+      <span>Score</span>
+    </div>
+    ${leaderboardEntries}
+  `;
+      }
+
+      function subscribeToLeaderboardUpdates() {
+        supabase
+          .from("points")
+          .on("INSERT", (payload) => {
+            fetchLeaderboardData();
+          })
+          .on("UPDATE", (payload) => {
+            fetchLeaderboardData();
+          })
+          .subscribe();
+      }
+
+      document.addEventListener("DOMContentLoaded", function () {
+        fetchLeaderboardData();
+      });
 
       const updatePoints = async (newPoints) => {
         try {
@@ -1397,21 +1428,6 @@
                     .insert([{ tokenid: tokenId, points: 0, game_id: gameId }])
                     .single();
                 }
-
-                // if (existingData?.length !== 0) {
-                //   return;
-                // }
-
-                // if (existingData.length === 0) {
-                //   // Row does not exist, proceed with insertion
-                //   const { data, error } = await supabase
-                //     .from("points")
-                //     .insert([{ tokenid: tokenId, points: 0, game_id: gameId }])
-                //     .single();
-                // } else {
-                //   console.log("Row already exists for tokenId and gameId.");
-                //   return;
-                // }
               } catch (error) {
                 console.error("Error inserting token ID:", error);
               }
