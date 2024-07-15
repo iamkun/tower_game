@@ -2,7 +2,7 @@ import { Engine, Instance } from "cooljs";
 import { touchEventHandler } from "./utils";
 import { background } from "./background";
 import { lineAction, linePainter } from "./line";
-import { cloudAction, cloudPainter } from "./cloud";
+// import { cloudAction, cloudPainter } from "./cloud";
 import { hookAction, hookPainter } from "./hook";
 import { tutorialAction, tutorialPainter } from "./tutorial";
 import * as constant from "./constant";
@@ -54,16 +54,16 @@ window.TowerGame = (option = {}) => {
   game.setVariable(constant.gameScore, 0);
   game.setVariable(constant.hardMode, false);
   game.setVariable(constant.gameUserOption, option);
-  for (let i = 1; i <= 4; i += 1) {
-    const cloud = new Instance({
-      name: `cloud_${i}`,
-      action: cloudAction,
-      painter: cloudPainter,
-    });
-    cloud.index = i;
-    cloud.count = 5 - i;
-    game.addInstance(cloud);
-  }
+  // for (let i = 1; i <= 4; i += 1) {
+  //   // const cloud = new Instance({
+  //   //   name: `cloud_${i}`,
+  //   //   action: cloudAction,
+  //   //   painter: cloudPainter,
+  //   // });
+  //   // cloud.index = i;
+  //   // cloud.count = 5 - i;
+  //   // game.addInstance(cloud);
+  // }
   const line = new Instance({
     name: "line",
     action: lineAction,

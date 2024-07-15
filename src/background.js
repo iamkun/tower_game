@@ -105,6 +105,6 @@ export const backgroundLinearGradient = (engine) => {
 };
 
 export const background = (engine) => {
-  backgroundLinearGradient(engine);
+  // backgroundLinearGradient(engine);
   backgroundImg(engine);
 };
