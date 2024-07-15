@@ -12,6 +12,7 @@
       * {
         margin: 0;
         padding: 0;
+        box-sizing: border-box;
       }
       img {
         width: 100%;
@@ -96,7 +97,7 @@
         clear: both;
       }
       .loading {
-        background-color: #f05a50;
+        background-color: #018a08;
         height: 100%;
         width: 100%;
       }
@@ -293,97 +294,166 @@
         position: absolute;
         height: 100%;
         width: 30%;
-      }
-      /* .overview .side-panel-body {
-        position: fixed;
         display: flex;
         flex-direction: column;
-        background-color: white;
-        top: 30%;
-        width: 30%;
-        height: 65%;
-        left: 1%;
-        border-top-left-radius: 20px;
-        border-top-right-radius: 40px;
-        border-bottom-right-radius: 40px;
-        border-bottom-left-radius: 40px;
-      } */
-      .side-panel-body .side-panel-container {
-        position: fixed;
-        top: 30%;
-        width: 25%;
-        left: 1%;
-        height: 65%;
-        font-size: 15px;
-        border-top-left-radius: 20px;
+        background-color: #018a08;
+      }
+
+      .side-panel-container {
+        padding: 24px;
+      }
+
+      .side-panel-header {
+        font-family: Arial, Helvetica, sans-serif;
+        font-size: 50px;
+        color: white;
+        text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000,
+          1px 1px 0 #000;
+        text-align: start;
+        line-height: 1;
+      }
+
+      .side-panel-details {
+        margin-top: 24px;
+        font-size: 16px;
+        height: calc(100vh - 225px);
+        border-top-left-radius: 10px;
         border-top-right-radius: 40px;
         border-bottom-right-radius: 40px;
         border-bottom-left-radius: 40px;
         background-color: white;
         overflow: hidden;
-        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
       }
 
-      .side-panel-body .header {
-        padding: 20px;
-        color: #018a08;
+      .side-panel-details p {
+        font-size: 16px;
         text-align: start;
-        border-top-left-radius: 20px;
-        border-top-right-radius: 20px;
-        border-bottom: #27ae60 dashed 0.5px;
+        color: green;
+        padding: 15px;
       }
 
-      .side-panel-body .header p:nth-child(2) {
-        padding-top: 8px;
+      .side-panel-details .break {
+        border-bottom: #018a08 dashed 1px;
       }
 
-      .side-panel-body .info {
+      .side-panel-details .top-level-info {
         display: flex;
-        justify-content: space-around;
-        padding: 10px;
+        flex-direction: row;
+        width: 100%;
+        gap: 10px;
+        padding: 0px 10px;
+        margin: 5px 0px;
       }
 
-      .side-panel-body .info-item {
-        padding: 10px 20px;
-        border-radius: 5px;
-        background-color: #f9f9f9;
-        text-align: center;
+      .side-panel-details .top-level-info div {
+        width: 50%;
+        text-align: start;
+        padding: 16px;
+        font-size: 13px;
+        color: #98989d;
+        background-color: #f7f7f7;
+        border-radius: 12px;
       }
 
-      .side-panel-body .info-item p:first-child {
+      .side-panel-details .top-level-info div span {
+        padding-top: 10px;
         text-align: start;
-        font-size: 10px;
-        color: grey;
-        padding-bottom: 2px;
-      }
-      .side-panel-body .info-item p:nth-child(2) {
-        text-align: start;
-        font-size: 20px;
+        font-size: 18px;
         color: #018a08;
-        padding-bottom: 2px;
       }
 
-      .side-panel-body .leaderboard {
-        margin: 10px 30px;
-        border-radius: 5px;
-        font-size: 10px;
-        padding: 10px 20px;
-        text-align: center;
+      .side-panel-details .leaderboard {
+        border-radius: 12px;
+        margin: 5px 10px;
+        font-size: 13px;
         background-color: #f9f9f9;
-        overflow: scroll;
-        max-height: 180px;
+        padding: 16px;
       }
 
-      .side-panel-body .leaderboard-header,
-      .leaderboard-entry {
+      .side-panel-details .b-height {
+        height: calc(100vh - 500px) !important;
+        max-height: calc(100vh - 500px) !important;
+        overflow: scroll !important;
+      }
+
+      .side-panel-details .a-height {
+        height: calc(100vh - 600px) !important;
+        max-height: calc(100vh - 600px) !important;
+        overflow: scroll !important;
+      }
+
+      .side-panel-details .leaderboard .board-header {
+        text-align: start;
+        color: #98989d;
+        margin-bottom: 16px;
+      }
+      .side-panel-details .leaderboard .board-header .board-header-bottom {
+      }
+
+      .side-panel-details .leaderboard .board-table-header {
         display: flex;
+        flex-direction: row;
+        color: #98989d;
         justify-content: space-between;
-        padding: 10px 0;
-        border-bottom: 1px solid #e0e0e0;
+        border-top: #98989d dashed 1px;
       }
 
-      .side-panel-body .leaderboard-header {
+      .side-panel-details .leaderboard .board-table-header span {
+        padding: 10px 0px;
+      }
+
+      .side-panel-details .leaderboard .board-entry {
+        display: flex;
+        flex-direction: row;
+        color: #98989d;
+        justify-content: space-between;
+      }
+
+      .side-panel-details .leaderboard .board-entry span {
+        padding: 10px 0px;
+      }
+
+      .side-panel-details .leaderboard .board-entry span:nth-child(3) {
+        color: #018a08;
         font-weight: bold;
+      }
+
+      .side-panel-details .leaderboard-team {
+        border-radius: 12px;
+        margin: 5px 10px;
+        font-size: 13px;
+        background-color: #f9f9f9;
+        padding: 16px;
+      }
+
+      .side-panel-details .leaderboard-team .leaderboard-team-header {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        color: #98989d;
+        margin-bottom: 16px;
+      }
+
+      .side-panel-details .leaderboard-team .leaderboard-team-body {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        border-top: #98989d dashed 1px;
+        color: #018a08;
+        font-size: 16px;
+        font-weight: bold;
+      }
+
+      .side-panel-details button {
+        background-color: #018a08;
+        color: white;
+        border: none;
+        border-radius: 20px;
+        cursor: pointer;
+        font-size: 16px;
+        width: 95%;
+        height: 40px;
+        margin: 10px;
       }
 
       .side-panel-body .connect-button {
@@ -399,23 +469,116 @@
         margin-top: 30px;
       }
 
-      .side-panel-body .switch-wallet {
-        margin-left: 30px;
+      #connect-wallet {
+        position: absolute;
+        right: 10px;
         margin-right: 30px;
-        padding: 15px 60px;
-        background-color: #018a08;
-        color: white;
+        padding: 15px 10px;
+        background-color: white;
+        color: #018a08;
         border: none;
         border-radius: 20px;
         cursor: pointer;
-        font-size: 16px;
+        font-size: 14px;
         margin-top: 30px;
-        text-overflow: ellipsis;
+        width: 150px;
+        height: 50px;
       }
 
-      .side-panel-body .connect-button:hover {
-        background-color: #27ae60;
+      #switch-wallet {
+        display: flex;
+        align-items: center;
+        position: absolute;
+        right: 10px;
+        margin-right: 30px;
+        padding: 15px 10px;
+        background-color: white;
+        color: #018a08;
+        border: none;
+        border-radius: 20px;
+        cursor: pointer;
+        font-size: 14px;
+        margin-top: 30px;
+        width: 150px;
+        height: 50px;
       }
+
+      #switch-wallet .wallet-address {
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        width: 130px;
+      }
+
+      #switch-wallet img {
+        width: 16px;
+        height: 16px;
+      }
+
+      .team-card {
+        background-color: #e0e0e0;
+        width: 356px;
+        padding: 10px;
+        border-radius: 8px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        margin-left: 20px;
+        margin-right: 20px;
+      }
+
+      .team-info {
+        display: flex;
+        justify-content: space-between;
+        width: 100%;
+        padding: 5px 0;
+      }
+
+      .team-label,
+      .avg-score-label {
+        color: gray;
+        font-size: 14px;
+      }
+
+      .team-details {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        width: 100%;
+        padding: 10px 0;
+      }
+
+      .team-members {
+        display: flex;
+        align-items: center;
+      }
+
+      .team-members img {
+        border-radius: 50%;
+        margin-right: 5px;
+      }
+
+      .additional-members {
+        background-color: #5cb85c;
+        color: white;
+        border-radius: 50%;
+        padding: 5px 10px;
+        margin-left: 5px;
+      }
+
+      .team-name {
+        font-weight: bold;
+        color: #0c7b0c;
+        font-size: 18px;
+      }
+
+      .avg-score {
+        font-weight: bold;
+        color: #0c7b0c;
+        font-size: 18px;
+        padding-top: 10px;
+      }
+
       .wxShare {
         background: #000;
         position: absolute;
@@ -445,34 +608,50 @@
   <body>
     <canvas id="canvas" class="hide"></canvas>
     <div class="overview">
-      <div>
-        <img src="./assets/side-panel.png" class="side-panel" />
-        <div class="side-panel-body">
-          <div class="side-panel-container">
-            <div class="header">
-              <p>
-                Bridge any amount of ETH from Ethereum Mainnet to Arbitrum and
-                earn ARB tokens!
-              </p>
-              <p>Keep Pushing Higher↑</p>
-            </div>
-            <div class="info">
-              <div class="info-item">
-                <p>Ends in</p>
-                <p>24h 39m 34s</p>
+      <div class="side-panel">
+        <div class="side-panel-container">
+          <div class="side-panel-header">
+            You'r score is <span id="top-score">0</span>! Can be Higher↑
+          </div>
+
+          <div class="side-panel-details">
+            <p>
+              Bridge any amount of ETH from Ethereum Mainnet to Arbitrum and
+              earn
+            </p>
+            <p class="break">ARB tokens! Keep Pushing Higher↑</p>
+
+            <div class="top-level-info">
+              <div class="">
+                Ends in
+                <br />
+                <span id="ends-in">24h 39m 34s</span>
               </div>
-              <div class="info-item">
-                <p>Participants</p>
-                <p id="p-count">198/200</p>
+              <div class="">
+                Participants
+                <br />
+                <span id="part-count">192/200</span>
               </div>
             </div>
-            <div class="leaderboard">
-              <p>Leaderboard</p>
+
+            <div id="leaderboard-id" class="leaderboard b-height">
+              <div class="board-header">Leaderboard</div>
+              <div class="board-header-bottom"></div>
             </div>
-            <button id="connect-wallet" class="connect-button">
-              Connect Wallet to play
-            </button>
-            <button id="switch-wallet" class="switch-wallet hide"></button>
+
+            <div id="leaderboard-team-id" class="leaderboard-team hide">
+              <div class="leaderboard-team-header">
+                <span>Team name</span>
+                <span>Avg Score</span>
+              </div>
+
+              <div class="leaderboard-team-body">
+                <span id="team-name"></span>
+                <span id="avg-score"></span>
+              </div>
+            </div>
+
+            <button id="start-game">Play</button>
           </div>
         </div>
       </div>
@@ -493,321 +672,32 @@
           <div class="action-1">
             <img src="./assets/main-index-title.png" class="title swing hook" />
           </div>
-          <!-- <div class="action-2">
-            <img id="start" src="./assets/main-index-start.png" class="start" />
-          </div> -->
-        </div>
-        <div id="modal" class="modal hide">
-          <div class="mask"></div>
-          <div class="js-modal-content modal-content">
-            <div class="main">
-              <div class="container">
-                <img src="./assets/main-modal-bg.png" class="bg" />
-                <div class="modal-main">
-                  <div id="over-modal" class="hide js-modal-card">
-                    <img src="./assets/main-modal-over.png" class="over-img" />
-                    <div id="score" class="over-score font-wenxue"></div>
-                    <div id="over-zero" class="hide">
-                      <div class="tip">
-                        <p>Try Again!</p>
-                        <img
-                          src="./assets/main-modal-again-b.png"
-                          class="over-button-b js-reload"
-                        /><img
-                          src="./assets/main-modal-invite-b.png"
-                          class="over-button-b js-invite"
-                        />
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
         </div>
         <div class="wxShare hide">
           <img src="./assets/main-share-icon.png" />
         </div>
       </div>
+      <div class="connect-wallet-div">
+        <button id="connect-wallet">Connect Wallet</button>
+      </div>
+      <div id="switch-wallet" class="hide">
+        <div class="wallet-address"></div>
+        <img src="./assets/switch.png" alt="switch.png" />
+      </div>
     </div>
     <script src="./dist/bundle.js"></script>
     <script src="./assets/zepto-1.1.6.min.js"></script>
+    <script src="https://cdn.ethers.io/lib/ethers-5.2.umd.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
     <script>
-      var domReady,
-        loadFinish,
-        canvasReady,
-        loadError,
-        gameStart,
-        game,
-        score,
-        successCount,
-        tokenId,
-        supabase,
+      var provider,
+        walletConnected = false,
+        isNFTPresent = false;
+      var tokenId,
         gameId = "2329dcdc-a26c-4abd-b7ad-8c3a36b9c502",
         noOfParticipants = 0;
-
-      // init window height and width
-      var gameWidth = window.innerWidth;
-      var gameHeight = window.innerHeight;
-      var ratio = 1.5;
-      if (gameHeight / gameWidth < ratio) {
-        gameWidth = Math.ceil(gameHeight / ratio);
-      }
-      $(".content").css({ height: gameHeight + "px", width: gameWidth + "px" });
-      $(".js-modal-content").css({ width: gameWidth + "px" });
-
-      // loading animation
-      function hideLoading() {
-        if (domReady && canvasReady) {
-          $("#canvas").show();
-          loadFinish = true;
-          setTimeout(function () {
-            $(".loading").hide();
-            $(".landing").show();
-          }, 1000);
-        }
-      }
-
-      function updateLoading(status) {
-        var success = status.success;
-        var total = status.total;
-        var failed = status.failed;
-        if (failed > 0 && !loadError) {
-          loadError = true;
-          alert("Network error... Please try again.");
-          return;
-        }
-        var percent = parseInt((success / total) * 100);
-        if (percent === 100 && !canvasReady) {
-          canvasReady = true;
-          hideLoading();
-        }
-        percent = percent > 98 ? 98 : percent;
-        percent = percent + "%";
-        $(".loading .title").text(percent);
-        $(".loading .percent").css({
-          width: percent,
-        });
-      }
-
-      function createSupabaseClient() {
-        const supabaseUrl = "https://upmkwrmqxnywczhpitxq.supabase.co";
-        const supabaseKey =
-          "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InVwbWt3cm1xeG55d2N6aHBpdHhxIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MTcyMjUzNjYsImV4cCI6MjAzMjgwMTM2Nn0.YfpqRfWwyV4EaJP3MToJsXPEYdY1yXYWLPSL0cNygQU";
-        supabase = supabase.createClient(supabaseUrl, supabaseKey);
-      }
-
-      createSupabaseClient();
-
-      async function fetchLeaderboardData() {
-        try {
-          const { data, error } = await supabase
-            .from("points")
-            .select("*")
-            .eq("game_id", gameId)
-            .order("points", { ascending: false });
-
-          if (error) throw error;
-          updateLeaderboard(data);
-          noOfParticipants = data?.length ?? 1;
-
-          document.getElementById(
-            "p-count"
-          ).innerHTML = `${noOfParticipants}/200`;
-        } catch (error) {
-          console.error("Error fetching leaderboard data:", error);
-        }
-      }
-
-      function updateLeaderboard(data) {
-        const leaderboard = document.querySelector(".leaderboard");
-        const leaderboardEntries = data
-          .map(
-            (entry, index) => `
-    <div class="leaderboard-entry">
-      <span>${index + 1}</span>
-      <span>${entry.tokenid}</span>
-      <span>${entry.points}</span>
-    </div>
-  `
-          )
-          .join("");
-        leaderboard.innerHTML = `
-    <p>Leaderboard</p>
-    <div class="leaderboard-header">
-      <span>#</span>
-      <span>Token Id</span>
-      <span>Score</span>
-    </div>
-    ${leaderboardEntries}
-  `;
-      }
-
-      function subscribeToLeaderboardUpdates() {
-        supabase
-          .from("points")
-          .on("INSERT", (payload) => {
-            fetchLeaderboardData();
-          })
-          .on("UPDATE", (payload) => {
-            fetchLeaderboardData();
-          })
-          .subscribe();
-      }
-
-      document.addEventListener("DOMContentLoaded", function () {
-        fetchLeaderboardData();
-      });
-
-      const updatePoints = async (newPoints) => {
-        try {
-          // Fetch the current points
-          let { data: currentData, error: fetchError } = await supabase
-            .from("points")
-            .select("*")
-            .eq("tokenid", tokenId)
-            .eq("game_id", gameId)
-            .single();
-
-          if (fetchError) {
-            if (fetchError.message.includes("No rows found")) {
-              // If no existing points found, set currentPoints to 0
-              currentData = { points: 0, tokenId, gameId };
-            } else {
-              throw fetchError;
-            }
-          }
-
-          // Add new points to the current points
-          currentData.points = (currentData?.points || 0) + newPoints;
-
-          // Update the points in the database
-          const { data, error } = await supabase
-            .from("points")
-            .upsert({
-              ...currentData,
-            })
-            .eq("tokenid", tokenId)
-            .eq("gameId", gameId)
-            .single();
-
-          if (error) throw error;
-          console.log("Points updated successfully:", data);
-        } catch (error) {
-          console.error("Error updating points:", error);
-        }
-      };
-
-      function overShowOver() {
-        $("#modal").show();
-        $("#over-modal").show();
-        $("#over-zero").show();
-      }
-
-      // game customization options
-      const option = {
-        width: gameWidth,
-        height: gameHeight,
-        canvasId: "canvas",
-        soundOn: true,
-        setGameScore: function (s) {
-          console.log("s: ", s);
-          score = s;
-        },
-        setGameSuccess: function (s) {
-          successCount = s;
-        },
-        setGameFailed: function (f) {
-          $("#score").text(score);
-          if (f >= 3) {
-            overShowOver();
-            updatePoints(score);
-          }
-        },
-      };
-
-      // game init with option
-      function gameReady() {
-        game = TowerGame(option);
-        game.load(function () {
-          game.init();
-          setTimeout(function () {
-            game.playBgm();
-          });
-        }, updateLoading);
-      }
-
-      var isWechat =
-        navigator.userAgent.toLowerCase().indexOf("micromessenger") !== -1;
-      if (isWechat) {
-        document.addEventListener("WeixinJSBridgeReady", gameReady, false);
-      } else {
-        gameReady();
-      }
-
-      function indexHide() {
-        $(".landing .action-1").addClass("slideTop");
-        $(".landing .action-2").addClass("slideBottom");
-        setTimeout(function () {
-          $(".landing").hide();
-        }, 950);
-      }
-
-      // click event
-      $("#start").on("click", function () {
-        if (gameStart) return;
-        gameStart = true;
-        setTimeout(function () {
-          game.playBgm();
-        });
-        indexHide();
-        setTimeout(game.start, 400);
-      });
-
-      $(".js-reload").on("click", function () {
-        window.location.href = window.location.href + "?s=" + +new Date();
-      });
-
-      $(".js-invite").on("click", function () {
-        $(".wxShare").show();
-      });
-
-      $(".wxShare").on("click", function () {
-        $(".wxShare").hide();
-      });
-
-      // listener
-      window.addEventListener(
-        "load",
-        function () {
-          domReady = true;
-          hideLoading();
-        },
-        false
-      );
-    </script>
-    <script
-      async
-      src="https://www.googletagmanager.com/gtag/js?id=G-YCWZ8ZDCH2"
-    ></script>
-    <script>
-      function gtag() {
-        dataLayer.push(arguments);
-      }
-      (window.dataLayer = window.dataLayer || []),
-        gtag("js", new Date()),
-        gtag("config", "G-YCWZ8ZDCH2");
-    </script>
-    <script src="https://cdn.ethers.io/lib/ethers-5.2.umd.min.js"></script>
-    <script>
-      // Import ethers.js
-
-      // Ethereum provider (MetaMask)
-      let walletConnected = false;
-      // NFT Contract details (replace with actual contract address and ABI)
-      const contractAddress = "0x9f089f3fc58770b591d075f82429ccb94fd67564";
-      const contractABI = [
+      var contractAddress = "0x9f089f3fc58770b591d075f82429ccb94fd67564";
+      var contractABI = [
         {
           inputs: [
             {
@@ -1352,7 +1242,12 @@
           type: "function",
         },
       ];
-      let provider;
+
+      async function initializeProvider() {
+        provider = new ethers.providers.Web3Provider(window.ethereum, "any");
+      }
+
+      initializeProvider();
 
       function updateWalletButton() {
         if (walletConnected) {
@@ -1364,30 +1259,6 @@
         }
       }
 
-      async function initializeProvider() {
-        provider = new ethers.providers.Web3Provider(window.ethereum, "any");
-      }
-
-      // Request accounts to connect wallet
-      async function connectWallet() {
-        try {
-          await provider.send("wallet_requestPermissions", [
-            { eth_accounts: {} },
-          ]);
-
-          await provider.send("eth_requestAccounts", []);
-          const signer = provider.getSigner();
-          const address = await signer.getAddress();
-          walletConnected = true;
-          updateWalletButton();
-          document.getElementById("switch-wallet").innerHTML = address;
-          return address;
-        } catch (error) {
-          console.error("Error connecting to wallet:", error);
-        }
-      }
-
-      // Function to check if NFT is present
       async function checkNFT(address) {
         const contract = new ethers.Contract(
           contractAddress,
@@ -1400,49 +1271,12 @@
           const nftStatus = `Balance of NFTs for address ${address}: ${balance.toString()}`;
 
           if (balance.gt(0)) {
-            console.log("NFT is present for the given address.");
             tokenId = (
               await contract.tokenOfOwnerByIndex(address, 0)
             ).toString();
-
-            if (gameStart) return;
-            gameStart = true;
-            setTimeout(function () {
-              game.playBgm();
-            });
-            indexHide();
-            setTimeout(game.start, 400);
-
-            // Inserting the tokenId into Supabase for tracking
-            const insertData = async () => {
-              try {
-                const response = await supabase
-                  .from("points")
-                  .select("*")
-                  .eq("tokenid", tokenId)
-                  .eq("game_id", gameId)
-                  .single();
-                console.log("existing data: ", response);
-
-                if (!response.data) {
-                  console.log("Inside repose");
-                  const { data, error } = await supabase
-                    .from("points")
-                    .insert([{ tokenid: tokenId, points: 0, game_id: gameId }])
-                    .single();
-                }
-              } catch (error) {
-                console.error("Error inserting token ID:", error);
-              }
-            };
-
-            insertData();
-
+            console.log("token id: ", tokenId);
             return true;
           } else {
-            alert(
-              "You need a based game minted nft in your wallet to play this game"
-            );
             return false;
           }
         } catch (error) {
@@ -1451,13 +1285,484 @@
         }
       }
 
+      function getTokenId() {
+        return tokenId;
+      }
+
+      async function isWalletConnected() {
+        try {
+          const accounts = await provider.listAccounts();
+          if (accounts.length > 0) {
+            const address = accounts[0];
+            walletConnected = true;
+            return address;
+          } else {
+            walletConnected = false;
+            updateWalletButton();
+            return null;
+          }
+        } catch (error) {
+          console.error("Error checking wallet connection:", error);
+          return null;
+        }
+      }
+
+      async function connectWallet() {
+        try {
+          await provider.send("eth_requestAccounts", []);
+          const signer = provider.getSigner();
+          const address = await signer.getAddress();
+          return address;
+        } catch (error) {
+          console.error("Error connecting to wallet:", error);
+        }
+      }
+    </script>
+    <script>
+      // creating supabase client
+      var supabase;
+
+      function createSupabaseClient() {
+        const supabaseUrl = "https://upmkwrmqxnywczhpitxq.supabase.co";
+        const supabaseKey =
+          "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InVwbWt3cm1xeG55d2N6aHBpdHhxIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MTcyMjUzNjYsImV4cCI6MjAzMjgwMTM2Nn0.YfpqRfWwyV4EaJP3MToJsXPEYdY1yXYWLPSL0cNygQU";
+        supabase = supabase.createClient(supabaseUrl, supabaseKey);
+      }
+
+      createSupabaseClient();
+    </script>
+    <script>
+      //supabase related queries
+      async function fetchLeaderboardData() {
+        try {
+          const { data, error } = await supabase
+            .from("points")
+            .select("*")
+            .eq("game_id", gameId)
+            .order("points", { ascending: false });
+
+          if (error) throw error;
+          updateLeaderboard(data);
+          noOfParticipants = data?.length ?? 1;
+
+          document.getElementById(
+            "part-count"
+          ).innerHTML = `${noOfParticipants}/200`;
+          console.log("token id: ", tokenId);
+          if (tokenId) {
+            findCurrentTeamAndAvgScore(tokenId);
+          }
+        } catch (error) {
+          console.error("Error fetching leaderboard data:", error);
+        }
+      }
+
+      function updateLeaderboard(data) {
+        const leaderboard = document.querySelector(".leaderboard");
+        const leaderboardEntries = data
+          .map(
+            (entry, index) => `
+        <div class="board-entry">
+          <span>${index + 1}</span>
+          <span>${entry.tokenid}</span>
+          <span>${entry.points}</span>
+        </div>
+      `
+          )
+          .join("");
+        leaderboard.innerHTML = `
+        <div class="board-header">Leaderboard</div>
+        <div class="board-header-bottom"></div>
+        <div class="board-table-header">
+          <span>#</span>
+          <span>Token Id</span>
+          <span>Score</span>
+        </div>
+        ${leaderboardEntries}
+      `;
+      }
+
+      function subscribeToLeaderboardUpdates() {
+        supabase
+          .from("points")
+          .on("INSERT", (payload) => {
+            fetchLeaderboardData();
+          })
+          .on("UPDATE", (payload) => {
+            fetchLeaderboardData();
+          })
+          .subscribe();
+      }
+
+      document.addEventListener("DOMContentLoaded", function () {
+        fetchLeaderboardData();
+      });
+
+      const updatePoints = async (newPoints) => {
+        try {
+          // Fetch the current points
+          let { data: currentData, error: fetchError } = await supabase
+            .from("points")
+            .select("*")
+            .eq("tokenid", tokenId)
+            .eq("game_id", gameId)
+            .single();
+
+          if (fetchError) {
+            if (fetchError.message.includes("No rows found")) {
+              // If no existing points found, set currentPoints to 0
+              currentData = { points: 0, tokenId, gameId };
+            } else {
+              throw fetchError;
+            }
+          }
+
+          // Add new points to the current points
+          currentData.points = (currentData?.points || 0) + newPoints;
+
+          // Update the points in the database
+          const { data, error } = await supabase
+            .from("points")
+            .upsert({
+              ...currentData,
+            })
+            .eq("tokenid", tokenId)
+            .eq("gameId", gameId)
+            .single();
+
+          if (error) throw error;
+          console.log("Points updated successfully:", data);
+        } catch (error) {
+          console.error("Error updating points:", error);
+        }
+      };
+
+      const insertData = async (tokenId, gameId) => {
+        try {
+          const response = await supabase
+            .from("points")
+            .select("*")
+            .eq("tokenid", tokenId)
+            .eq("game_id", gameId)
+            .single();
+          console.log("existing data: ", response);
+
+          if (!response.data) {
+            console.log("Inside repose");
+            const { data, error } = await supabase
+              .from("points")
+              .insert([{ tokenid: tokenId, points: 0, game_id: gameId }])
+              .single();
+          }
+        } catch (error) {
+          console.error("Error inserting token ID:", error);
+        }
+      };
+
+      const findTeamByTokenId = async (tokenId) => {
+        try {
+          const { data, error } = await supabase
+            .from("teamparticipants")
+            .select("team_id")
+            .eq("tokenid", tokenId)
+            .single();
+
+          if (error) throw error;
+
+          if (!data) {
+            console.error(`No team found for tokenId ${tokenId}`);
+            return null;
+          }
+
+          console.log("data team:", data);
+          const teamId = data.team_id;
+          const { data: teamData, error: teamError } = await supabase
+            .from("teams")
+            .select("*")
+            .eq("id", teamId)
+            .single();
+
+          if (teamError) throw teamError;
+          console.log("teans data: ", teamData);
+          if (!teamData) {
+            console.error(`No team data found for teamId ${teamId}`);
+            return null;
+          }
+
+          return teamData;
+        } catch (error) {
+          console.error("Error finding team by tokenId:", error);
+          return null;
+        }
+      };
+
+      const getTokenIdsInTeam = async (teamId) => {
+        try {
+          const { data, error } = await supabase
+            .from("teamparticipants")
+            .select("tokenid")
+            .eq("team_id", teamId);
+
+          if (error) throw error;
+
+          if (!data) {
+            console.error(`No team participants found for teamId ${teamId}`);
+            return [];
+          }
+
+          return data.map((participant) => participant.tokenid);
+        } catch (error) {
+          console.error("Error getting token IDs in team:", error);
+          return [];
+        }
+      };
+
+      const getScoreForTokenId = async (tokenId) => {
+        try {
+          const { data, error } = await supabase
+            .from("points")
+            .select("points")
+            .eq("tokenid", tokenId)
+            .eq("game_id", gameId)
+            .single();
+
+          if (error) throw error;
+
+          if (!data) {
+            console.error(
+              `No score found for tokenId ${tokenId} and gameId ${gameId}`
+            );
+            return 0;
+          }
+
+          return data.points;
+        } catch (error) {
+          console.error("Error getting score for tokenId:", error);
+          return 0;
+        }
+      };
+
+      const findCurrentTeamAndAvgScore = async (tokenId) => {
+        try {
+          // Assuming there's a function to find the current team of a tokenId
+          const team = await findTeamByTokenId(tokenId);
+          // Assuming there's a function to get all token ids in a team
+          const teamTokenIds = await getTokenIdsInTeam(team.id);
+
+          // Assuming there's a function to get the score for a tokenId
+          let totalScore = 0;
+          for (const id of teamTokenIds) {
+            const score = await getScoreForTokenId(id);
+            totalScore += score;
+          }
+          const avgScore = totalScore / teamTokenIds.length;
+
+          const leaderboardTeam = document.getElementById(
+            "leaderboard-team-id"
+          );
+          leaderboardTeam.classList.remove("hide");
+
+          const leaderboard = document.getElementById("leaderboard-id");
+          leaderboard.classList.remove("b-height");
+          leaderboard.classList.add("a-height");
+          console.log("avg sco; ", avgScore);
+          document.getElementById("team-name").innerHTML = team.clan;
+
+          document.getElementById("avg-score").innerHTML = avgScore.toFixed(2);
+        } catch (error) {
+          console.error(
+            "Error finding team or calculating average score:",
+            error
+          );
+        }
+      };
+    </script>
+    <script>
+      var domReady,
+        loadFinish,
+        canvasReady,
+        loadError,
+        gameStart,
+        game,
+        score,
+        successCount;
+
+      // init window height and width
+      var gameWidth = window.innerWidth;
+      var gameHeight = window.innerHeight;
+      var ratio = 1.5;
+      if (gameHeight / gameWidth < ratio) {
+        gameWidth = Math.ceil(gameHeight / ratio);
+      }
+      $(".content").css({ height: gameHeight + "px", width: gameWidth + "px" });
+      $(".js-modal-content").css({ width: gameWidth + "px" });
+
+      // loading animation
+      function hideLoading() {
+        if (domReady && canvasReady) {
+          $("#canvas").show();
+          loadFinish = true;
+          setTimeout(function () {
+            $(".loading").hide();
+            $(".landing").show();
+          }, 1000);
+        }
+      }
+
+      function updateLoading(status) {
+        var success = status.success;
+        var total = status.total;
+        var failed = status.failed;
+        if (failed > 0 && !loadError) {
+          loadError = true;
+          alert("Network error... Please try again.");
+          return;
+        }
+        var percent = parseInt((success / total) * 100);
+        if (percent === 100 && !canvasReady) {
+          canvasReady = true;
+          hideLoading();
+        }
+        percent = percent > 98 ? 98 : percent;
+        percent = percent + "%";
+        $(".loading .title").text(percent);
+        $(".loading .percent").css({
+          width: percent,
+        });
+      }
+
+      async function overShowOver() {
+        window.location.href = window.location.href + "?s=" + +new Date();
+
+        const address = await isWalletConnected();
+        console.log("is wallet connected: ", address);
+        if (address) {
+          isNFTPresent = await checkNFT(address);
+          console.log("is: ", isNFTPresent);
+          if (isNFTPresent) {
+            tokenId = await getTokenId(address);
+          }
+        }
+
+        console.log("window reloaded");
+      }
+
+      // game customization options
+      const option = {
+        width: gameWidth,
+        height: gameHeight,
+        canvasId: "canvas",
+        soundOn: true,
+        setGameScore: function (s) {
+          score = s;
+          updatePoints(s);
+          fetchLeaderboardData();
+        },
+        setGameSuccess: function (s) {
+          successCount = s;
+        },
+        setGameFailed: function (f) {
+          $("#score").text(score);
+          if (f >= 3) {
+            overShowOver();
+          }
+        },
+      };
+
+      // game init with option
+      function gameReady() {
+        game = TowerGame(option);
+        game.load(function () {
+          game.init();
+          setTimeout(function () {
+            game.playBgm();
+          });
+        }, updateLoading);
+      }
+
+      var isWechat =
+        navigator.userAgent.toLowerCase().indexOf("micromessenger") !== -1;
+      if (isWechat) {
+        document.addEventListener("WeixinJSBridgeReady", gameReady, false);
+      } else {
+        gameReady();
+      }
+
+      function indexHide() {
+        $(".landing .action-1").addClass("slideTop");
+        $(".landing .action-2").addClass("slideBottom");
+        setTimeout(function () {
+          $(".landing").hide();
+        }, 950);
+      }
+
+      // click event
+
+      // listener
+      window.addEventListener(
+        "load",
+        function () {
+          domReady = true;
+          hideLoading();
+        },
+        false
+      );
+    </script>
+    <script
+      async
+      src="https://www.googletagmanager.com/gtag/js?id=G-YCWZ8ZDCH2"
+    ></script>
+    <script>
+      function gtag() {
+        dataLayer.push(arguments);
+      }
+      (window.dataLayer = window.dataLayer || []),
+        gtag("js", new Date()),
+        gtag("config", "G-YCWZ8ZDCH2");
+    </script>
+    <script>
+      const startGame = () => {
+        console.log("game start: ", gameStart);
+        if (gameStart) return;
+        console.log("wallet connected: ", walletConnected);
+        if (!walletConnected) {
+          alert("wallet not connected");
+          return;
+        }
+
+        console.log("is nft present: ", isNFTPresent);
+
+        if (!isNFTPresent) {
+          alert("NFT is not present to play the game.");
+          return;
+        }
+
+        gameStart = true;
+        setTimeout(function () {
+          game.playBgm();
+        });
+        indexHide();
+        setTimeout(game.start, 400);
+      };
+
       // Main function to connect wallet and check NFT
       async function main() {
-        console.log("trying to connect to wallet: ");
         const address = await connectWallet();
-        console.log("address: ", address);
+
         if (address) {
-          await checkNFT(address);
+          isNFTPresent = await checkNFT(address);
+          if (isNFTPresent) {
+            // get token id
+            tokenId = await getTokenId(address);
+            // insert initial data if not present
+            insertData(tokenId, gameId);
+            // wallet is connect
+            walletConnected = true;
+            updateWalletButton();
+            document.querySelector(".wallet-address").innerHTML = address;
+          } else {
+            alert("NFT is not present in your current wallet.");
+          }
         }
       }
 
@@ -1477,10 +1782,7 @@
         }
       }
 
-      // Initialize the provider when the page loads
-      initializeProvider();
-
-      const switchWalletElement = document.getElementById("switchWalletButton");
+      const switchWalletElement = document.getElementById("switch-wallet");
 
       document.addEventListener("DOMContentLoaded", function () {
         document
@@ -1491,10 +1793,41 @@
       if (switchWalletElement) {
         document.addEventListener("DOMContentLoaded", function () {
           document
-            .getElementById("switchWalletButton")
+            .getElementById("switch-wallet")
             .addEventListener("click", switchWallet);
         });
       }
+    </script>
+    <script>
+      document.addEventListener("DOMContentLoaded", async function () {
+        const playButtonElement = document.getElementById("start-game");
+
+        if (playButtonElement) {
+          const address = await isWalletConnected();
+          if (address) {
+            isNFTPresent = await checkNFT(address);
+
+            if (isNFTPresent) {
+              walletConnected = true;
+              tokenId = getTokenId();
+              insertData(tokenId, gameId);
+              updateWalletButton();
+              findCurrentTeamAndAvgScore(tokenId);
+              document.querySelector(".wallet-address").innerHTML = address;
+            } else {
+              updateWalletButton();
+              document.getElementById("wallet-address").innerHTML = address;
+              alert(
+                "NFT is not present in current wallet. Please switch to the wallet with nft"
+              );
+            }
+          }
+
+          document
+            .getElementById("start-game")
+            .addEventListener("click", startGame);
+        }
+      });
     </script>
   </body>
 </html>

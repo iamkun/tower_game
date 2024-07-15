@@ -102,7 +102,7 @@ export const blockAction = (instance, engine, time) => {
       i.startDropTime = time;
       i.vy += i.ay * deltaTime;
       i.y += i.vy * deltaTime + 0.5 * i.ay * deltaTime ** 2;
-      console.log("line: ", line);
+
       const collision = checkCollision(instance, line);
       const blockY = line.y - instance.height;
       const calRotate = (ins) => {
