@@ -325,6 +325,10 @@
         overflow: hidden;
       }
 
+      .hidden {
+        display: none !important;
+      }
+
       .side-panel-details p {
         font-size: 16px;
         text-align: start;
@@ -680,7 +684,7 @@
       <div class="connect-wallet-div">
         <button id="connect-wallet">Connect Wallet</button>
       </div>
-      <div id="switch-wallet" class="hide">
+      <div id="switch-wallet" class="hidden">
         <div class="wallet-address"></div>
         <img src="./assets/switch.png" alt="switch.png" />
       </div>
@@ -1251,11 +1255,11 @@
 
       function updateWalletButton() {
         if (walletConnected) {
-          document.getElementById("connect-wallet").classList.add("hide");
-          document.getElementById("switch-wallet").classList.remove("hide");
+          document.getElementById("connect-wallet").classList.add("hidden");
+          document.getElementById("switch-wallet").classList.remove("hidden");
         } else {
-          document.getElementById("connect-wallet").classList.remove("hide");
-          document.getElementById("switch-wallet").classList.add("hide");
+          document.getElementById("connect-wallet").classList.remove("hidden");
+          document.getElementById("switch-wallet").classList.add("hidden");
         }
       }
 
@@ -1554,6 +1558,10 @@
           for (const id of teamTokenIds) {
             const score = await getScoreForTokenId(id);
             totalScore += score;
+
+            if (id === tokenId) {
+              document.getElementById("top-score").innerHTML = score;
+            }
           }
           const avgScore = totalScore / teamTokenIds.length;
 
@@ -1565,7 +1573,6 @@
           const leaderboard = document.getElementById("leaderboard-id");
           leaderboard.classList.remove("b-height");
           leaderboard.classList.add("a-height");
-          console.log("avg sco; ", avgScore);
           document.getElementById("team-name").innerHTML = team.clan;
 
           document.getElementById("avg-score").innerHTML = avgScore.toFixed(2);
@@ -1759,7 +1766,9 @@
             // wallet is connect
             walletConnected = true;
             updateWalletButton();
-            findCurrentTeamAndAvgScore(tokenId);
+            if (tokenId) {
+              findCurrentTeamAndAvgScore(tokenId);
+            }
             document.querySelector(".wallet-address").innerHTML = address;
           } else {
             alert("NFT is not present in your current wallet.");
