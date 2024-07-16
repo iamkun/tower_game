@@ -315,7 +315,7 @@
 
       .side-panel-details {
         margin-top: 24px;
-        font-size: 16px;
+        font-size: 14px;
         height: calc(100vh - 225px);
         border-top-left-radius: 10px;
         border-top-right-radius: 40px;
@@ -330,7 +330,7 @@
       }
 
       .side-panel-details p {
-        font-size: 16px;
+        font-size: 14px;
         text-align: start;
         color: green;
         padding: 15px;
@@ -509,6 +509,8 @@
         margin-top: 30px;
         width: 150px;
         height: 50px;
+        font-family: "Kangmas";
+        font-weight: bold;
       }
 
       #switch-wallet {
@@ -534,6 +536,8 @@
         overflow: hidden;
         text-overflow: ellipsis;
         width: 130px;
+        font-family: "Kangmas";
+        font-weight: bold;
       }
 
       #switch-wallet img {
@@ -665,6 +669,17 @@
       .font-bold {
         font-weight: bold;
       }
+
+      .font-18 {
+        font-size: 18px;
+      }
+      .font-13 {
+        font-size: 13px;
+      }
+
+      .font-12 {
+        font-size: 12px !important;
+      }
     </style>
   </head>
   <body>
@@ -686,15 +701,19 @@
             <p class="break font-Geist-Regular">Keep Pushing Higher↑</p>
 
             <div class="top-level-info">
-              <div class="font-Geist-Medium">
+              <div class="font-Geist-Medium font-13">
                 Ends in
                 <br />
-                <span class="font-Geist-Medium" id="ends-in">24h 39m 34s</span>
+                <span class="font-Geist-Medium font-18" id="ends-in"
+                  >24h 39m 34s</span
+                >
               </div>
-              <div class="font-Geist-Medium">
+              <div class="font-Geist-Medium font-13">
                 Participants
                 <br />
-                <span class="font-Geist-Medium" id="part-count">192/200</span>
+                <span class="font-Geist-Medium font-18" id="part-count"
+                  >192/200</span
+                >
               </div>
             </div>
 
@@ -727,13 +746,16 @@
                   </li>
                 </ul>
               </div>
-              <div class="board-table-header font-Geist-Regular">
+              <div class="board-table-header font-Geist-Regular font-12">
                 <span>#</span>
                 <span>Token Id</span>
                 <span>Score</span>
               </div>
               <div class="board-header-bottom"></div>
-              <div id="leaderboard-body" class="font-Geist-Regular"></div>
+              <div
+                id="leaderboard-body"
+                class="font-Geist-Regular font-12"
+              ></div>
             </div>
 
             <div id="leaderboard-team-id" class="leaderboard-team hide">
