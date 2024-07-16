@@ -97,9 +97,11 @@
         clear: both;
       }
       .loading {
-        background-color: #018a08;
+        background-color: transparent;
         height: 100%;
         width: 100%;
+        display: flex;
+        align-items: center;
       }
       .loading .main {
         width: 60%;
@@ -777,7 +779,6 @@
       <div class="content">
         <div class="loading">
           <div class="main">
-            <img src="./assets/main-loading.gif" />
             <div class="progress">
               <div class="title font-wenxue">0%</div>
               <div class="bar">
