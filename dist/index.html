@@ -474,6 +474,28 @@
         margin-top: 30px;
       }
 
+      .nav {
+        background-color: white;
+        display: flex;
+        flex-direction: row;
+        gap: 2px;
+        justify-content: space-between;
+        padding: 4px;
+        border-radius: 5px;
+      }
+
+      .nav-link {
+        padding: 1px 10px;
+        color: #98989d;
+      }
+
+      .active {
+        background: #f9f9f9;
+        padding: 1px 10px;
+        border-radius: 5px;
+        color: #018a08;
+      }
+
       #connect-wallet {
         position: absolute;
         right: 10px;
@@ -640,8 +662,41 @@
             </div>
 
             <div id="leaderboard-id" class="leaderboard b-height">
-              <div class="board-header">Leaderboard</div>
+              <div class="board-header">
+                <ul class="nav nav-tabs" id="leaderboardTabs" role="tablist">
+                  <li class="nav-item">
+                    <a
+                      class="nav-link active"
+                      id="global-tab"
+                      data-toggle="tab"
+                      href="#global"
+                      role="tab"
+                      aria-controls="global"
+                      aria-selected="true"
+                      >Global Leaderboard</a
+                    >
+                  </li>
+                  <li class="nav-item">
+                    <a
+                      class="nav-link"
+                      id="team-tab"
+                      data-toggle="tab"
+                      href="#team"
+                      role="tab"
+                      aria-controls="team"
+                      aria-selected="false"
+                      >Team Leaderboard</a
+                    >
+                  </li>
+                </ul>
+              </div>
+              <div class="board-table-header">
+                <span>#</span>
+                <span>Token Id</span>
+                <span>Score</span>
+              </div>
               <div class="board-header-bottom"></div>
+              <div id="leaderboard-body"></div>
             </div>
 
             <div id="leaderboard-team-id" class="leaderboard-team hide">
@@ -1337,14 +1392,22 @@
       createSupabaseClient();
     </script>
     <script>
+      var activeTab = "#global-tab",
+        teamData = [];
       //supabase related queries
       async function fetchLeaderboardData() {
         try {
-          const { data, error } = await supabase
+          let { data, error } = await supabase
             .from("points")
             .select("*")
             .eq("game_id", gameId)
             .order("points", { ascending: false });
+          console.log("team data: ", teamData, activeTab);
+          if (activeTab === "#team-tab") {
+            teamData?.sort((a, b) => b.points - a.points);
+
+            data = teamData;
+          }
 
           if (error) throw error;
           updateLeaderboard(data);
@@ -1363,7 +1426,7 @@
       }
 
       function updateLeaderboard(data) {
-        const leaderboard = document.querySelector(".leaderboard");
+        const leaderboardBody = document.querySelector("#leaderboard-body");
         const leaderboardEntries = data
           .map(
             (entry, index) => `
@@ -1375,14 +1438,8 @@
       `
           )
           .join("");
-        leaderboard.innerHTML = `
-        <div class="board-header">Leaderboard</div>
-        <div class="board-header-bottom"></div>
-        <div class="board-table-header">
-          <span>#</span>
-          <span>Token Id</span>
-          <span>Score</span>
-        </div>
+        leaderboardBody.innerHTML = `
+        
         ${leaderboardEntries}
       `;
       }
@@ -1453,7 +1510,6 @@
           console.log("existing data: ", response);
 
           if (!response.data) {
-            console.log("Inside repose");
             const { data, error } = await supabase
               .from("points")
               .insert([{ tokenid: tokenId, points: 0, game_id: gameId }])
@@ -1479,7 +1535,6 @@
             return null;
           }
 
-          console.log("data team:", data);
           const teamId = data.team_id;
           const { data: teamData, error: teamError } = await supabase
             .from("teams")
@@ -1488,7 +1543,7 @@
             .single();
 
           if (teamError) throw teamError;
-          console.log("teans data: ", teamData);
+
           if (!teamData) {
             console.error(`No team data found for teamId ${teamId}`);
             return null;
@@ -1524,6 +1579,7 @@
 
       const getScoreForTokenId = async (tokenId) => {
         try {
+          console.log("tokenId: ", tokenId);
           const { data, error } = await supabase
             .from("points")
             .select("points")
@@ -1547,6 +1603,12 @@
         }
       };
 
+      function addUniqueEntry(teamData, newEntry) {
+        const map = new Map(teamData.map((item) => [item.tokenid, item]));
+        map.set(newEntry.tokenid, newEntry);
+        return Array.from(map.values());
+      }
+
       const findCurrentTeamAndAvgScore = async (tokenId) => {
         try {
           // Assuming there's a function to find the current team of a tokenId
@@ -1559,6 +1621,8 @@
           for (const id of teamTokenIds) {
             const score = await getScoreForTokenId(id);
             totalScore += score;
+
+            teamData = addUniqueEntry(teamData, { tokenid: id, points: score });
 
             if (id === tokenId) {
               document.getElementById("top-score").innerHTML = score;
@@ -1584,6 +1648,35 @@
           );
         }
       };
+      document.addEventListener("DOMContentLoaded", function () {
+        const tabs = document.querySelectorAll(".nav-link");
+        console.log("tabs: ", tabs);
+        if (tabs.length === 0) {
+          console.error("No tabs or tab contents found.");
+          return;
+        }
+
+        tabs.forEach((tab) => {
+          tab.addEventListener("click", function (event) {
+            console.log("event: ", event);
+            event.preventDefault();
+
+            // Remove 'active' class from all tabs and 'show active' from all tab contents
+            tabs.forEach((item) => item.classList.remove("active"));
+            console.log("tabs: ", tabs);
+
+            // Add 'active' class to the clicked tab
+            tab.classList.add("active");
+
+            console.log("tab: ", tab);
+
+            // Get the target tab content and add 'show active' class
+            const targetId = tab.getAttribute("href");
+            activeTab = `${targetId}-tab`;
+            fetchLeaderboardData();
+          });
+        });
+      });
     </script>
     <script>
       var domReady,
