@@ -446,6 +446,7 @@
         color: #018a08;
         font-size: 16px;
         font-weight: bold;
+        padding-top: 10px;
       }
 
       .side-panel-details button {
@@ -1573,7 +1574,7 @@
           const leaderboard = document.getElementById("leaderboard-id");
           leaderboard.classList.remove("b-height");
           leaderboard.classList.add("a-height");
-          document.getElementById("team-name").innerHTML = team.clan;
+          document.getElementById("team-name").innerHTML = `Team ${team.clan}`;
 
           document.getElementById("avg-score").innerHTML = avgScore.toFixed(2);
         } catch (error) {
