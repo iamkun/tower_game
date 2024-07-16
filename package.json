@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": {
     "start": "NODE_OPTIONS=--openssl-legacy-provider npm run build && node index.js",
-    "build": "NODE_OPTIONS=--openssl-legacy-provider webpack --config webpack.config.js --mode production"
+    "build": "NODE_OPTIONS=--openssl-legacy-provider webpack --config webpack.config.js --mode production",
+    "dev": "NODE_OPTIONS=--openssl-legacy-provider webpack serve --config webpack.config.js --mode development"
   },
   "repository": {
     "type": "git",
@@ -25,9 +26,9 @@
     "copy-webpack-plugin": "^6.4.1",
     "express": "^4.16.3",
     "opn": "^5.3.0",
-    "webpack": "^4.0.1",
-    "webpack-cli": "^4.0.0",
-    "webpack-dev-server": "^3.11.2"
+    "webpack": "^4.47.0",
+    "webpack-cli": "^4.10.0",
+    "webpack-dev-server": "^3.11.3"
   },
   "dependencies": {
     "cooljs": "^1.0.2",

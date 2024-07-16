@@ -293,7 +293,7 @@
       .overview .side-panel {
         position: absolute;
         height: 100%;
-        width: 30%;
+        width: 28%;
         display: flex;
         flex-direction: column;
         background-color: #018a08;
@@ -426,8 +426,8 @@
         border-radius: 12px;
         margin: 5px 10px;
         font-size: 13px;
-        background-color: #f9f9f9;
         padding: 16px;
+        background: #018a081a;
       }
 
       .side-panel-details .leaderboard-team .leaderboard-team-header {
@@ -453,12 +453,11 @@
         background-color: #018a08;
         color: white;
         border: none;
-        border-radius: 20px;
+        border-radius: 100px;
         cursor: pointer;
         font-size: 16px;
         width: 95%;
-        height: 40px;
-        margin: 10px;
+        height: 56px;
       }
 
       .side-panel-body .connect-button {
@@ -630,6 +629,42 @@
       .font-wenxue {
         font-family: wenxue;
       }
+
+      @font-face {
+        font-family: "Kangmas";
+        src: url(assets/KangmasDemoRegular-EajJj.ttf) format("truetype");
+        font-weight: normal;
+        font-style: normal;
+      }
+      .font-Kangmas {
+        font-family: "Kangmas";
+      }
+
+      @font-face {
+        font-family: "Geist-Regular";
+        src: url(assets/Geist-Regular-BF6569491e3eff1.otf) format("truetype");
+        font-weight: normal;
+        font-style: normal;
+      }
+
+      .font-Geist-Regular {
+        font-family: "Geist-Regular";
+      }
+
+      @font-face {
+        font-family: "Geist-Medium";
+        src: url(assets/Geist-Medium-BF6569491e1c281.otf) format("truetype");
+        font-weight: normal;
+        font-style: normal;
+      }
+
+      .font-Geist-Medium {
+        font-family: "Geist-Medium";
+      }
+
+      .font-bold {
+        font-weight: bold;
+      }
     </style>
   </head>
   <body>
@@ -637,27 +672,29 @@
     <div class="overview">
       <div class="side-panel">
         <div class="side-panel-container">
-          <div class="side-panel-header">
-            You'r score is <span id="top-score">0</span>! Can be Higher↑
+          <div class="side-panel-header font-Kangmas">
+            You'r score is
+            <span id="top-score" class="font-Kangmas font-bold">0</span>! Can be
+            Higher↑
           </div>
 
           <div class="side-panel-details">
-            <p>
+            <p class="font-Geist-Regular">
               Bridge any amount of ETH from Ethereum Mainnet to Arbitrum and
-              earn
+              earn ARB tokens!
             </p>
-            <p class="break">ARB tokens! Keep Pushing Higher↑</p>
+            <p class="break font-Geist-Regular">Keep Pushing Higher↑</p>
 
             <div class="top-level-info">
-              <div class="">
+              <div class="font-Geist-Medium">
                 Ends in
                 <br />
-                <span id="ends-in">24h 39m 34s</span>
+                <span class="font-Geist-Medium" id="ends-in">24h 39m 34s</span>
               </div>
-              <div class="">
+              <div class="font-Geist-Medium">
                 Participants
                 <br />
-                <span id="part-count">192/200</span>
+                <span class="font-Geist-Medium" id="part-count">192/200</span>
               </div>
             </div>
 
@@ -666,7 +703,7 @@
                 <ul class="nav nav-tabs" id="leaderboardTabs" role="tablist">
                   <li class="nav-item">
                     <a
-                      class="nav-link active"
+                      class="nav-link active font-Geist-Medium"
                       id="global-tab"
                       data-toggle="tab"
                       href="#global"
@@ -678,7 +715,7 @@
                   </li>
                   <li class="nav-item">
                     <a
-                      class="nav-link"
+                      class="nav-link font-Geist-Medium"
                       id="team-tab"
                       data-toggle="tab"
                       href="#team"
@@ -690,18 +727,18 @@
                   </li>
                 </ul>
               </div>
-              <div class="board-table-header">
+              <div class="board-table-header font-Geist-Regular">
                 <span>#</span>
                 <span>Token Id</span>
                 <span>Score</span>
               </div>
               <div class="board-header-bottom"></div>
-              <div id="leaderboard-body"></div>
+              <div id="leaderboard-body" class="font-Geist-Regular"></div>
             </div>
 
             <div id="leaderboard-team-id" class="leaderboard-team hide">
               <div class="leaderboard-team-header">
-                <span>Team name</span>
+                <span>Team Name</span>
                 <span>Avg Score</span>
               </div>
 

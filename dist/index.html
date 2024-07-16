@@ -293,7 +293,7 @@
       .overview .side-panel {
         position: absolute;
         height: 100%;
-        width: 30%;
+        width: 25%;
         display: flex;
         flex-direction: column;
         background-color: #018a08;
@@ -453,11 +453,11 @@
         background-color: #018a08;
         color: white;
         border: none;
-        border-radius: 20px;
+        border-radius: 100px;
         cursor: pointer;
         font-size: 16px;
         width: 95%;
-        height: 40px;
+        height: 56px;
         margin: 10px;
       }
 
@@ -630,6 +630,16 @@
       .font-wenxue {
         font-family: wenxue;
       }
+
+      @font-face {
+        font-family: "Kangmas";
+        src: url(assets/KangmasDemoRegular-EajJj.ttf) format("truetype");
+        font-weight: normal;
+        font-style: normal;
+      }
+      .font-Kangmas {
+        font-family: "Kangmas";
+      }
     </style>
   </head>
   <body>
@@ -637,16 +647,16 @@
     <div class="overview">
       <div class="side-panel">
         <div class="side-panel-container">
-          <div class="side-panel-header">
+          <div class="side-panel-header font-Kangmas">
             You'r score is <span id="top-score">0</span>! Can be Higher↑
           </div>
 
           <div class="side-panel-details">
             <p>
               Bridge any amount of ETH from Ethereum Mainnet to Arbitrum and
-              earn
+              earn ARB tokens!
             </p>
-            <p class="break">ARB tokens! Keep Pushing Higher↑</p>
+            <p class="break">Keep Pushing Higher↑</p>
 
             <div class="top-level-info">
               <div class="">
