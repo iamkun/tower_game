@@ -20,7 +20,7 @@
   "devDependencies": {
     "@babel/core": "^7.0.0-beta.42",
     "@babel/preset-env": "^7.0.0-beta.42",
-    "@webpack-cli/serve": "^2.0.5",
+    "@webpack-cli/serve": "^1.0.1",
     "babel-loader": "^8.0.0-beta",
     "copy-webpack-plugin": "^6.4.1",
     "express": "^4.16.3",
