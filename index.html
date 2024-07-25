@@ -295,6 +295,7 @@
       .overview .side-panel {
         position: absolute;
         height: 100%;
+        max-height: 100vh;
         width: 28%;
         display: flex;
         flex-direction: column;
@@ -302,12 +303,12 @@
       }
 
       .side-panel-container {
-        padding: 24px;
+        padding: 32px 16px 16px;
       }
 
       .side-panel-header {
         font-family: Arial, Helvetica, sans-serif;
-        font-size: 50px;
+        font-size: 42px;
         color: white;
         text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000,
           1px 1px 0 #000;
@@ -316,29 +317,34 @@
       }
 
       .side-panel-details {
-        margin-top: 24px;
-        font-size: 14px;
-        height: calc(100vh - 225px);
-        border-top-left-radius: 10px;
+        display: flex;
+        flex-direction: column;
+        padding: 24px 16px 10px;
+        border-top-left-radius: 8px;
         border-top-right-radius: 40px;
         border-bottom-right-radius: 40px;
         border-bottom-left-radius: 40px;
         background-color: white;
         overflow: hidden;
+        margin-top: 24px;
       }
 
       .hidden {
         display: none !important;
       }
 
-      .side-panel-details p {
-        font-size: 14px;
+      .side-panel-details .text-details {
+        color: #018a08;
+        font-size: 16px;
         text-align: start;
-        color: green;
-        padding: 15px;
       }
 
-      .side-panel-details .break {
+      .side-panel-details .text-details p:first-child {
+        margin-bottom: 24px;
+      }
+
+      .break {
+        margin-top: 24px;
         border-bottom: #018a08 dashed 1px;
       }
 
@@ -346,22 +352,26 @@
         display: flex;
         flex-direction: row;
         width: 100%;
-        gap: 10px;
-        padding: 0px 10px;
-        margin: 5px 0px;
+        gap: 16px;
+        padding-top: 24px;
+        padding-bottom: 8px;
       }
 
       .side-panel-details .top-level-info div {
         width: 50%;
         text-align: start;
-        padding: 16px;
-        font-size: 13px;
-        color: #98989d;
+        padding: 16px 12px;
         background-color: #f7f7f7;
         border-radius: 12px;
       }
 
-      .side-panel-details .top-level-info div span {
+      .sub-top-level-info {
+        color: #98989d;
+        font-size: 13px;
+        padding-bottom: 2px;
+      }
+
+      .side-panel-details .top-level-info div {
         padding-top: 10px;
         text-align: start;
         font-size: 18px;
@@ -370,30 +380,22 @@
 
       .side-panel-details .leaderboard {
         border-radius: 12px;
-        margin: 5px 10px;
         font-size: 13px;
         background-color: #f9f9f9;
-        padding: 16px;
-      }
-
-      .side-panel-details .b-height {
-        height: calc(100vh - 500px) !important;
-        max-height: calc(100vh - 500px) !important;
-        overflow: scroll !important;
-      }
-
-      .side-panel-details .a-height {
-        height: calc(100vh - 600px) !important;
-        max-height: calc(100vh - 600px) !important;
-        overflow: scroll !important;
+        padding: 12px;
       }
 
       .side-panel-details .leaderboard .board-header {
         text-align: start;
         color: #98989d;
         margin-bottom: 16px;
+        padding: 3px;
       }
-      .side-panel-details .leaderboard .board-header .board-header-bottom {
+
+      #leaderboard-body {
+        height: calc(100vh - 700px) !important;
+        max-height: calc(100vh - 700px) !important;
+        overflow-y: scroll !important;
       }
 
       .side-panel-details .leaderboard .board-table-header {
@@ -426,10 +428,10 @@
 
       .side-panel-details .leaderboard-team {
         border-radius: 12px;
-        margin: 5px 10px;
         font-size: 13px;
         padding: 16px;
         background: #018a081a;
+        margin: 8px 0px 8px;
       }
 
       .side-panel-details .leaderboard-team .leaderboard-team-header {
@@ -458,8 +460,8 @@
         border-radius: 100px;
         cursor: pointer;
         font-size: 16px;
-        width: 95%;
-        height: 56px;
+        width: 100%;
+        padding: 18.5px 0px 18.5px;
       }
 
       .side-panel-body .connect-button {
@@ -479,21 +481,30 @@
         background-color: white;
         display: flex;
         flex-direction: row;
-        gap: 2px;
         justify-content: space-between;
-        padding: 4px;
         border-radius: 5px;
+        padding: 4px 0px 4px;
+        font-size: 12px;
+        gap: 2px;
+        align-items: center;
+      }
+
+      .nav-item {
+        display: flex;
+        width: 50%;
+        padding: 3px 0px 3px;
+        color: #98989d;
+        justify-content: center;
       }
 
       .nav-link {
-        padding: 1px 10px;
         color: #98989d;
       }
 
       .active {
         background: #f9f9f9;
-        padding: 1px 10px;
-        border-radius: 5px;
+        padding: 6px 14px;
+        border-radius: 4px;
         color: #018a08;
       }
 
@@ -742,22 +753,31 @@
           </div>
 
           <div class="side-panel-details">
-            <p class="font-Geist-Regular">
-              Bridge any amount of ETH from Ethereum Mainnet to Arbitrum and
-              earn ARB tokens!
-            </p>
-            <p class="break font-Geist-Regular">Keep Pushing Higher↑</p>
+            <div class="text-details">
+              <p class="font-Geist-Regular">
+                Bridge any amount of ETH from Ethereum Mainnet to Arbitrum and
+                earn ARB tokens!
+              </p>
+              <p class="font-Geist-Regular">Keep Pushing Higher↑</p>
+            </div>
+
+            <div class="break"></div>
 
             <div class="top-level-info">
-              <div class="font-Geist-Medium font-13">
-                Ends in
+              <div>
+                <span class="font-Geist-Medium font-13 sub-top-level-info"
+                  >Ends in</span
+                >
+
                 <br />
                 <span class="font-Geist-Medium font-18" id="ends-in"
                   >24h 39m 34s</span
                 >
               </div>
-              <div class="font-Geist-Medium font-13">
-                Participants
+              <div>
+                <span class="font-Geist-Medium font-13 sub-top-level-info"
+                  >Participants</span
+                >
                 <br />
                 <span class="font-Geist-Medium font-18" id="part-count"
                   >192/200</span
@@ -806,15 +826,15 @@
               ></div>
             </div>
 
-            <div id="leaderboard-team-id" class="leaderboard-team hide">
+            <div id="leaderboard-team-id" class="leaderboard-team">
               <div class="leaderboard-team-header">
                 <span>Team Name</span>
                 <span>Avg Score</span>
               </div>
 
               <div class="leaderboard-team-body">
-                <span id="team-name"></span>
-                <span id="avg-score"></span>
+                <span id="team-name">Team --</span>
+                <span id="avg-score">--</span>
               </div>
             </div>
 
@@ -1435,6 +1455,19 @@
       var selectedAccount;
       var walletConnected = false,
         isNFTPresent = false;
+
+      function formatNumber(num) {
+        if (num >= 1e9) {
+          return (num / 1e9).toFixed(1) + "b";
+        }
+        if (num >= 1e6) {
+          return (num / 1e6).toFixed(1) + "m";
+        }
+        if (num >= 1e3) {
+          return (num / 1e3).toFixed(1) + "k";
+        }
+        return num.toString();
+      }
     </script>
 
     <script>
@@ -1469,7 +1502,7 @@
             .select("*")
             .eq("game_id", gameId)
             .order("points", { ascending: false });
-          console.log("team data: ", teamData, activeTab);
+
           if (activeTab === "#team-tab") {
             teamData?.sort((a, b) => b.points - a.points);
 
@@ -1500,7 +1533,7 @@
         <div class="board-entry">
           <span>${index + 1}</span>
           <span>${entry.tokenid}</span>
-          <span>${entry.points}</span>
+          <span>${formatNumber(entry.points)}</span>
         </div>
       `
           )
@@ -1538,9 +1571,9 @@
             .single();
 
           if (fetchError) {
-            if (fetchError.message.includes("No rows found")) {
+            if (!currentData) {
               // If no existing points found, set currentPoints to 0
-              currentData = { points: 0, tokenId, gameId };
+              currentData = { points: 0, tokenid: tokenId, game_id: gameId };
             } else {
               throw fetchError;
             }
@@ -1556,11 +1589,10 @@
               ...currentData,
             })
             .eq("tokenid", tokenId)
-            .eq("gameId", gameId)
+            .eq("game_id", gameId)
             .single();
 
           if (error) throw error;
-          console.log("Points updated successfully:", data);
         } catch (error) {
           console.error("Error updating points:", error);
         }
@@ -1574,7 +1606,6 @@
             .eq("tokenid", tokenId)
             .eq("game_id", gameId)
             .single();
-          console.log("existing data: ", response);
 
           if (!response.data) {
             const { data, error } = await supabase
@@ -1646,7 +1677,6 @@
 
       const getScoreForTokenId = async (tokenId) => {
         try {
-          console.log("tokenId: ", tokenId);
           const { data, error } = await supabase
             .from("points")
             .select("points")
@@ -1692,7 +1722,8 @@
             teamData = addUniqueEntry(teamData, { tokenid: id, points: score });
 
             if (id === tokenId) {
-              document.getElementById("top-score").innerHTML = score;
+              document.getElementById("top-score").innerHTML =
+                formatNumber(score);
             }
           }
           const avgScore = totalScore / teamTokenIds.length;
@@ -1718,7 +1749,7 @@
 
       document.addEventListener("DOMContentLoaded", function () {
         const tabs = document.querySelectorAll(".nav-link");
-        console.log("tabs: ", tabs);
+
         if (tabs.length === 0) {
           console.error("No tabs or tab contents found.");
           return;
@@ -1726,17 +1757,13 @@
 
         tabs.forEach((tab) => {
           tab.addEventListener("click", function (event) {
-            console.log("event: ", event);
             event.preventDefault();
 
             // Remove 'active' class from all tabs and 'show active' from all tab contents
             tabs.forEach((item) => item.classList.remove("active"));
-            console.log("tabs: ", tabs);
 
             // Add 'active' class to the clicked tab
             tab.classList.add("active");
-
-            console.log("tab: ", tab);
 
             // Get the target tab content and add 'show active' class
             const targetId = tab.getAttribute("href");
@@ -1804,6 +1831,7 @@
         window.location.href = window.location.href + "?s=" + +new Date();
       }
 
+      let prevScore = 0;
       // game customization options
       const option = {
         width: gameWidth,
@@ -1812,7 +1840,8 @@
         soundOn: true,
         setGameScore: function (s) {
           score = s;
-          updatePoints(s);
+          updatePoints(s - prevScore);
+          prevScore = s;
           fetchLeaderboardData();
         },
         setGameSuccess: function (s) {
@@ -1905,9 +1934,7 @@
         }
 
         if (type === "injected") {
-          console.log("name: ", name);
           const provider = window.ethereum.providers.find((provider) => {
-            console.log("provider; ", provider);
             if (provider[name]) {
               return provider;
             }
@@ -1970,7 +1997,6 @@
           walletOption.innerHTML = `<div style=" display: flex;
         align-items: center;"><img style="width:24px; height: 24px; margin-right: 6px;" src="${logoUrl}" alt="${name}"/> ${name}</div>`;
           walletOption.onclick = () => {
-            console.log(`Wallet option clicked: ${name}`);
             selectInjectedWallet(key, provider);
           };
 
@@ -2045,12 +2071,10 @@
             window.ethereum.setSelectedProvider(selectedProvider);
           }
           if (selectedProvider.isMetaMask) {
-            console.log("Requesting MetaMask permissions...");
             await selectedProvider.send("wallet_requestPermissions", [
               { eth_accounts: {} },
             ]);
           } else {
-            console.log("Requesting accounts...");
             await selectedProvider.request({ method: "eth_requestAccounts" });
           }
           await connectWallet(key, selectedProvider, "injected");
@@ -2143,7 +2167,7 @@
             tokenId = (
               await contract.tokenOfOwnerByIndex(address, 0)
             ).toString();
-            console.log("token id: ", tokenId);
+
             return true;
           } else {
             return false;
