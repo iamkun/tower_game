@@ -31,6 +31,7 @@
     "webpack-dev-server": "^3.11.3"
   },
   "dependencies": {
+    "@web3modal/ethers": "^5.0.6",
     "cooljs": "^1.0.2",
     "ethers": "^6.13.1",
     "tree": "^0.1.3"
