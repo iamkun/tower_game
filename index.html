@@ -1428,223 +1428,18 @@
       ];
       var gameId = "2329dcdc-a26c-4abd-b7ad-8c3a36b9c502";
       var contractAddress = "0x9f089f3fc58770b591d075f82429ccb94fd67564";
-    </script>
-    <script>
-      let web3Modal;
-      let provider;
-      let selectedAccount;
-
-      async function init() {
-        const providerOptions = {
-          walletconnect: {
-            package: window.WalletConnectProvider.default,
-            options: {
-              infuraId: "45ad1c9edf074a5db79d09b6d721a7bf",
-            },
-          },
-        };
-
-        web3Modal = new window.Web3Modal.default({
-          cacheProvider: false, // Disable cache to ensure account selection each time
-          providerOptions,
-        });
-
-        document
-          .getElementById("walletButton")
-          .addEventListener("click", onButtonClick);
-        // document
-        //   .getElementById("disconnectButton")
-        //   .addEventListener("click", onDisconnect);
-
-        checkInjectedWallets();
-      }
-
-      function checkInjectedWallets() {
-        const injectedWalletsDiv = document.getElementById("injectedWallets");
-
-        function createWalletOption(name, logoUrl, provider) {
-          const walletOption = document.createElement("div");
-          walletOption.className = "walletOption";
-          walletOption.innerHTML = `<div style=" display: flex;
-        align-items: center;"><img style="width:24px; height: 24px; margin-right: 6px;" src="${logoUrl}" alt="${name}"/> ${name}</div>`;
-          walletOption.onclick = () => {
-            console.log(`Wallet option clicked: ${name}`);
-            selectInjectedWallet(provider);
-          };
-          injectedWalletsDiv.appendChild(walletOption);
-        }
-
-        const walletLogos = {
-          MetaMask: "./assets/wallets/metamask.png",
-          "Coinbase Wallet":
-            "https://avatars.githubusercontent.com/u/18060234?s=200&v=4",
-          "Trust Wallet":
-            "https://trustwallet.com/assets/images/media/assets/TWT.png",
-          Frame: "https://frame.sh/images/frame_logo.png",
-          "Brave Wallet":
-            "https://brave.com/static-assets/images/brave-logo.svg",
-        };
-        if (window.ethereum) {
-          const walletNames = {
-            isMetaMask: "MetaMask",
-            isCoinbaseWallet: "Coinbase Wallet",
-            isTrust: "Trust Wallet",
-            isFrame: "Frame",
-            isBraveWallet: "Brave Wallet",
-          };
-
-          if (window.ethereum.providers) {
-            window.ethereum.providers.forEach((provider) => {
-              for (const [key, name] of Object.entries(walletNames)) {
-                if (provider[key]) {
-                  createWalletOption(name, walletLogos[name], provider);
-                }
-              }
-            });
-          } else {
-            for (const [key, name] of Object.entries(walletNames)) {
-              if (window.ethereum[key]) {
-                createWalletOption(name, walletLogos[name], window.ethereum);
-              }
-            }
-          }
-        } else {
-          console.log("No injected wallets found");
-        }
-      }
-
-      function onButtonClick() {
-        if (provider) {
-          toggleWalletSelectionModal(true);
-        } else {
-          toggleWalletSelectionModal(true);
-        }
-      }
-
-      function toggleWalletSelectionModal(show) {
-        const modal = document.getElementById("walletSelectionModal");
-        modal.style.display = show ? "flex" : "none";
-      }
-
-      function closeWalletSelectionModal() {
-        toggleWalletSelectionModal(false);
-      }
-
-      async function selectInjectedWallet(selectedProvider) {
-        try {
-          console.log("Selected provider:", selectedProvider);
-          if (window.ethereum.providers) {
-            window.ethereum.setSelectedProvider(selectedProvider);
-          }
-          if (selectedProvider.isMetaMask) {
-            console.log("Requesting MetaMask permissions...");
-            await selectedProvider.send("wallet_requestPermissions", [
-              { eth_accounts: {} },
-            ]);
-          } else {
-            console.log("Requesting accounts...");
-            await selectedProvider.request({ method: "eth_requestAccounts" });
-          }
-          await connectWallet(selectedProvider);
-        } catch (e) {
-          console.log("Could not connect to the selected wallet", e);
-        }
-      }
-
-      async function connectWithWalletConnect() {
-        try {
-          provider = await web3Modal.connectTo("walletconnect");
-          await connectWallet(provider);
-        } catch (e) {
-          console.log("Could not connect to WalletConnect", e);
-        }
-      }
-
-      async function connectWallet(selectedProvider) {
-        try {
-          const ethersProvider = new window.ethers.providers.Web3Provider(
-            selectedProvider || provider
-          );
-
-          const accounts = await ethersProvider.send("eth_requestAccounts", []);
-          selectedAccount = accounts[0];
-          console.log("Selected account: ", selectedAccount);
-          updateButton();
-
-          selectedProvider.on("accountsChanged", (accounts) => {
-            selectedAccount = accounts[0];
-            updateButton();
-          });
-
-          selectedProvider.on("chainChanged", (chainId) => {
-            console.log("Chain changed:", chainId);
-          });
-
-          selectedProvider.on("disconnect", (error) => {
-            console.log("Disconnected:", error);
-            resetButton();
-          });
-        } catch (e) {
-          console.log("Could not get a wallet connection", e);
-        }
-      }
-
-      function updateButton() {
-        if (selectedAccount) {
-          document.getElementById(
-            "walletButton"
-          ).innerText = `${selectedAccount.substring(
-            0,
-            6
-          )}...${selectedAccount.substring(selectedAccount.length - 4)}`;
-          toggleWalletSelectionModal(false);
-        } else {
-          resetButton();
-        }
-      }
-
-      function resetButton() {
-        document.getElementById("walletButton").innerText = "Connect Wallet";
-        provider = null;
-        selectedAccount = null;
-      }
-
-      window.addEventListener("load", async () => {
-        await init();
-      });
-    </script>
-
-    <script>
+      var web3Modal;
+      var provider;
+      var ethersProvider;
+      var signer;
+      var selectedAccount;
       var walletConnected = false,
         isNFTPresent = false;
+    </script>
+
+    <script>
       var tokenId,
         noOfParticipants = 0;
-
-      async function checkNFT(address) {
-        const contract = new ethers.Contract(
-          contractAddress,
-          contractABI,
-          provider
-        );
-
-        try {
-          const balance = await contract.balanceOf(address);
-          const nftStatus = `Balance of NFTs for address ${address}: ${balance.toString()}`;
-
-          if (balance.gt(0)) {
-            tokenId = (
-              await contract.tokenOfOwnerByIndex(address, 0)
-            ).toString();
-            console.log("token id: ", tokenId);
-            return true;
-          } else {
-            return false;
-          }
-        } catch (error) {
-          console.error("Error checking NFT presence:", error);
-          return false;
-        }
-      }
 
       function getTokenId() {
         return tokenId;
@@ -2007,18 +1802,6 @@
 
       async function overShowOver() {
         window.location.href = window.location.href + "?s=" + +new Date();
-
-        const address = await isWalletConnected();
-        console.log("is wallet connected: ", address);
-        if (address) {
-          isNFTPresent = await checkNFT(address);
-          console.log("is: ", isNFTPresent);
-          if (isNFTPresent) {
-            tokenId = await getTokenId(address);
-          }
-        }
-
-        console.log("window reloaded");
       }
 
       // game customization options
@@ -2114,67 +1897,277 @@
         indexHide();
         setTimeout(game.start, 400);
       };
-
-      // Main function to connect wallet and check NFT
-      // async function main() {
-      //   const address = await connectWallet();
-
-      //   if (address) {
-      //     isNFTPresent = await checkNFT(address);
-      //     if (isNFTPresent) {
-      //       // get token id
-      //       tokenId = await getTokenId(address);
-      //       // insert initial data if not present
-      //       insertData(tokenId, gameId);
-      //       // wallet is connect
-      //       walletConnected = true;
-      //       updateWalletButton();
-      //       if (tokenId) {
-      //         findCurrentTeamAndAvgScore(tokenId);
-      //       }
-      //       document.querySelector(".wallet-address").innerHTML = address;
-      //     } else {
-      //       alert("NFT is not present in your current wallet.");
-      //     }
-      //   }
-      // }
-
-      // document.addEventListener("DOMContentLoaded", function () {
-      //   document
-      //     .getElementById("connect-wallet")
-      //     .addEventListener("click", main);
-      // });
     </script>
     <script>
-      // document.addEventListener("DOMContentLoaded", async function () {
-      //   const playButtonElement = document.getElementById("start-game");
+      async function reconnectToProvider(type, name) {
+        if (type === "walletconnect") {
+          return await web3Modal.connectTo("walletconnect");
+        }
 
-      //   if (playButtonElement) {
-      //     const address = await isWalletConnected();
-      //     if (address) {
-      //       walletConnected = true;
-      //       isNFTPresent = await checkNFT(address);
+        if (type === "injected") {
+          console.log("name: ", name);
+          const provider = window.ethereum.providers.find((provider) => {
+            console.log("provider; ", provider);
+            if (provider[name]) {
+              return provider;
+            }
+          });
+          window.ethereum.setSelectedProvider(provider);
+          await provider.request({ method: "eth_requestAccounts" });
+          return provider;
+        }
+      }
 
-      //       if (isNFTPresent) {
-      //         tokenId = getTokenId();
-      //         insertData(tokenId, gameId);
-      //         updateWalletButton();
-      //         findCurrentTeamAndAvgScore(tokenId);
-      //         document.querySelector(".wallet-address").innerHTML = address;
-      //       } else {
-      //         updateWalletButton();
-      //         document.querySelector(".wallet-address").innerHTML = address;
-      //         alert(
-      //           "NFT is not present in current wallet. Please switch to the wallet with nft"
-      //         );
-      //       }
-      //     }
+      async function init() {
+        const providerOptions = {
+          walletconnect: {
+            package: window.WalletConnectProvider.default,
+            options: {
+              infuraId: "45ad1c9edf074a5db79d09b6d721a7bf",
+            },
+          },
+        };
 
-      //     document
-      //       .getElementById("start-game")
-      //       .addEventListener("click", startGame);
-      //   }
-      // });
+        web3Modal = new window.Web3Modal.default({
+          cacheProvider: true,
+          providerOptions,
+        });
+
+        document
+          .getElementById("walletButton")
+          .addEventListener("click", onButtonClick);
+
+        checkInjectedWallets();
+        const savedAccount = localStorage.getItem("selectedAccount");
+        const savedProviderType = localStorage.getItem("providerType");
+        const savedName = localStorage.getItem("injectedName");
+
+        if (savedAccount && savedProviderType && savedName) {
+          provider = await reconnectToProvider(savedProviderType, savedName);
+          ethersProvider = new window.ethers.providers.Web3Provider(provider);
+          signer = ethersProvider.getSigner();
+
+          selectedAccount = savedAccount;
+
+          if (selectedAccount) {
+            updateButton();
+            isNFTPresent = await checkNFT(selectedAccount);
+            walletConnected = true;
+          }
+
+          if (isNFTPresent) {
+            await findCurrentTeamAndAvgScore(tokenId);
+          }
+        }
+      }
+
+      function checkInjectedWallets() {
+        const injectedWalletsDiv = document.getElementById("injectedWallets");
+
+        function createWalletOption(key, logoUrl, provider, name) {
+          const walletOption = document.createElement("div");
+          walletOption.className = "walletOption";
+          walletOption.innerHTML = `<div style=" display: flex;
+        align-items: center;"><img style="width:24px; height: 24px; margin-right: 6px;" src="${logoUrl}" alt="${name}"/> ${name}</div>`;
+          walletOption.onclick = () => {
+            console.log(`Wallet option clicked: ${name}`);
+            selectInjectedWallet(key, provider);
+          };
+
+          injectedWalletsDiv.appendChild(walletOption);
+        }
+
+        const walletLogos = {
+          MetaMask: "./assets/wallets/metamask.png",
+          "Coinbase Wallet":
+            "https://avatars.githubusercontent.com/u/18060234?s=200&v=4",
+          "Trust Wallet":
+            "https://trustwallet.com/assets/images/media/assets/TWT.png",
+          Frame: "https://frame.sh/images/frame_logo.png",
+          "Brave Wallet":
+            "https://brave.com/static-assets/images/brave-logo.svg",
+        };
+        if (window.ethereum) {
+          const walletNames = {
+            isMetaMask: "MetaMask",
+            isCoinbaseWallet: "Coinbase Wallet",
+            isTrust: "Trust Wallet",
+            isFrame: "Frame",
+            isBraveWallet: "Brave Wallet",
+          };
+
+          if (window.ethereum.providers) {
+            window.ethereum.providers.forEach((provider) => {
+              for (const [key, name] of Object.entries(walletNames)) {
+                if (provider[key]) {
+                  createWalletOption(key, walletLogos[name], provider, name);
+                }
+              }
+            });
+          } else {
+            for (const [key, name] of Object.entries(walletNames)) {
+              if (window.ethereum[key]) {
+                createWalletOption(
+                  key,
+                  walletLogos[name],
+                  window.ethereum,
+                  name
+                );
+              }
+            }
+          }
+        } else {
+          console.log("No injected wallets found");
+        }
+      }
+
+      function onButtonClick() {
+        if (provider) {
+          toggleWalletSelectionModal(true);
+        } else {
+          toggleWalletSelectionModal(true);
+        }
+      }
+
+      function toggleWalletSelectionModal(show) {
+        const modal = document.getElementById("walletSelectionModal");
+        modal.style.display = show ? "flex" : "none";
+      }
+
+      function closeWalletSelectionModal() {
+        toggleWalletSelectionModal(false);
+      }
+
+      async function selectInjectedWallet(key, selectedProvider) {
+        try {
+          provider = selectedProvider;
+          if (window.ethereum.providers) {
+            window.ethereum.setSelectedProvider(selectedProvider);
+          }
+          if (selectedProvider.isMetaMask) {
+            console.log("Requesting MetaMask permissions...");
+            await selectedProvider.send("wallet_requestPermissions", [
+              { eth_accounts: {} },
+            ]);
+          } else {
+            console.log("Requesting accounts...");
+            await selectedProvider.request({ method: "eth_requestAccounts" });
+          }
+          await connectWallet(key, selectedProvider, "injected");
+        } catch (e) {
+          console.log("Could not connect to the selected wallet", e);
+        }
+      }
+
+      async function connectWithWalletConnect() {
+        try {
+          provider = await web3Modal.connectTo("walletconnect");
+          await connectWallet(provider);
+        } catch (e) {
+          console.log("Could not connect to WalletConnect", e);
+        }
+      }
+
+      async function connectWallet(key, selectedProvider, providerType) {
+        try {
+          ethersProvider = new window.ethers.providers.Web3Provider(
+            selectedProvider || provider
+          );
+          signer = ethersProvider.getSigner();
+
+          const accounts = await ethersProvider.send("eth_requestAccounts", []);
+          selectedAccount = accounts[0];
+
+          updateButton();
+          localStorage.setItem("selectedAccount", selectedAccount);
+          localStorage.setItem("providerType", providerType);
+          localStorage.setItem("injectedName", key);
+
+          walletConnected = true;
+
+          selectedProvider.on("accountsChanged", (accounts) => {
+            selectedAccount = accounts[0];
+            updateButton();
+          });
+
+          selectedProvider.on("chainChanged", (chainId) => {
+            console.log("Chain changed:", chainId);
+          });
+
+          selectedProvider.on("disconnect", (error) => {
+            console.log("Disconnected:", error);
+            resetButton();
+          });
+
+          checkNFT(selectedAccount);
+        } catch (e) {
+          console.log("Could not get a wallet connection", e);
+        }
+      }
+
+      function updateButton() {
+        if (selectedAccount) {
+          document.getElementById(
+            "walletButton"
+          ).innerText = `${selectedAccount.substring(
+            0,
+            6
+          )}...${selectedAccount.substring(selectedAccount.length - 4)}`;
+          toggleWalletSelectionModal(false);
+        } else {
+          resetButton();
+        }
+      }
+
+      function resetButton() {
+        document.getElementById("walletButton").innerText = "Connect Wallet";
+        provider = null;
+        selectedAccount = null;
+        localStorage.removeItem("selectedAccount");
+        localStorage.removeItem("providerType");
+        localStorage.removeItem("injectedName");
+      }
+
+      async function checkNFT(address) {
+        const contract = new ethers.Contract(
+          contractAddress,
+          contractABI,
+          signer
+        );
+
+        try {
+          const balance = await contract.balanceOf(address);
+          const nftStatus = `Balance of NFTs for address ${address}: ${balance.toString()}`;
+
+          if (balance.gt(0)) {
+            tokenId = (
+              await contract.tokenOfOwnerByIndex(address, 0)
+            ).toString();
+            console.log("token id: ", tokenId);
+            return true;
+          } else {
+            return false;
+          }
+        } catch (error) {
+          console.error("Error checking NFT presence:", error);
+          return false;
+        }
+      }
+
+      window.addEventListener("load", async () => {
+        await init();
+      });
+    </script>
+    <script>
+      document.addEventListener("DOMContentLoaded", async function () {
+        const playButtonElement = document.getElementById("start-game");
+
+        if (playButtonElement) {
+          document
+            .getElementById("start-game")
+            .addEventListener("click", startGame);
+        }
+      });
     </script>
   </body>
 </html>
