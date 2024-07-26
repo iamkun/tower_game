@@ -97,9 +97,11 @@
         clear: both;
       }
       .loading {
-        background-color: #018a08;
+        background-color: transparent;
         height: 100%;
         width: 100%;
+        display: flex;
+        align-items: center;
       }
       .loading .main {
         width: 60%;
@@ -293,6 +295,7 @@
       .overview .side-panel {
         position: absolute;
         height: 100%;
+        max-height: 100vh;
         width: 28%;
         display: flex;
         flex-direction: column;
@@ -300,12 +303,12 @@
       }
 
       .side-panel-container {
-        padding: 24px;
+        padding: 32px 16px 16px;
       }
 
       .side-panel-header {
         font-family: Arial, Helvetica, sans-serif;
-        font-size: 50px;
+        font-size: 42px;
         color: white;
         text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000,
           1px 1px 0 #000;
@@ -314,29 +317,34 @@
       }
 
       .side-panel-details {
-        margin-top: 24px;
-        font-size: 14px;
-        height: calc(100vh - 225px);
-        border-top-left-radius: 10px;
+        display: flex;
+        flex-direction: column;
+        padding: 24px 16px 10px;
+        border-top-left-radius: 8px;
         border-top-right-radius: 40px;
         border-bottom-right-radius: 40px;
         border-bottom-left-radius: 40px;
         background-color: white;
         overflow: hidden;
+        margin-top: 24px;
       }
 
       .hidden {
         display: none !important;
       }
 
-      .side-panel-details p {
-        font-size: 14px;
+      .side-panel-details .text-details {
+        color: #018a08;
+        font-size: 16px;
         text-align: start;
-        color: green;
-        padding: 15px;
       }
 
-      .side-panel-details .break {
+      .side-panel-details .text-details p:first-child {
+        margin-bottom: 24px;
+      }
+
+      .break {
+        margin-top: 24px;
         border-bottom: #018a08 dashed 1px;
       }
 
@@ -344,22 +352,26 @@
         display: flex;
         flex-direction: row;
         width: 100%;
-        gap: 10px;
-        padding: 0px 10px;
-        margin: 5px 0px;
+        gap: 16px;
+        padding-top: 24px;
+        padding-bottom: 8px;
       }
 
       .side-panel-details .top-level-info div {
         width: 50%;
         text-align: start;
-        padding: 16px;
-        font-size: 13px;
-        color: #98989d;
+        padding: 16px 12px;
         background-color: #f7f7f7;
         border-radius: 12px;
       }
 
-      .side-panel-details .top-level-info div span {
+      .sub-top-level-info {
+        color: #98989d;
+        font-size: 13px;
+        padding-bottom: 2px;
+      }
+
+      .side-panel-details .top-level-info div {
         padding-top: 10px;
         text-align: start;
         font-size: 18px;
@@ -368,30 +380,22 @@
 
       .side-panel-details .leaderboard {
         border-radius: 12px;
-        margin: 5px 10px;
         font-size: 13px;
         background-color: #f9f9f9;
-        padding: 16px;
-      }
-
-      .side-panel-details .b-height {
-        height: calc(100vh - 500px) !important;
-        max-height: calc(100vh - 500px) !important;
-        overflow: scroll !important;
-      }
-
-      .side-panel-details .a-height {
-        height: calc(100vh - 600px) !important;
-        max-height: calc(100vh - 600px) !important;
-        overflow: scroll !important;
+        padding: 12px;
       }
 
       .side-panel-details .leaderboard .board-header {
         text-align: start;
         color: #98989d;
         margin-bottom: 16px;
+        padding: 3px;
       }
-      .side-panel-details .leaderboard .board-header .board-header-bottom {
+
+      #leaderboard-body {
+        height: calc(100vh - 700px) !important;
+        max-height: calc(100vh - 700px) !important;
+        overflow-y: scroll !important;
       }
 
       .side-panel-details .leaderboard .board-table-header {
@@ -424,10 +428,10 @@
 
       .side-panel-details .leaderboard-team {
         border-radius: 12px;
-        margin: 5px 10px;
         font-size: 13px;
         padding: 16px;
         background: #018a081a;
+        margin: 8px 0px 8px;
       }
 
       .side-panel-details .leaderboard-team .leaderboard-team-header {
@@ -456,8 +460,8 @@
         border-radius: 100px;
         cursor: pointer;
         font-size: 16px;
-        width: 95%;
-        height: 56px;
+        width: 100%;
+        padding: 18.5px 0px 18.5px;
       }
 
       .side-panel-body .connect-button {
@@ -477,25 +481,34 @@
         background-color: white;
         display: flex;
         flex-direction: row;
-        gap: 2px;
         justify-content: space-between;
-        padding: 4px;
         border-radius: 5px;
+        padding: 4px 0px 4px;
+        font-size: 12px;
+        gap: 2px;
+        align-items: center;
+      }
+
+      .nav-item {
+        display: flex;
+        width: 50%;
+        padding: 3px 0px 3px;
+        color: #98989d;
+        justify-content: center;
       }
 
       .nav-link {
-        padding: 1px 10px;
         color: #98989d;
       }
 
       .active {
         background: #f9f9f9;
-        padding: 1px 10px;
-        border-radius: 5px;
+        padding: 6px 14px;
+        border-radius: 4px;
         color: #018a08;
       }
 
-      #connect-wallet {
+      #walletButton {
         position: absolute;
         right: 10px;
         margin-right: 30px;
@@ -680,6 +693,52 @@
       .font-12 {
         font-size: 12px !important;
       }
+      .font-30 {
+        font-size: 30px;
+      }
+    </style>
+    <style>
+      #walletSelectionModal {
+        display: none;
+        flex-direction: column;
+        justify-content: space-between;
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        padding: 35px 30px 20px;
+        background-color: white;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        border-radius: 10px;
+        text-align: start;
+        width: 20%;
+        height: 50%;
+      }
+
+      .closeButton {
+        padding: 10px;
+        border-radius: 20px;
+        margin-top: 20px;
+        background-color: transparent;
+        border-color: #018a08;
+      }
+      .wallet-container {
+        width: 100%;
+        height: 100%;
+        overflow-y: scroll;
+      }
+      .walletOption {
+        padding: 10px 20px;
+        font-size: 20px;
+        cursor: pointer;
+        color: #018a08;
+        border: none;
+        border-radius: 5px;
+        margin-top: 20px;
+      }
+      .walletOption:hover {
+        background-color: #0056b3;
+      }
     </style>
   </head>
   <body>
@@ -694,22 +753,31 @@
           </div>
 
           <div class="side-panel-details">
-            <p class="font-Geist-Regular">
-              Bridge any amount of ETH from Ethereum Mainnet to Arbitrum and
-              earn ARB tokens!
-            </p>
-            <p class="break font-Geist-Regular">Keep Pushing Higher↑</p>
+            <div class="text-details">
+              <p class="font-Geist-Regular">
+                Bridge any amount of ETH from Ethereum Mainnet to Arbitrum and
+                earn ARB tokens!
+              </p>
+              <p class="font-Geist-Regular">Keep Pushing Higher↑</p>
+            </div>
+
+            <div class="break"></div>
 
             <div class="top-level-info">
-              <div class="font-Geist-Medium font-13">
-                Ends in
+              <div>
+                <span class="font-Geist-Medium font-13 sub-top-level-info"
+                  >Ends in</span
+                >
+
                 <br />
                 <span class="font-Geist-Medium font-18" id="ends-in"
                   >24h 39m 34s</span
                 >
               </div>
-              <div class="font-Geist-Medium font-13">
-                Participants
+              <div>
+                <span class="font-Geist-Medium font-13 sub-top-level-info"
+                  >Participants</span
+                >
                 <br />
                 <span class="font-Geist-Medium font-18" id="part-count"
                   >192/200</span
@@ -758,15 +826,15 @@
               ></div>
             </div>
 
-            <div id="leaderboard-team-id" class="leaderboard-team hide">
+            <div id="leaderboard-team-id" class="leaderboard-team">
               <div class="leaderboard-team-header">
                 <span>Team Name</span>
                 <span>Avg Score</span>
               </div>
 
               <div class="leaderboard-team-body">
-                <span id="team-name"></span>
-                <span id="avg-score"></span>
+                <span id="team-name">Team --</span>
+                <span id="avg-score">--</span>
               </div>
             </div>
 
@@ -777,7 +845,6 @@
       <div class="content">
         <div class="loading">
           <div class="main">
-            <img src="./assets/main-loading.gif" />
             <div class="progress">
               <div class="title font-wenxue">0%</div>
               <div class="bar">
@@ -796,26 +863,44 @@
           <img src="./assets/main-share-icon.png" />
         </div>
       </div>
-      <div class="connect-wallet-div">
-        <button id="connect-wallet">Connect Wallet</button>
-      </div>
-      <div id="switch-wallet" class="hidden">
-        <div class="wallet-address"></div>
-        <img src="./assets/switch.png" alt="switch.png" />
+
+      <button id="walletButton">Connect Wallet</button>
+
+      <div id="walletSelectionModal">
+        <div class="font-Kangmas font-30">Connect a Wallet</div>
+        <div class="wallet-container">
+          <div id="injectedWallets"></div>
+          <div
+            class="walletOption"
+            style="display: flex; align-items: center"
+            onclick="connectWithWalletConnect()"
+          >
+            <img
+              style="width: 24px; height: 24px; margin-right: 6px"
+              src="./assets/wallets/walletConnect.png"
+              alt="WalletConnect"
+            />
+            WalletConnect
+          </div>
+        </div>
+        <button class="closeButton" onclick="closeWalletSelectionModal()">
+          Close
+        </button>
       </div>
     </div>
     <script src="./dist/bundle.js"></script>
     <script src="./assets/zepto-1.1.6.min.js"></script>
-    <script src="https://cdn.ethers.io/lib/ethers-5.2.umd.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
+    <!-- Web3Modal CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/web3modal@1.9.0/dist/index.min.js"></script>
+    <!-- WalletConnect CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/@walletconnect/web3-provider@1.6.6/dist/umd/index.min.js"></script>
+    <!-- Ethers.js CDN -->
+    <script src="https://cdn.ethers.io/lib/ethers-5.2.umd.min.js"></script>
+    <!-- wagmi CDN -->
+    <script src="https://unpkg.com/@wagmi/core@0.3.0/dist/index.umd.js"></script>
+
     <script>
-      var provider,
-        walletConnected = false,
-        isNFTPresent = false;
-      var tokenId,
-        gameId = "2329dcdc-a26c-4abd-b7ad-8c3a36b9c502",
-        noOfParticipants = 0;
-      var contractAddress = "0x9f089f3fc58770b591d075f82429ccb94fd67564";
       var contractABI = [
         {
           inputs: [
@@ -1361,80 +1446,36 @@
           type: "function",
         },
       ];
+      var gameId = "2329dcdc-a26c-4abd-b7ad-8c3a36b9c502";
+      var contractAddress = "0x9f089f3fc58770b591d075f82429ccb94fd67564";
+      var web3Modal;
+      var provider;
+      var ethersProvider;
+      var signer;
+      var selectedAccount;
+      var walletConnected = false,
+        isNFTPresent = false;
 
-      async function initializeProvider() {
-        provider = new ethers.providers.Web3Provider(window.ethereum, "any");
-      }
-
-      initializeProvider();
-
-      function updateWalletButton() {
-        if (walletConnected) {
-          document.getElementById("connect-wallet").classList.add("hidden");
-          document.getElementById("switch-wallet").classList.remove("hidden");
-        } else {
-          document.getElementById("connect-wallet").classList.remove("hidden");
-          document.getElementById("switch-wallet").classList.add("hidden");
+      function formatNumber(num) {
+        if (num >= 1e9) {
+          return (num / 1e9).toFixed(1) + "b";
         }
-      }
-
-      async function checkNFT(address) {
-        const contract = new ethers.Contract(
-          contractAddress,
-          contractABI,
-          provider
-        );
-
-        try {
-          const balance = await contract.balanceOf(address);
-          const nftStatus = `Balance of NFTs for address ${address}: ${balance.toString()}`;
-
-          if (balance.gt(0)) {
-            tokenId = (
-              await contract.tokenOfOwnerByIndex(address, 0)
-            ).toString();
-            console.log("token id: ", tokenId);
-            return true;
-          } else {
-            return false;
-          }
-        } catch (error) {
-          console.error("Error checking NFT presence:", error);
-          return false;
+        if (num >= 1e6) {
+          return (num / 1e6).toFixed(1) + "m";
         }
+        if (num >= 1e3) {
+          return (num / 1e3).toFixed(1) + "k";
+        }
+        return num.toString();
       }
+    </script>
+
+    <script>
+      var tokenId,
+        noOfParticipants = 0;
 
       function getTokenId() {
         return tokenId;
-      }
-
-      async function isWalletConnected() {
-        try {
-          const accounts = await provider.listAccounts();
-          if (accounts.length > 0) {
-            const address = accounts[0];
-            walletConnected = true;
-            return address;
-          } else {
-            walletConnected = false;
-            updateWalletButton();
-            return null;
-          }
-        } catch (error) {
-          console.error("Error checking wallet connection:", error);
-          return null;
-        }
-      }
-
-      async function connectWallet() {
-        try {
-          await provider.send("eth_requestAccounts", []);
-          const signer = provider.getSigner();
-          const address = await signer.getAddress();
-          return address;
-        } catch (error) {
-          console.error("Error connecting to wallet:", error);
-        }
       }
     </script>
     <script>
@@ -1461,7 +1502,7 @@
             .select("*")
             .eq("game_id", gameId)
             .order("points", { ascending: false });
-          console.log("team data: ", teamData, activeTab);
+
           if (activeTab === "#team-tab") {
             teamData?.sort((a, b) => b.points - a.points);
 
@@ -1492,7 +1533,7 @@
         <div class="board-entry">
           <span>${index + 1}</span>
           <span>${entry.tokenid}</span>
-          <span>${entry.points}</span>
+          <span>${formatNumber(entry.points)}</span>
         </div>
       `
           )
@@ -1530,9 +1571,9 @@
             .single();
 
           if (fetchError) {
-            if (fetchError.message.includes("No rows found")) {
+            if (!currentData) {
               // If no existing points found, set currentPoints to 0
-              currentData = { points: 0, tokenId, gameId };
+              currentData = { points: 0, tokenid: tokenId, game_id: gameId };
             } else {
               throw fetchError;
             }
@@ -1548,11 +1589,10 @@
               ...currentData,
             })
             .eq("tokenid", tokenId)
-            .eq("gameId", gameId)
+            .eq("game_id", gameId)
             .single();
 
           if (error) throw error;
-          console.log("Points updated successfully:", data);
         } catch (error) {
           console.error("Error updating points:", error);
         }
@@ -1566,7 +1606,6 @@
             .eq("tokenid", tokenId)
             .eq("game_id", gameId)
             .single();
-          console.log("existing data: ", response);
 
           if (!response.data) {
             const { data, error } = await supabase
@@ -1638,7 +1677,6 @@
 
       const getScoreForTokenId = async (tokenId) => {
         try {
-          console.log("tokenId: ", tokenId);
           const { data, error } = await supabase
             .from("points")
             .select("points")
@@ -1684,7 +1722,8 @@
             teamData = addUniqueEntry(teamData, { tokenid: id, points: score });
 
             if (id === tokenId) {
-              document.getElementById("top-score").innerHTML = score;
+              document.getElementById("top-score").innerHTML =
+                formatNumber(score);
             }
           }
           const avgScore = totalScore / teamTokenIds.length;
@@ -1707,9 +1746,10 @@
           );
         }
       };
+
       document.addEventListener("DOMContentLoaded", function () {
         const tabs = document.querySelectorAll(".nav-link");
-        console.log("tabs: ", tabs);
+
         if (tabs.length === 0) {
           console.error("No tabs or tab contents found.");
           return;
@@ -1717,17 +1757,13 @@
 
         tabs.forEach((tab) => {
           tab.addEventListener("click", function (event) {
-            console.log("event: ", event);
             event.preventDefault();
 
             // Remove 'active' class from all tabs and 'show active' from all tab contents
             tabs.forEach((item) => item.classList.remove("active"));
-            console.log("tabs: ", tabs);
 
             // Add 'active' class to the clicked tab
             tab.classList.add("active");
-
-            console.log("tab: ", tab);
 
             // Get the target tab content and add 'show active' class
             const targetId = tab.getAttribute("href");
@@ -1793,20 +1829,9 @@
 
       async function overShowOver() {
         window.location.href = window.location.href + "?s=" + +new Date();
-
-        const address = await isWalletConnected();
-        console.log("is wallet connected: ", address);
-        if (address) {
-          isNFTPresent = await checkNFT(address);
-          console.log("is: ", isNFTPresent);
-          if (isNFTPresent) {
-            tokenId = await getTokenId(address);
-          }
-        }
-
-        console.log("window reloaded");
       }
 
+      let prevScore = 0;
       // game customization options
       const option = {
         width: gameWidth,
@@ -1815,7 +1840,8 @@
         soundOn: true,
         setGameScore: function (s) {
           score = s;
-          updatePoints(s);
+          updatePoints(s - prevScore);
+          prevScore = s;
           fetchLeaderboardData();
         },
         setGameSuccess: function (s) {
@@ -1882,15 +1908,11 @@
     </script>
     <script>
       const startGame = () => {
-        console.log("game start: ", gameStart);
         if (gameStart) return;
-        console.log("wallet connected: ", walletConnected);
         if (!walletConnected) {
           alert("wallet not connected");
           return;
         }
-
-        console.log("is nft present: ", isNFTPresent);
 
         if (!isNFTPresent) {
           alert("NFT is not present to play the game.");
@@ -1904,88 +1926,267 @@
         indexHide();
         setTimeout(game.start, 400);
       };
+    </script>
+    <script>
+      async function reconnectToProvider(type, name) {
+        if (type === "walletconnect") {
+          return await web3Modal.connectTo("walletconnect");
+        }
 
-      // Main function to connect wallet and check NFT
-      async function main() {
-        const address = await connectWallet();
-
-        if (address) {
-          isNFTPresent = await checkNFT(address);
-          if (isNFTPresent) {
-            // get token id
-            tokenId = await getTokenId(address);
-            // insert initial data if not present
-            insertData(tokenId, gameId);
-            // wallet is connect
-            walletConnected = true;
-            updateWalletButton();
-            if (tokenId) {
-              findCurrentTeamAndAvgScore(tokenId);
+        if (type === "injected") {
+          const provider = window.ethereum.providers.find((provider) => {
+            if (provider[name]) {
+              return provider;
             }
-            document.querySelector(".wallet-address").innerHTML = address;
-          } else {
-            alert("NFT is not present in your current wallet.");
+          });
+          window.ethereum.setSelectedProvider(provider);
+          await provider.request({ method: "eth_requestAccounts" });
+          return provider;
+        }
+      }
+
+      async function init() {
+        const providerOptions = {
+          walletconnect: {
+            package: window.WalletConnectProvider.default,
+            options: {
+              infuraId: "45ad1c9edf074a5db79d09b6d721a7bf",
+            },
+          },
+        };
+
+        web3Modal = new window.Web3Modal.default({
+          cacheProvider: true,
+          providerOptions,
+        });
+
+        document
+          .getElementById("walletButton")
+          .addEventListener("click", onButtonClick);
+
+        checkInjectedWallets();
+        const savedAccount = localStorage.getItem("selectedAccount");
+        const savedProviderType = localStorage.getItem("providerType");
+        const savedName = localStorage.getItem("injectedName");
+
+        if (savedAccount && savedProviderType && savedName) {
+          provider = await reconnectToProvider(savedProviderType, savedName);
+          ethersProvider = new window.ethers.providers.Web3Provider(provider);
+          signer = ethersProvider.getSigner();
+
+          selectedAccount = savedAccount;
+
+          if (selectedAccount) {
+            updateButton();
+            isNFTPresent = await checkNFT(selectedAccount);
+            walletConnected = true;
+          }
+
+          if (isNFTPresent) {
+            await findCurrentTeamAndAvgScore(tokenId);
           }
         }
       }
 
-      // Function to switch wallet
-      async function switchWallet() {
-        try {
-          // Disconnect current provider
-          provider = new ethers.providers.Web3Provider(window.ethereum, "any");
-          // Request MetaMask to connect to another wallet
-          await provider.send("wallet_requestPermissions", [
-            { eth_accounts: {} },
-          ]);
-          // Now run the main function to connect and check the new wallet
-          await main();
-        } catch (error) {
-          console.error("Error switching wallet:", error);
+      function checkInjectedWallets() {
+        const injectedWalletsDiv = document.getElementById("injectedWallets");
+
+        function createWalletOption(key, logoUrl, provider, name) {
+          const walletOption = document.createElement("div");
+          walletOption.className = "walletOption";
+          walletOption.innerHTML = `<div style=" display: flex;
+        align-items: center;"><img style="width:24px; height: 24px; margin-right: 6px;" src="${logoUrl}" alt="${name}"/> ${name}</div>`;
+          walletOption.onclick = () => {
+            selectInjectedWallet(key, provider);
+          };
+
+          injectedWalletsDiv.appendChild(walletOption);
+        }
+
+        const walletLogos = {
+          MetaMask: "./assets/wallets/metamask.png",
+          "Coinbase Wallet":
+            "https://avatars.githubusercontent.com/u/18060234?s=200&v=4",
+          "Trust Wallet":
+            "https://trustwallet.com/assets/images/media/assets/TWT.png",
+          Frame: "https://frame.sh/images/frame_logo.png",
+          "Brave Wallet":
+            "https://brave.com/static-assets/images/brave-logo.svg",
+        };
+        if (window.ethereum) {
+          const walletNames = {
+            isMetaMask: "MetaMask",
+            isCoinbaseWallet: "Coinbase Wallet",
+            isTrust: "Trust Wallet",
+            isFrame: "Frame",
+            isBraveWallet: "Brave Wallet",
+          };
+
+          if (window.ethereum.providers) {
+            window.ethereum.providers.forEach((provider) => {
+              for (const [key, name] of Object.entries(walletNames)) {
+                if (provider[key]) {
+                  createWalletOption(key, walletLogos[name], provider, name);
+                }
+              }
+            });
+          } else {
+            for (const [key, name] of Object.entries(walletNames)) {
+              if (window.ethereum[key]) {
+                createWalletOption(
+                  key,
+                  walletLogos[name],
+                  window.ethereum,
+                  name
+                );
+              }
+            }
+          }
+        } else {
+          console.log("No injected wallets found");
         }
       }
 
-      const switchWalletElement = document.getElementById("switch-wallet");
-
-      document.addEventListener("DOMContentLoaded", function () {
-        document
-          .getElementById("connect-wallet")
-          .addEventListener("click", main);
-      });
-
-      if (switchWalletElement) {
-        document.addEventListener("DOMContentLoaded", function () {
-          document
-            .getElementById("switch-wallet")
-            .addEventListener("click", switchWallet);
-        });
+      function onButtonClick() {
+        if (provider) {
+          toggleWalletSelectionModal(true);
+        } else {
+          toggleWalletSelectionModal(true);
+        }
       }
+
+      function toggleWalletSelectionModal(show) {
+        const modal = document.getElementById("walletSelectionModal");
+        modal.style.display = show ? "flex" : "none";
+      }
+
+      function closeWalletSelectionModal() {
+        toggleWalletSelectionModal(false);
+      }
+
+      async function selectInjectedWallet(key, selectedProvider) {
+        try {
+          provider = selectedProvider;
+          if (window.ethereum.providers) {
+            window.ethereum.setSelectedProvider(selectedProvider);
+          }
+          if (selectedProvider.isMetaMask) {
+            await selectedProvider.send("wallet_requestPermissions", [
+              { eth_accounts: {} },
+            ]);
+          } else {
+            await selectedProvider.request({ method: "eth_requestAccounts" });
+          }
+          await connectWallet(key, selectedProvider, "injected");
+        } catch (e) {
+          console.log("Could not connect to the selected wallet", e);
+        }
+      }
+
+      async function connectWithWalletConnect() {
+        try {
+          provider = await web3Modal.connectTo("walletconnect");
+          await connectWallet(provider);
+        } catch (e) {
+          console.log("Could not connect to WalletConnect", e);
+        }
+      }
+
+      async function connectWallet(key, selectedProvider, providerType) {
+        try {
+          ethersProvider = new window.ethers.providers.Web3Provider(
+            selectedProvider || provider
+          );
+          signer = ethersProvider.getSigner();
+
+          const accounts = await ethersProvider.send("eth_requestAccounts", []);
+          selectedAccount = accounts[0];
+
+          updateButton();
+          localStorage.setItem("selectedAccount", selectedAccount);
+          localStorage.setItem("providerType", providerType);
+          localStorage.setItem("injectedName", key);
+
+          walletConnected = true;
+
+          selectedProvider.on("accountsChanged", (accounts) => {
+            selectedAccount = accounts[0];
+            updateButton();
+          });
+
+          selectedProvider.on("chainChanged", (chainId) => {
+            console.log("Chain changed:", chainId);
+          });
+
+          selectedProvider.on("disconnect", (error) => {
+            console.log("Disconnected:", error);
+            resetButton();
+          });
+
+          checkNFT(selectedAccount);
+        } catch (e) {
+          console.log("Could not get a wallet connection", e);
+        }
+      }
+
+      function updateButton() {
+        if (selectedAccount) {
+          document.getElementById(
+            "walletButton"
+          ).innerText = `${selectedAccount.substring(
+            0,
+            6
+          )}...${selectedAccount.substring(selectedAccount.length - 4)}`;
+          toggleWalletSelectionModal(false);
+        } else {
+          resetButton();
+        }
+      }
+
+      function resetButton() {
+        document.getElementById("walletButton").innerText = "Connect Wallet";
+        provider = null;
+        selectedAccount = null;
+        localStorage.removeItem("selectedAccount");
+        localStorage.removeItem("providerType");
+        localStorage.removeItem("injectedName");
+      }
+
+      async function checkNFT(address) {
+        const contract = new ethers.Contract(
+          contractAddress,
+          contractABI,
+          signer
+        );
+
+        try {
+          const balance = await contract.balanceOf(address);
+          const nftStatus = `Balance of NFTs for address ${address}: ${balance.toString()}`;
+
+          if (balance.gt(0)) {
+            tokenId = (
+              await contract.tokenOfOwnerByIndex(address, 0)
+            ).toString();
+
+            return true;
+          } else {
+            return false;
+          }
+        } catch (error) {
+          console.error("Error checking NFT presence:", error);
+          return false;
+        }
+      }
+
+      window.addEventListener("load", async () => {
+        await init();
+      });
     </script>
     <script>
       document.addEventListener("DOMContentLoaded", async function () {
         const playButtonElement = document.getElementById("start-game");
 
         if (playButtonElement) {
-          const address = await isWalletConnected();
-          if (address) {
-            isNFTPresent = await checkNFT(address);
-
-            if (isNFTPresent) {
-              walletConnected = true;
-              tokenId = getTokenId();
-              insertData(tokenId, gameId);
-              updateWalletButton();
-              findCurrentTeamAndAvgScore(tokenId);
-              document.querySelector(".wallet-address").innerHTML = address;
-            } else {
-              updateWalletButton();
-              document.getElementById("wallet-address").innerHTML = address;
-              alert(
-                "NFT is not present in current wallet. Please switch to the wallet with nft"
-              );
-            }
-          }
-
           document
             .getElementById("start-game")
             .addEventListener("click", startGame);
