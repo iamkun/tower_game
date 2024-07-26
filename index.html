@@ -2086,7 +2086,7 @@
       async function connectWithWalletConnect() {
         try {
           provider = await web3Modal.connectTo("walletconnect");
-          await connectWallet(provider);
+          await connectWallet("WalletConnect", provider, "walletConnect");
         } catch (e) {
           console.log("Could not connect to WalletConnect", e);
         }
@@ -2123,7 +2123,11 @@
             resetButton();
           });
 
-          checkNFT(selectedAccount);
+          isNFTPresent = await checkNFT(selectedAccount);
+
+          if (isNFTPresent) {
+            fetchLeaderboardData();
+          }
         } catch (e) {
           console.log("Could not get a wallet connection", e);
         }
