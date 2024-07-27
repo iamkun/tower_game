@@ -812,9 +812,12 @@
                   </li>
                 </ul>
               </div>
-              <div class="board-table-header font-Geist-Regular font-12">
+              <div
+                id="leaderboard-body-header"
+                class="board-table-header font-Geist-Regular font-12"
+              >
                 <span>#</span>
-                <span>Token Id</span>
+                <span>Team</span>
                 <span>Score</span>
               </div>
               <div class="board-header-bottom"></div>
@@ -1478,6 +1481,17 @@
     </script>
     <script>
       // creating supabase client
+      let teamParticipants = {
+        "154e6857-7ef1-4c2f-88cd-35c45237efad": "alpha",
+        "25e1fbb6-da8f-47ce-af9c-30f109b937e8": "beta",
+        "3d3b3381-344b-4c71-a517-e04e16273fe6": "gamma",
+        "063a315b-6613-48e1-aafe-1ddf0dfefe2c": "delta",
+        "9b2a7d8f-84a7-4acb-b636-759774794b20": "sigma",
+        "c6676970-99ee-4743-b407-c399ab8369ba": "omega",
+        "057142ce-cb64-450d-8d80-4d9da1a64ac8": "theta",
+        "f9256105-4212-4b35-af40-61f699479f17": "kappa",
+      };
+
       var supabase;
 
       function createSupabaseClient() {
@@ -1492,6 +1506,10 @@
     <script>
       var activeTab = "#global-tab",
         teamData = [];
+
+      function capitalizeFirstLetter(string) {
+        return string.charAt(0).toUpperCase() + string.slice(1);
+      }
       //supabase related queries
       async function fetchLeaderboardData() {
         try {
@@ -1500,6 +1518,53 @@
             .select("*")
             .eq("game_id", gameId)
             .order("points", { ascending: false });
+
+          let teamTokenIds = await supabase
+            .from("teamparticipants")
+            .select("*");
+
+          let groupedByTeamId = teamTokenIds?.data.reduce(
+            (acc, participant) => {
+              const { team_id } = participant;
+              if (!acc[team_id]) {
+                acc[team_id] = [];
+              }
+              acc[team_id].push(participant);
+              return acc;
+            },
+            {}
+          );
+
+          let teamAverageScores = Object.entries(groupedByTeamId).map(
+            ([teamId, participants]) => {
+              let totalPoints = participants.reduce((acc, participant) => {
+                const points = data.find(
+                  (d) => d.tokenid === participant.tokenid
+                )?.points;
+
+                const number = parseInt(points ?? "0");
+
+                acc = acc + number;
+                console.log("acc: ", acc);
+                return acc;
+              }, 0);
+              let averageScore = totalPoints / participants.length;
+              return { teamId, averageScore };
+            }
+          );
+
+          if (activeTab === "#global-tab") {
+            data = teamAverageScores
+              ?.sort((a, b) => b.averageScore - a.averageScore)
+              ?.map((v) => {
+                return {
+                  tokenid: `Team ${capitalizeFirstLetter(
+                    teamParticipants[v.teamId]
+                  )}`,
+                  points: v.averageScore,
+                };
+              });
+          }
 
           if (activeTab === "#team-tab") {
             teamData?.sort((a, b) => b.points - a.points);
@@ -1524,22 +1589,33 @@
       }
 
       function updateLeaderboard(data) {
+        if (activeTab === "#team-tab") {
+          const leaderboardBodyHeader = document.querySelector(
+            "#leaderboard-body-header"
+          );
+          leaderboardBodyHeader.innerHTML = `
+           <span>#</span>
+           <span>Token Id</span>
+           <span>Score</span>
+          `;
+        }
+
         const leaderboardBody = document.querySelector("#leaderboard-body");
         const leaderboardEntries = data
           .map(
             (entry, index) => `
-        <div class="board-entry">
-          <span>${index + 1}</span>
-          <span>${entry.tokenid}</span>
-          <span>${formatNumber(entry.points)}</span>
-        </div>
-      `
+              <div class="board-entry">
+                <span>${index + 1}</span>
+                <span class="text-start">${entry.tokenid}</span>
+                <span>${formatNumber(entry.points)}</span>
+              </div>
+            `
           )
           .join("");
         leaderboardBody.innerHTML = `
-        
-        ${leaderboardEntries}
-      `;
+
+              ${leaderboardEntries}
+            `;
       }
 
       function subscribeToLeaderboardUpdates() {
