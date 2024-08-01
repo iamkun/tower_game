@@ -17,15 +17,15 @@ export const endAnimate = (engine) => {
   const gameScore = engine.getVariable(constant.gameScore, 0);
   const threeFiguresOffset = Number(successCount) > 99 ? engine.width * 0.1 : 0;
 
-  drawYellowString(engine, {
-    string: "floor",
-    size: engine.width * 0.06,
-    x: engine.width * 0.24 + threeFiguresOffset,
-    y: engine.width * 0.12,
-    textAlign: "left",
-    fontName: "Arial",
-    fontWeight: "bold",
-  });
+  // drawYellowString(engine, {
+  //   string: "floor",
+  //   size: engine.width * 0.06,
+  //   x: engine.width * 0.24 + threeFiguresOffset,
+  //   y: engine.width * 0.12,
+  //   textAlign: "left",
+  //   fontName: "Arial",
+  //   fontWeight: "bold",
+  // });
   drawYellowString(engine, {
     string: successCount,
     size: engine.width * 0.17,
