@@ -713,6 +713,28 @@
         height: 50%;
       }
 
+      .not-found-modal-container {
+        display: none;
+        background-color: rgba(1, 137, 8, 0.78);
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100vw;
+        height: 100vh;
+        z-index: 10;
+        justify-content: center;
+        align-items: center;
+      }
+
+      .not-found-modal {
+        display: flex;
+        flex-direction: column;
+        background-color: #018a08;
+        width: 30%;
+        height: 50%;
+        border-radius: 20px;
+      }
+
       .closeButton {
         padding: 10px;
         border-radius: 20px;
@@ -737,9 +759,49 @@
       .walletOption:hover {
         background-color: #0056b3;
       }
+
+      .font-48 {
+        font-size: 48px;
+      }
+
+      .modal-header {
+        color: white;
+        text-align: start;
+        padding: 36px 24px 24px 24px;
+      }
+
+      .modal-body {
+        background: rgba(223, 248, 71, 0.11);
+        color:rgba(223, 248, 71, 1);
+        padding: 12px;
+        font-size: 16px;
+        border-radius: 8px;
+        margin: 0px 24px ;
+      }
+
+      .modal-button{
+        margin: 24px;
+        background-color: white;
+        border-radius: 100px;
+        padding: 18.5px;
+        border: none;
+        color:  rgba(1, 66, 245, 1);
+        font-size: 16px;
+      }
     </style>
   </head>
   <body>
+    <div id="nftNotFoundContainer" class="not-found-modal-container">
+      <div id="notFoundModal" class="not-found-modal">
+        <p id="nftModalHeader" class="font-Kangmas font-48 modal-header">
+          You don’t have an NFT to play the game!
+        </p>
+        <div class="modal-body">
+          <p>Try Connecting a different wallet</p>
+        </div>
+        <button id="nftModalButton" class="modal-button">Connect different wallet</button>
+      </div>
+    </div>
     <canvas id="canvas" class="hide"></canvas>
     <div class="overview">
       <div class="side-panel">
@@ -1984,12 +2046,32 @@
       const startGame = () => {
         if (gameStart) return;
         if (!walletConnected) {
-          alert("wallet not connected");
+          const nftModalHeader = document.getElementById("nftModalHeader");
+          nftModalHeader.innerHTML = "Wallet not connected to play";  
+          
+          const nftModalButton = document.getElementById("nftModalButton")
+          nftModalButton.innerHTML = "Connect Wallet";
+
+          const notFoundModal = document.getElementById("notFoundModal");
+          notFoundModal.style.height = "40%"
+
+          const nftModal = document.getElementById('nftNotFoundContainer');
+
+          if(nftModal){
+            
+            nftModal.style.display = "flex"
+          }
+          
           return;
         }
-
+        console.log('is nft present: ', isNFTPresent)
         if (!isNFTPresent) {
-          alert("NFT is not present to play the game.");
+          const nftModal = document.getElementById('nftNotFoundContainer');
+          
+          if(nftModal){
+            nftModal.style.display = "flex"
+          }
+
           return;
         }
 
@@ -2122,6 +2204,11 @@
       }
 
       function onButtonClick() {
+        const nftModal = document.getElementById('nftNotFoundContainer');
+        if(nftModal){
+          nftModal.style.display = "none";
+        }
+
         if (provider) {
           toggleWalletSelectionModal(true);
         } else {
@@ -2261,7 +2348,16 @@
       });
     </script>
     <script>
+      
+
       document.addEventListener("DOMContentLoaded", async function () {
+        const nftModalButton = document.getElementById('nftModalButton');
+
+        if(nftModalButton){
+          document.getElementById("nftModalButton").addEventListener("click", onButtonClick)
+        }
+
+
         const playButtonElement = document.getElementById("start-game");
 
         if (playButtonElement) {
