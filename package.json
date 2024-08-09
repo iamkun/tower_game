@@ -6,7 +6,7 @@
   "scripts": {
     "start": "NODE_OPTIONS=--openssl-legacy-provider npm run build && node index.js",
     "build": "NODE_OPTIONS=--openssl-legacy-provider webpack --config webpack.config.js --mode production",
-    "dev": "NODE_OPTIONS=--openssl-legacy-provider webpack serve --config webpack.config.js --mode development"
+    "dev": "cross-env NODE_OPTIONS=--openssl-legacy-provider webpack serve --config webpack.config.js --mode development"
   },
   "repository": {
     "type": "git",
@@ -24,6 +24,7 @@
     "@webpack-cli/serve": "^1.0.1",
     "babel-loader": "^8.0.0-beta",
     "copy-webpack-plugin": "^6.4.1",
+    "cross-env": "^7.0.3",
     "express": "^4.16.3",
     "opn": "^5.3.0",
     "webpack": "^4.47.0",
@@ -33,6 +34,7 @@
   "dependencies": {
     "@web3modal/ethers": "^5.0.6",
     "cooljs": "^1.0.2",
+    "dotenv": "^16.4.5",
     "ethers": "^6.13.1",
     "tree": "^0.1.3"
   }

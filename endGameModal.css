@@ -1,0 +1,264 @@
+.end-container {
+  border-radius: 20px;
+  background-color: rgba(1, 138, 8, 1);
+  display: flex;
+  max-width: 420px;
+  width: 100%;
+  flex-direction: column;
+  justify-content: start;
+  padding: 36px 24px;
+}
+
+.play-again-modal-container {
+  display: none;
+  background-color: rgba(1, 137, 8, 0.78);
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 10;
+  justify-content: center;
+  align-items: center;
+}
+
+@media screen and (max-width: 900px) {
+  .play-again-modal-container {
+    display: none;
+  }
+}
+
+.score-info {
+  color: rgba(255, 255, 255, 1);
+  font: 400 48px/46px "Kangmas";
+}
+.content-section {
+  display: flex;
+  margin-top: 36px;
+  width: 100%;
+  flex-direction: column;
+  justify-content: start;
+}
+.leaderboard-header,
+.global-leaderboard-header {
+  border-radius: 12px;
+  background-color: rgba(247, 247, 247, 1);
+  display: flex;
+  width: 100%;
+  flex-direction: column;
+  overflow: hidden;
+  justify-content: start;
+  padding: 12px 16px;
+}
+.leaderboard-header-content,
+.global-leaderboard-header-content {
+  display: flex;
+  width: 100%;
+  flex-direction: column;
+  color: rgba(152, 152, 157, 1);
+  letter-spacing: -0.05px;
+  justify-content: start;
+  font: 500 13px/1 "Geist-Medium", sans-serif;
+}
+.leaderboard-title {
+  display: flex;
+  width: 100%;
+  align-items: center;
+  gap: 40px 100px;
+  justify-content: space-between;
+}
+.separator {
+  align-self: center;
+  min-height: 1px;
+  margin-top: 12px;
+  width: 100%;
+  border: 1px dashed rgba(0, 0, 0, 0.08);
+}
+.team-summary {
+  display: flex;
+  margin-top: 16px;
+  width: 100%;
+  align-items: center;
+  gap: 40px 100px;
+  color: rgba(1, 138, 8, 1);
+  justify-content: space-between;
+  font: 400 18px/1.2 Kangmas DEMO, -apple-system, Roboto, Helvetica, sans-serif;
+}
+.team-details-table {
+  align-self: stretch;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  justify-content: start;
+  margin: auto 0;
+  font-family: "Kangmas" !important;
+}
+.team-logo {
+  aspect-ratio: 2.5;
+  object-fit: contain;
+  object-position: center;
+  width: 60px;
+  align-self: stretch;
+  gap: -12px;
+  margin: auto 0;
+}
+.team-name {
+  align-self: stretch;
+  margin: auto 0;
+}
+.global-leaderboard-container {
+  border-radius: 12px;
+  background-color: rgba(247, 247, 247, 1);
+  display: flex;
+  margin-top: 16px;
+  height: 217px;
+  width: 100%;
+  flex-direction: column;
+  overflow: hidden;
+  justify-content: start;
+  padding: 12px 12px 0;
+}
+.global-leaderboard-title {
+  display: flex;
+  width: 100%;
+  flex-direction: column;
+  font-size: 13px;
+  color: rgba(1, 138, 8, 1);
+  font-weight: 500;
+  letter-spacing: -0.05px;
+  line-height: 1;
+  justify-content: center;
+}
+.global-leaderboard-separator {
+  min-height: 1px;
+  margin-top: 12px;
+  width: 100%;
+  border: 1px dashed rgba(0, 0, 0, 0.08);
+}
+.global-leaderboard-rows {
+  display: flex;
+  margin-top: 16px;
+  width: 100%;
+  flex-direction: column;
+  justify-content: start;
+}
+.global-leaderboard-header-row {
+  display: flex;
+  width: 100%;
+  align-items: start;
+  gap: 40px 80px;
+  font-size: 13px;
+  color: rgba(152, 152, 157, 1);
+  font-weight: 400;
+  letter-spacing: -0.05px;
+  line-height: 1;
+  justify-content: start;
+}
+.header-row {
+  display: flex;
+  align-items: start;
+  gap: 16px;
+  justify-content: start;
+  flex: 1;
+  flex-basis: 0%;
+}
+.data-rank {
+  width: 21px;
+  color: #848486;
+  font-size: 12px;
+  font-weight: 500;
+  font-family: "Geist-Medium";
+}
+
+.data-score {
+  color: #018a08;
+  font-family: "Kangmas";
+  font-size: 18px;
+  font-weight: 400;
+  font-style: normal;
+}
+.data-team-name {
+  flex: 1;
+  flex-basis: 0%;
+  text-align: start;
+  color: #98989d;
+  font-size: 13px;
+  font-weight: 400;
+}
+.global-data-team-average {
+  text-align: right;
+  width: 65px;
+}
+.team-data-cell .data-rank {
+  color: #848486;
+  font-family: "Geist-Medium";
+  font-size: 12px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 120%;
+  width: 21px;
+}
+.global-leaderboard-body {
+  display: flex;
+  margin-top: 12px;
+  width: 100%;
+  flex-direction: column;
+  white-space: nowrap;
+  line-height: 1.2;
+  justify-content: start;
+}
+.global-leaderboard-row {
+  display: flex;
+  width: 100%;
+  align-items: center;
+  gap: 40px 45px;
+  justify-content: start;
+  padding: 6px 0;
+}
+.team-data-cell {
+  align-self: stretch;
+  display: flex;
+  min-width: 240px;
+  align-items: center;
+  gap: 16px;
+  justify-content: start;
+  flex: 1;
+  flex-basis: 0%;
+  margin: auto 0;
+}
+.global-team-name {
+  align-self: stretch;
+  flex: 1;
+  gap: 8px;
+  font-size: 14px;
+  color: rgba(0, 0, 0, 0.88);
+  font-weight: 400;
+  letter-spacing: -0.06px;
+  margin: auto 0;
+  display: flex;
+  align-items: center;
+  justify-content: start;
+}
+
+.global-team-average {
+  color: #018a08;
+  font-family: "Geist-Medium";
+  font-size: 14px;
+  font-weight: 600;
+  text-align: right;
+  align-self: stretch;
+  width: 50px;
+  margin: auto 0;
+}
+.play-again-button {
+  align-self: stretch;
+  border-radius: 100px;
+  background-color: rgba(255, 255, 255, 1);
+  margin-top: 16px;
+  border: 0px;
+  min-height: 56px;
+  width: 100%;
+  gap: 10px;
+  color: rgba(1, 138, 8, 1);
+  font: 500 16px/1.2 "Geist-Medium";
+}

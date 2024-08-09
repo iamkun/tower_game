@@ -8,801 +8,135 @@
     />
     <title>Tower Building</title>
     <link rel="icon" type="image/x-icon" href="./assets/favicon.png" />
-    <style>
-      * {
-        margin: 0;
-        padding: 0;
-        box-sizing: border-box;
-      }
-      img {
-        width: 100%;
-      }
-      html {
-        background: #fff;
-        height: 100%;
-      }
-      body {
-        font-family: "Helvetica Neue", Arial, Helvetica, sans-serif;
-        margin: 0 auto;
-        text-align: center;
-        background: #f95240 url(assets/main-bg.png);
-        background-repeat: no-repeat;
-        background-size: cover;
-      }
-      @media screen and (min-height: 560px) {
-        html {
-          font-size: 100px;
-        }
-      }
-      @media screen and (min-height: 640px) {
-        html {
-          font-size: 112.5px;
-        }
-      }
-      @media screen and (min-height: 720px) {
-        html {
-          font-size: 125px;
-        }
-      }
-      @media screen and (min-height: 800px) {
-        html {
-          font-size: 137.5px;
-        }
-      }
-      @media screen and (min-height: 880px) {
-        html {
-          font-size: 150px;
-        }
-      }
-      @media screen and (min-height: 960px) {
-        html {
-          font-size: 162.5px;
-        }
-      }
-      @media screen and (min-height: 1040px) {
-        html {
-          font-size: 180px;
-        }
-      }
-      @media screen and (min-height: 1200px) {
-        html {
-          font-size: 200px;
-        }
-      }
-      html {
-        font-size: 17.6vh;
-      }
-      #canvas {
-        position: fixed;
-        left: 200px;
-        top: 0;
-        right: 0;
-        bottom: 0;
-        margin: auto;
-      }
-      a {
-        text-decoration: none;
-      }
-      li,
-      ol,
-      ul {
-        list-style-type: none;
-        padding: 0;
-        margin: 0;
-      }
-      .hide {
-        display: none;
-      }
-      .clear {
-        clear: both;
-      }
-      .loading {
-        background-color: transparent;
-        height: 100%;
-        width: 100%;
-        display: flex;
-        align-items: center;
-      }
-      .loading .main {
-        width: 60%;
-        margin: 0 auto;
-        color: #fff;
-      }
-      .loading .main img {
-        width: 60%;
-        margin: 1rem auto 0;
-      }
-      .loading .main .title {
-        font-size: 0.3rem;
-      }
-      .loading .main .text {
-        font-size: 0.15rem;
-      }
-      .loading .main .bar {
-        height: 0.12rem;
-        width: 100%;
-        border: 3px solid #fff;
-        border-radius: 0.6rem;
-        margin: 0.1rem 0;
-      }
-      .loading .main .bar .sub {
-        height: 0.1rem;
-        width: 98%;
-        margin: 0.008rem auto 0;
-      }
-      .loading .main .bar .percent {
-        height: 100%;
-        width: 0;
-        background-color: #fff;
-        border-radius: 0.6rem;
-      }
-      .loading .logo {
-        position: absolute;
-        bottom: 0.3rem;
-        left: 0;
-        right: 0;
-      }
-      .loading .logo img {
-        width: 1rem;
-      }
-      .content {
-        height: 100vh;
-        margin: 0 auto;
-        position: relative;
-        left: 100px
-      }
-      .landing .title {
-        width: 60%;
-      }
-      .landing .hook {
-        width: 30% !important;
-      }
-      .landing .logo {
-        width: 30%;
-        position: absolute;
-        right: 0.2rem;
-        top: 0.2rem;
-      }
-      .landing .action-2 {
-        position: absolute;
-        bottom: 0.2rem;
-        width: 100%;
-      }
-      .landing .start {
-        width: 65%;
-      }
-      .slideTop {
-        -webkit-animation: st 1s ease-in-out;
-        animation: st 1s ease-in-out;
-      }
-      @-webkit-keyframes st {
-        0% {
-          transform: translateZ(0);
-        }
-        100% {
-          transform: translate3d(0, -100%, 0);
-        }
-      }
-      @keyframes st {
-        0% {
-          transform: translateZ(0);
-        }
-        100% {
-          transform: translate3d(0, -100%, 0);
-        }
-      }
-      .slideBottom {
-        -webkit-animation: sb 1s ease-in-out;
-        animation: sb 1s ease-in-out;
-      }
-      @-webkit-keyframes sb {
-        0% {
-          transform: translateZ(0);
-        }
-        100% {
-          transform: translate3d(0, 200%, 0);
-        }
-      }
-      @keyframes sb {
-        0% {
-          transform: translateZ(0);
-        }
-        100% {
-          transform: translate3d(0, 200%, 0);
-        }
-      }
-      .swing {
-        -webkit-animation: sw 2s ease-in-out alternate infinite;
-        animation: sw 2s ease-in-out alternate infinite;
-      }
-      @-webkit-keyframes sw {
-        0% {
-          transform: rotate(5deg);
-          transform-origin: top center;
-        }
-        100% {
-          transform: rotate(-5deg);
-          transform-origin: top center;
-        }
-      }
-      @keyframes sw {
-        0% {
-          transform: rotate(5deg);
-          transform-origin: top center;
-        }
-        100% {
-          transform: rotate(-5deg);
-          transform-origin: top center;
-        }
-      }
-      .modal .mask {
-        background-color: #000;
-        opacity: 0.6;
-        position: fixed;
-        height: 100%;
-        width: 100%;
-        top: 0;
-        left: 0;
-      }
-      .modal .modal-content {
-        position: fixed;
-        height: 100%;
-        width: 90%;
-        margin-top: 0.3rem;
-        top: 0;
-      }
-      .modal .main {
-        width: 85%;
-        margin: 0 auto;
-      }
-      .modal .container {
-        position: relative;
-      }
-      .modal .bg {
-        width: 100%;
-        position: absolute;
-        top: 0;
-        left: 0;
-      }
-      .modal .modal-main {
-        width: 100%;
-        position: absolute;
-        top: 0;
-        left: 0;
-        margin-top: -0.4rem;
-      }
-      .modal .over-img {
-        width: 80%;
-        margin: 0.8rem auto 0;
-      }
-      .modal .over-score {
-        margin-top: -0.2rem;
-        font-size: 0.5rem;
-        color: #ff735c;
-        text-shadow: -2px -2px 0 #fff, 2px -2px 0 #fff, -2px 2px 0 #fff,
-          2px 2px 0 #fff;
-      }
-      .modal .tip {
-        font-size: 0.16rem;
-        color: #9b724e;
-      }
-      .modal .over-button-b {
-        width: 70%;
-        margin: 0.1rem auto 0;
-      }
-      .overview {
-        display: flex;
-      }
-      .overview .side-panel {
-        position: absolute;
-        height: 100%;
-        max-height: 100vh;
-        width: 28%;
-        display: flex;
-        flex-direction: column;
-        background-color: #018a08;
-      }
-
-      .side-panel-container {
-        padding: 32px 16px 16px;
-      }
-
-      .side-panel-header {
-        font-family: Arial, Helvetica, sans-serif;
-        font-size: 42px;
-        color: white;
-        text-align: start;
-        line-height: 1;
-      }
-
-      .side-panel-details {
-        display: flex;
-        flex-direction: column;
-        padding: 24px 16px 10px;
-        border-top-left-radius: 8px;
-        border-top-right-radius: 40px;
-        border-bottom-right-radius: 40px;
-        border-bottom-left-radius: 40px;
-        background-color: white;
-        overflow: hidden;
-        margin-top: 24px;
-      }
-
-      .hidden {
-        display: none !important;
-      }
-
-      .side-panel-details .text-details {
-        color: #018a08;
-        font-size: 16px;
-        text-align: start;
-      }
-
-      .side-panel-details .text-details p:first-child {
-        margin-bottom: 24px;
-      }
-
-      .break {
-        margin-top: 24px;
-        border-bottom: #018a08 dashed 1px;
-      }
-
-      .side-panel-details .top-level-info {
-        display: flex;
-        flex-direction: row;
-        width: 100%;
-        gap: 16px;
-        padding-top: 24px;
-        padding-bottom: 8px;
-      }
-
-      .side-panel-details .top-level-info div {
-        width: 50%;
-        text-align: start;
-        padding: 16px 12px;
-        background-color: #f7f7f7;
-        border-radius: 12px;
-      }
-
-      .sub-top-level-info {
-        color: #98989d;
-        font-size: 13px;
-        padding-bottom: 2px;
-      }
-
-      .side-panel-details .top-level-info div {
-        padding-top: 10px;
-        text-align: start;
-        font-size: 18px;
-        color: #018a08;
-      }
-
-      .side-panel-details .leaderboard {
-        border-radius: 12px;
-        font-size: 13px;
-        background-color: #f9f9f9;
-        padding: 12px;
-      }
-
-      .side-panel-details .leaderboard .board-header {
-        text-align: start;
-        color: #98989d;
-        margin-bottom: 16px;
-        padding: 3px;
-      }
-
-      #leaderboard-body {
-        height: calc(100vh - 700px) !important;
-        max-height: calc(100vh - 700px) !important;
-        overflow-y: scroll !important;
-      }
-
-      .side-panel-details .leaderboard .board-table-header {
-        display: flex;
-        flex-direction: row;
-        color: #98989d;
-        justify-content: space-between;
-        border-top: #98989d dashed 1px;
-      }
-
-      .side-panel-details .leaderboard .board-table-header span {
-        padding: 10px 0px;
-      }
-
-      .side-panel-details .leaderboard .board-entry {
-        display: flex;
-        flex-direction: row;
-        color: #98989d;
-        justify-content: space-between;
-      }
-
-      .side-panel-details .leaderboard .board-entry span {
-        padding: 10px 0px;
-      }
-
-      .side-panel-details .leaderboard .board-entry span:nth-child(3) {
-        color: #018a08;
-        font-weight: bold;
-      }
-
-      .side-panel-details .leaderboard-team {
-        border-radius: 12px;
-        font-size: 13px;
-        padding: 16px;
-        background: #018a081a;
-        margin: 8px 0px 8px;
-      }
-
-      .side-panel-details .leaderboard-team .leaderboard-team-header {
-        display: flex;
-        flex-direction: row;
-        justify-content: space-between;
-        color: #98989d;
-        margin-bottom: 16px;
-      }
-
-      .side-panel-details .leaderboard-team .leaderboard-team-body {
-        display: flex;
-        flex-direction: row;
-        justify-content: space-between;
-        border-top: #98989d dashed 1px;
-        color: #018a08;
-        font-size: 16px;
-        font-weight: bold;
-        padding-top: 10px;
-      }
-
-      .side-panel-details button {
-        background-color: #018a08;
-        color: white;
-        border: none;
-        border-radius: 100px;
-        cursor: pointer;
-        font-size: 16px;
-        width: 100%;
-        padding: 18.5px 0px 18.5px;
-      }
-
-      .side-panel-body .connect-button {
-        margin-left: 30px;
-        margin-right: 30px;
-        padding: 15px 60px;
-        background-color: #018a08;
-        color: white;
-        border: none;
-        border-radius: 20px;
-        cursor: pointer;
-        font-size: 16px;
-        margin-top: 30px;
-      }
-
-      .nav {
-        background-color: white;
-        display: flex;
-        flex-direction: row;
-        justify-content: space-between;
-        border-radius: 5px;
-        padding: 4px 0px 4px;
-        font-size: 12px;
-        gap: 2px;
-        align-items: center;
-      }
-
-      .nav-item {
-        display: flex;
-        width: 50%;
-        padding: 3px 0px 3px;
-        color: #98989d;
-        justify-content: center;
-      }
-
-      .nav-link {
-        color: #98989d;
-      }
-
-      .active {
-        background: #f9f9f9;
-        padding: 6px 14px;
-        border-radius: 4px;
-        color: #018a08;
-      }
-
-      #walletButton {
-        position: absolute;
-        right: 10px;
-        margin-right: 30px;
-        padding: 15px 10px;
-        background-color: white;
-        color: #018a08;
-        border: none;
-        border-radius: 20px;
-        cursor: pointer;
-        font-size: 14px;
-        margin-top: 30px;
-        width: 150px;
-        height: 50px;
-        font-family: "Kangmas";
-        font-weight: bold;
-      }
-
-      #switch-wallet {
-        display: flex;
-        align-items: center;
-        position: absolute;
-        right: 10px;
-        margin-right: 30px;
-        padding: 15px 10px;
-        background-color: white;
-        color: #018a08;
-        border: none;
-        border-radius: 20px;
-        cursor: pointer;
-        font-size: 14px;
-        margin-top: 30px;
-        width: 150px;
-        height: 50px;
-      }
-
-      #switch-wallet .wallet-address {
-        white-space: nowrap;
-        overflow: hidden;
-        text-overflow: ellipsis;
-        width: 130px;
-        font-family: "Kangmas";
-        font-weight: bold;
-      }
-
-      #switch-wallet img {
-        width: 16px;
-        height: 16px;
-      }
-
-      .team-card {
-        background-color: #e0e0e0;
-        width: 356px;
-        padding: 10px;
-        border-radius: 8px;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        margin-left: 20px;
-        margin-right: 20px;
-      }
-
-      .team-info {
-        display: flex;
-        justify-content: space-between;
-        width: 100%;
-        padding: 5px 0;
-      }
-
-      .team-label,
-      .avg-score-label {
-        color: gray;
-        font-size: 14px;
-      }
-
-      .team-details {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        width: 100%;
-        padding: 10px 0;
-      }
-
-      .team-members {
-        display: flex;
-        align-items: center;
-      }
-
-      .team-members img {
-        border-radius: 50%;
-        margin-right: 5px;
-      }
-
-      .additional-members {
-        background-color: #5cb85c;
-        color: white;
-        border-radius: 50%;
-        padding: 5px 10px;
-        margin-left: 5px;
-      }
-
-      .team-name {
-        font-weight: bold;
-        color: #0c7b0c;
-        font-size: 18px;
-      }
-
-      .avg-score {
-        font-weight: bold;
-        color: #0c7b0c;
-        font-size: 18px;
-        padding-top: 10px;
-      }
-
-      .wxShare {
-        background: #000;
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        z-index: 11;
-        opacity: 0.9;
-      }
-      .wxShare img {
-        width: 50%;
-        float: right;
-        margin: 10px 10px 0 0;
-      }
-      @font-face {
-        font-family: wenxue;
-        src: url(assets/wenxue.eot);
-        src: url(assets/wenxue.eot), url(assets/wenxue.woff),
-          url(assets/wenxue.ttf), url(assets/wenxue.svg);
-      }
-      .font-wenxue {
-        font-family: wenxue;
-      }
-
-      @font-face {
-        font-family: "Kangmas";
-        src: url(assets/KangmasDemoRegular-EajJj.ttf) format("truetype");
-        font-weight: normal;
-        font-style: normal;
-      }
-      .font-Kangmas {
-        font-family: "Kangmas";
-      }
-
-      @font-face {
-        font-family: "Geist-Regular";
-        src: url(assets/Geist-Regular-BF6569491e3eff1.otf) format("truetype");
-        font-weight: normal;
-        font-style: normal;
-      }
-
-      .font-Geist-Regular {
-        font-family: "Geist-Regular";
-      }
-
-      @font-face {
-        font-family: "Geist-Medium";
-        src: url(assets/Geist-Medium-BF6569491e1c281.otf) format("truetype");
-        font-weight: normal;
-        font-style: normal;
-      }
-
-      .font-Geist-Medium {
-        font-family: "Geist-Medium";
-      }
-
-      .font-bold {
-        font-weight: bold;
-      }
-
-      .font-18 {
-        font-size: 18px;
-      }
-      .font-13 {
-        font-size: 13px;
-      }
-
-      .font-12 {
-        font-size: 12px !important;
-      }
-      .font-30 {
-        font-size: 30px;
-      }
-    </style>
-    <style>
-      #walletSelectionModal {
-        display: none;
-        flex-direction: column;
-        justify-content: space-between;
-        position: fixed;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-        padding: 35px 30px 20px;
-        background-color: white;
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-        border-radius: 10px;
-        text-align: start;
-        width: 20%;
-        height: 50%;
-      }
-
-      .not-found-modal-container {
-        display: none;
-        background-color: rgba(1, 137, 8, 0.78);
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100vw;
-        height: 100vh;
-        z-index: 10;
-        justify-content: center;
-        align-items: center;
-      }
-
-      .not-found-modal {
-        display: flex;
-        flex-direction: column;
-        background-color: #018a08;
-        width: 30%;
-        height: 50%;
-        border-radius: 20px;
-      }
-
-      .closeButton {
-        padding: 10px;
-        border-radius: 20px;
-        margin-top: 20px;
-        background-color: transparent;
-        border-color: #018a08;
-      }
-      .wallet-container {
-        width: 100%;
-        height: 100%;
-        overflow-y: scroll;
-      }
-      .walletOption {
-        padding: 10px 20px;
-        font-size: 20px;
-        cursor: pointer;
-        color: #018a08;
-        border: none;
-        border-radius: 5px;
-        margin-top: 20px;
-      }
-      .walletOption:hover {
-        background-color: #0056b3;
-      }
-
-      .font-48 {
-        font-size: 48px;
-      }
-
-      .modal-header {
-        color: white;
-        text-align: start;
-        padding: 36px 24px 24px 24px;
-      }
-
-      .modal-body {
-        background: rgba(223, 248, 71, 0.11);
-        color:rgba(223, 248, 71, 1);
-        padding: 12px;
-        font-size: 16px;
-        border-radius: 8px;
-        margin: 0px 24px ;
-      }
-
-      .modal-button{
-        margin: 24px;
-        background-color: white;
-        border-radius: 100px;
-        padding: 18.5px;
-        border: none;
-        color:  rgba(1, 66, 245, 1);
-        font-size: 16px;
-      }
-    </style>
+    <link rel="stylesheet" href="styles.css" />
+    <link rel="stylesheet" href="endGameModal.css" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
   </head>
   <body>
-    <div id="nftNotFoundContainer" class="not-found-modal-container">
-      <div id="notFoundModal" class="not-found-modal">
-        <p id="nftModalHeader" class="font-Kangmas font-48 modal-header">
-          You don’t have an NFT to play the game!
+    <!-- end game modal -->
+    <div
+      id="play-again-modal"
+      class="play-again-modal-container"
+      style="display: none !important"
+    >
+      <section class="end-container">
+        <p class="score-info">
+          You scored <span id="modal-score"></span> Can be Higher↑
         </p>
-        <div class="modal-body">
-          <p>Try Connecting a different wallet</p>
-        </div>
-        <button id="nftModalButton" class="modal-button">Connect different wallet</button>
+        <section class="content-section">
+          <article class="leaderboard-header">
+            <div class="leaderboard-header-content">
+              <div class="leaderboard-title font-Geist">
+                <div>Team name</div>
+                <div>Avg Score</div>
+              </div>
+              <div class="separator"></div>
+            </div>
+            <div class="team-summary">
+              <div class="team-details-table">
+                <img
+                  loading="lazy"
+                  src="https://cdn.builder.io/api/v1/image/assets/TEMP/a03ce52e33897c0985770c7c2dd604c63df5a421bcef88ae906f02ca32a8df10?apiKey=0e14ce67bb76481cb40ff58c7f753be2&&apiKey=0e14ce67bb76481cb40ff58c7f753be2"
+                  class="team-logo"
+                  alt="Team Kappa Logo"
+                />
+                <span class="team-name">Team Kappa</span>
+              </div>
+              <div class="data-score">23564</div>
+            </div>
+          </article>
+          <article class="global-leaderboard-container">
+            <div class="global-leaderboard-title">Global Leaderboard</div>
+            <div class="global-leaderboard-separator"></div>
+            <div class="global-leaderboard-rows">
+              <div class="global-leaderboard-header-row">
+                <div class="header-row">
+                  <div class="data-rank">#</div>
+                  <div class="data-team-name">Team name</div>
+                </div>
+                <div class="global-data-team-average">Avg. Score</div>
+              </div>
+              <div class="global-leaderboard-body">
+                <div class="global-leaderboard-row">
+                  <div class="team-data-cell">
+                    <div class="data-rank">01</div>
+                    <div class="global-team-name">Alpha</div>
+                  </div>
+                  <div class="global-team-average">23564</div>
+                </div>
+
+                <div class="global-leaderboard-row">
+                  <div class="team-data-cell">
+                    <div class="data-rank">02</div>
+                    <div class="global-team-name">Beta</div>
+                  </div>
+                  <div class="global-team-average">23564</div>
+                </div>
+
+                <div class="global-leaderboard-row">
+                  <div class="team-data-cell">
+                    <div class="data-rank">03</div>
+                    <div class="global-team-name">Gamma</div>
+                  </div>
+                  <div class="global-team-average">23564</div>
+                </div>
+              </div>
+            </div>
+          </article>
+          <button class="play-again-button" id="playAgainBtn" tabindex="0">
+            Play Again
+          </button>
+        </section>
+      </section>
+    </div>
+
+    <!-- wallet connect modal -->
+    <div id="walletConenctModal" class="wallet-modal-container">
+      <div id="walletModal" class="wallet-modal mobile-width !max-w-[420px]">
+        <p id="nftModalHeader" class="font-Kangmas text-[48px] modal-header">
+          Wallet is not connected to play.
+        </p>
+        <button id="nftModalButton" class="modal-button">Connect wallet</button>
       </div>
     </div>
+
+    <!-- no nft modal -->
+    <div id="nftNotFoundContainer" class="not-found-modal-container">
+      <div id="notFoundModal" class="not-found-modal mobile-width !gap-[32px]">
+        <div class="flex flex-col w-full gap-[8px] items-center justify-start">
+          <p
+            id="nftModalHeader"
+            class="font-Kangmas font-48 modal-header !text-start"
+          >
+            Acquire an NFT to join the fray!
+          </p>
+          <span id="nftmodalSubHeader" class="noNft-subheader !text-start"
+            >No NFT found in your connected wallet. Try connecting a different
+            wallet or buy on opensea</span
+          >
+        </div>
+        <div class="flex flex-col w-full gap-[8px] items-center justify-start">
+          <button id="nftModalButton" class="modal-button">
+            Connect different wallet
+          </button>
+          <a href="#" class="opensea-link">0r, Buy on Opensea -></a>
+        </div>
+      </div>
+    </div>
+
+    <!-- mobile modal -->
+    <div
+      id="nftNotFoundContainer"
+      class="not-found-modal-container mobile-show"
+    >
+      <div id="notFoundModal" class="not-found-modal mobile-width">
+        <p id="nftModalHeader" class="font-Kangmas modal-header mobile-header">
+          No mobile, brave knight. Desktop quests await thee!
+        </p>
+      </div>
+    </div>
+
     <canvas id="canvas" class="hide"></canvas>
     <div class="overview">
       <div class="side-panel">
@@ -814,15 +148,15 @@
           </div>
 
           <div class="side-panel-details">
-            <div class="text-details">
+            <!-- <div class="text-details">
               <p class="font-Geist-Regular">
                 Bridge any amount of ETH from Ethereum Mainnet to Arbitrum and
                 earn ARB tokens!
               </p>
               <p class="font-Geist-Regular">Keep Pushing Higher↑</p>
-            </div>
+            </div> -->
 
-            <div class="break"></div>
+            <!-- <div class="break"></div> -->
 
             <div class="top-level-info">
               <div>
@@ -919,7 +253,7 @@
           </div>
         </div>
         <div class="landing hide">
-          <div class="action-1">
+          <div class="action-1 flex-center">
             <img src="./assets/main-index-title.png" class="title swing hook" />
           </div>
         </div>
@@ -952,6 +286,12 @@
         </button>
       </div>
     </div>
+    <!-- contract abi -->
+    <script src="contractABI.js"></script>
+    <!-- fetching user fc details -->
+    <script src="fetchFCUser.js"></script>
+    <!-- main dom load script adding onclick events -->
+    <script src="main.js"></script>
     <script src="./dist/bundle.js"></script>
     <script src="./assets/zepto-1.1.6.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
@@ -964,6 +304,33 @@
     <!-- wagmi CDN -->
     <script src="https://unpkg.com/@wagmi/core@0.3.0/dist/index.umd.js"></script>
 
+    <!-- fetching neynar user -->
+    <!-- <script>
+      const fetchFCUser = async (address) => {
+        console.log(address);
+
+        try {
+          const url = `https://api.neynar.com/v2/farcaster/user/bulk-by-address?addresses=${
+            address.length > 1 ? address.join("%2") : address[0]
+          }`;
+          const options = {
+            method: "GET",
+            headers: {
+              accept: "application/json",
+              api_key: "%NODE_ENV%NEYNAR_API_KEY",
+            },
+          };
+
+          const res = await fetch(url, options);
+
+          const data = await res.json();
+          return data;
+        } catch (err) {
+          console.log(err);
+        }
+      };
+    </script> -->
+    <!-- 
     <script>
       var contractABI = [
         {
@@ -1516,7 +883,7 @@
       var provider;
       var ethersProvider;
       var signer;
-      var selectedAccount;
+      var selectedAccount = localStorage.getItem("selectedAccount");
       var walletConnected = false,
         isNFTPresent = false;
 
@@ -1532,9 +899,32 @@
         }
         return num.toString();
       }
-    </script>
+    </script> -->
 
     <script>
+      const gameId = "2329dcdc-a26c-4abd-b7ad-8c3a36b9c502";
+      const contractAddress = "0x9f089f3fc58770b591d075f82429ccb94fd67564";
+      var web3Modal;
+      var provider;
+      var ethersProvider;
+      var signer;
+      var selectedAccount = localStorage.getItem("selectedAccount");
+      var walletConnected = false,
+        isNFTPresent = false;
+
+      function formatNumber(num) {
+        if (num >= 1e9) {
+          return (num / 1e9).toFixed(1) + "b";
+        }
+        if (num >= 1e6) {
+          return (num / 1e6).toFixed(1) + "m";
+        }
+        if (num >= 1e3) {
+          return (num / 1e3).toFixed(1) + "k";
+        }
+        return num.toString();
+      }
+
       var tokenId,
         noOfParticipants = 0;
 
@@ -1566,6 +956,8 @@
 
       createSupabaseClient();
     </script>
+
+    <!-- leaderboard script -->
     <script>
       var activeTab = "#global-tab",
         teamData = [];
@@ -1582,6 +974,8 @@
             .eq("game_id", gameId)
             .order("points", { ascending: false });
 
+            console.log("data", data);
+            
           let teamTokenIds = await supabase
             .from("teamparticipants")
             .select("*");
@@ -1965,7 +1359,9 @@
       }
 
       async function overShowOver() {
-        window.location.href = window.location.href + "?s=" + +new Date();
+        window.location.href = window.location.href.includes("?s=")
+          ? window.location.href.split("?")[0]
+          : window.location.href + "?s=" + +new Date();
       }
 
       let prevScore = 0;
@@ -1986,8 +1382,20 @@
         },
         setGameFailed: function (f) {
           $("#score").text(score);
+
           if (f >= 3) {
-            overShowOver();
+            const gameEnded = document.getElementById("play-again-modal");
+
+            if (gameEnded) {
+              gameEnded.style.display = "flex";
+              const scoreModal = document.getElementById("modal-score");
+              scoreModal.innerText = score;
+              const playAgainBtn = document.getElementById("playAgainBtn");
+              playAgainBtn.onclick = () => {
+                overShowOver();
+              };
+            }
+            // overShowOver();
           }
         },
       };
@@ -2031,6 +1439,7 @@
         false
       );
     </script>
+
     <script
       async
       src="https://www.googletagmanager.com/gtag/js?id=G-YCWZ8ZDCH2"
@@ -2043,34 +1452,44 @@
         gtag("js", new Date()),
         gtag("config", "G-YCWZ8ZDCH2");
     </script>
-    <script>
+    <!-- <script>
       const startGame = () => {
         if (gameStart) return;
         if (!walletConnected) {
-          const nftModalHeader = document.getElementById("nftModalHeader");
-          nftModalHeader.innerHTML = "Wallet not connected to play";  
-          
-          const nftModalButton = document.getElementById("nftModalButton")
-          nftModalButton.innerHTML = "Connect Wallet";
+          nftModalButton.onclick = (e) => {
+            e.preventDefault();
+          };
 
-          const notFoundModal = document.getElementById("notFoundModal");
-          notFoundModal.style.height = "40%"
+          const walletConenctModalContainer =
+            document.getElementById("walletConenctModal");
+          const walletConenctModal = document.getElementById("walletModal");
 
-          const nftModal = document.getElementById('nftNotFoundContainer');
-
-          if(nftModal){
-            
-            nftModal.style.display = "flex"
+          if (walletConenctModalContainer) {
+            walletConenctModalContainer.style.display = "flex";
+            // note: want to close modal when clicked
+            walletConenctModalContainer.onclick = () => {
+              walletConenctModalContainer.style.display = "none";
+            };
+            walletConnectModal.onclick = (e) => {
+              e.preventDefault();
+            };
           }
-          
+
           return;
         }
-        console.log('is nft present: ', isNFTPresent)
+        console.log("is nft present: ", isNFTPresent);
         if (!isNFTPresent) {
-          const nftModal = document.getElementById('nftNotFoundContainer');
-          
-          if(nftModal){
-            nftModal.style.display = "flex"
+          const nftModal = document.getElementById("nftNotFoundContainer");
+
+          if (nftModal) {
+            nftModal.style.display = "flex";
+            nftModal.onclick = () => {
+              nftModal.style.display = "none";
+            };
+
+            notFoundModal.onclick = (e) => {
+              e.preventDefault();
+            };
           }
 
           return;
@@ -2083,7 +1502,7 @@
         indexHide();
         setTimeout(game.start, 400);
       };
-    </script>
+    </script> -->
     <script>
       async function reconnectToProvider(type, name) {
         if (type === "walletconnect") {
@@ -2125,6 +1544,7 @@
         const savedAccount = localStorage.getItem("selectedAccount");
         const savedProviderType = localStorage.getItem("providerType");
         const savedName = localStorage.getItem("injectedName");
+        console.log(savedAccount);
 
         if (savedAccount && savedProviderType && savedName) {
           provider = await reconnectToProvider(savedProviderType, savedName);
@@ -2204,16 +1624,34 @@
         }
       }
 
-      function onButtonClick() {
-        const nftModal = document.getElementById('nftNotFoundContainer');
-        if(nftModal){
+      async function onButtonClick() {
+        const nftModal = document.getElementById("nftNotFoundContainer");
+        if (nftModal) {
           nftModal.style.display = "none";
         }
-
-        if (provider) {
+        if (provider && !selectedAccount) {
           toggleWalletSelectionModal(true);
         } else {
           toggleWalletSelectionModal(true);
+          // const walletBtn = document.getElementById("walletButton");
+          // walletBtn.innerText =
+          //   selectedAccount.slice(0, 5) + "..." + selectedAccount.slice(-4);
+          // const textContainer =
+          //   document.getElementsByClassName("side-panel-header");
+          // const playButtonElement = document.getElementById("start-game");
+
+          // if (textContainer && playButtonElement) {
+          //   textContainer[0].innerHTML = `
+          //   Your score is
+          //   <span id="top-score" class="font-Kangmas font-bold">0</span>! Can be
+          //   Higher↑          `;
+
+          //   playButtonElement.textContent = "Play game";
+          // }
+          // const fc_user = await fetchFCUser([selectedAccount]);
+          // console.log(fc_user);
+
+          // const pfpImage = document.getElementById("pfpImg");
         }
       }
 
@@ -2271,6 +1709,19 @@
 
           walletConnected = true;
 
+          const textContainer =
+            document.getElementsByClassName("side-panel-header");
+          const playButtonElement = document.getElementById("start-game");
+
+          if (textContainer && playButtonElement) {
+            textContainer[0].innerHTML = `
+            Your score is
+            <span id="top-score" class="font-Kangmas font-bold">0</span>! Can be
+            Higher↑          `;
+
+            playButtonElement.textContent = "Play game";
+          }
+
           selectedProvider.on("accountsChanged", (accounts) => {
             selectedAccount = accounts[0];
             updateButton();
@@ -2282,8 +1733,23 @@
 
           selectedProvider.on("disconnect", (error) => {
             console.log("Disconnected:", error);
+            const textContainer =
+              document.getElementsByClassName("side-panel-header");
+            const playButtonElement = document.getElementById("start-game");
+
+            if (!walletConnected && textContainer && playButtonElement) {
+              textContainer[0].innerHTML = `
+          Get as <br />
+          Higher↑ <br />
+          as you can!
+          `;
+
+              playButtonElement.textContent = "Connect Wallet to play";
+            }
             resetButton();
           });
+
+          console.log(selectedAccount);
 
           isNFTPresent = await checkNFT(selectedAccount);
 
@@ -2319,6 +1785,11 @@
       }
 
       async function checkNFT(address) {
+        console.log("address nft inside", address);
+        console.log("contr add", contractAddress);
+        console.log("contr abi", contractABI);
+        console.log("contr signer", signer);
+
         const contract = new ethers.Contract(
           contractAddress,
           contractABI,
@@ -2327,7 +1798,10 @@
 
         try {
           const balance = await contract.balanceOf(address);
+          console.log("balance", balance);
+
           const nftStatus = `Balance of NFTs for address ${address}: ${balance.toString()}`;
+          console.log("balance status", nftStatus);
 
           if (balance.gt(0)) {
             tokenId = (
@@ -2348,16 +1822,15 @@
         await init();
       });
     </script>
-    <script>
-      
-
+    <!-- <script>
       document.addEventListener("DOMContentLoaded", async function () {
-        const nftModalButton = document.getElementById('nftModalButton');
+        const nftModalButton = document.getElementById("nftModalButton");
 
-        if(nftModalButton){
-          document.getElementById("nftModalButton").addEventListener("click", onButtonClick)
+        if (nftModalButton) {
+          document
+            .getElementById("nftModalButton")
+            .addEventListener("click", onButtonClick);
         }
-
 
         const playButtonElement = document.getElementById("start-game");
 
@@ -2366,7 +1839,47 @@
             .getElementById("start-game")
             .addEventListener("click", startGame);
         }
+        if (selectedAccount) {
+          const walletBtn = document.getElementById("walletButton");
+          walletBtn.innerText =
+            selectedAccount.slice(0, 5) + "..." + selectedAccount.slice(-4);
+
+          const textContainer =
+            document.getElementsByClassName("side-panel-header");
+
+          if (textContainer && playButtonElement) {
+            textContainer[0].innerHTML = `
+            Your score is
+            <span id="top-score" class="font-Kangmas font-bold">${0}</span>! Can be
+            Higher↑`;
+
+            playButtonElement.textContent = "Play game";
+            walletConnected = true;
+          }
+
+          // fetching fc details of user
+          // const fetchUser = await fetchFCUser(s);
+
+          // console.log(fetchFCUser);
+        }
       });
-    </script>
+    </script> -->
+    <!-- <script>
+      document.addEventListener("DOMContentLoaded", () => {
+        const textContainer =
+          document.getElementsByClassName("side-panel-header");
+        const playButtonElement = document.getElementById("start-game");
+
+        if (!walletConnected && textContainer && playButtonElement) {
+          textContainer[0].innerHTML = `
+          Get as <br />
+          Higher↑ <br />
+          as you can!
+          `;
+
+          playButtonElement.textContent = "Connect Wallet to play";
+        }
+      });
+    </script> -->
   </body>
 </html>
