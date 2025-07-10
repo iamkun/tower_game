@@ -17,23 +17,23 @@ English | [简体中文](./README.zh-CN.md)
 
 ## Game Rule
 
-The following are the default game rule:
+The following are the default game rules:
 
-- In every game player starts with 3 hp. Every time a Tower block is dropped player is deduct 1 hp; game ends when hp is depleted.
+- The player starts with 3 hp, indicated by the hearts in the top right corner of the screen. Every time a Tower block falls the player loses 1 hp, and the game ends when hp is depleted.
 
-- Player is rewarded with 25 point for every succesful stacked blocks(Success). If a block is stacked pefectly (Perfect) on top of the previous one, then player
+- The player earns 25 points for every succesful stacked block (Success). If a block is stacked pefectly (Perfect) on top of the previous one, then the player is
 rewarded with 50 points instead. Consecutive Perfects awards additional 25 points.
 
 **Note: Each Success or Perfect constitutes a floor**
 
-  For example, the first Perfect awards 50 point. The second consecutive Perfect awards 75 points.
+  For example, the first Perfect awards 50 points. The second consecutive Perfect awards 75 points.
  The third consecutive Perfect awards 100 points.  etc.
 
 <p align="center">
   <img width="550" src="https://user-images.githubusercontent.com/17680888/47473105-d9021180-d843-11e8-8c19-b6b78d86cbdf.png" />
 </p>
 
-## Customizing the game rule
+## Customizing the game rules
 
 ```
 git clone https://github.com/iamkun/tower_game.git
@@ -43,12 +43,12 @@ npm start
 ```
 Open `http://localhost:8082` in a web browser.
 
-- To customize image and sound resource files directly replace the corresponding file under `assets` directory.
+- To customize image and sound resource files directly replace the corresponding file under the `assets` directory.
 - To customize game rules modify the `option` object in `index.html`.
 
 ## Option
 
-Use following table of `option` constants to complete customization of game rules.
+Use the following table of `option` constants to complete customization of game rules.
 
 **Note: all constants are optionally included**
 
@@ -68,7 +68,7 @@ Use following table of `option` constants to complete customization of game rule
 | <a href="#setgamefailed">setGameFailed</a> | function | hook for number of current failed game |
 
 #### hookSpeed
-Speed of hook's movement
+
 This function takes in two parameters, currentFloor and currentScore, and returns a speed value.
 ```
 function(currentFloor, currentScore) {
@@ -77,7 +77,7 @@ function(currentFloor, currentScore) {
 ```
 
 #### hookAngle
-Angle of hook
+
 This function takes in two parameters, currentFloor and currentScore, and returns a angle value.
 ```
 function(currentFloor, currentScore) {
@@ -86,7 +86,7 @@ function(currentFloor, currentScore) {
 ```
 
 #### landBlockSpeed
-Speed of block sway
+
 This function takes in two parameters, currentFloor and currentScore, and returns a speed value.
 ```
 function(currentFloor, currentScore) {
@@ -95,8 +95,8 @@ function(currentFloor, currentScore) {
 ```
 
 #### setGameScore
-hook for current score
-This function takes in one parameters, score, and sets currentScore to score.
+
+This function takes in one parameter, score, and sets currentScore to score.
 ```
 function(score) {
   // your logic
@@ -104,8 +104,8 @@ function(score) {
 ```
 
 #### setGameSuccess
-hook for number of current succesful game
-This function takes in one parameters, score, and sets GameSuccess to successCount.
+
+This function takes in one parameter, score, and sets GameSuccess to successCount.
 ```
 function(successCount) {
   // your logic
@@ -113,8 +113,8 @@ function(successCount) {
 ```
 
 #### setGameFailed
-hook for number of current failed game
-This function takes in one parameters, score, and sets GameFailed to failedCount.
+
+This function takes in one parameter, score, and sets GameFailed to failedCount.
 ```
 function(failedCount) {
   // your logic
