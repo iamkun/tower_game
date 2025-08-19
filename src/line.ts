@@ -1,7 +1,9 @@
 import { getMoveDownValue, getLandBlockVelocity } from './utils'
 import * as constant from './constant'
+import { Engine, LineInstance } from './types'
+import { Instance } from 'cooljs'
 
-export const lineAction = (instance, engine, time) => {
+export const lineAction = (instance: InstanceType<typeof Instance>, engine: Engine, time: number): void => {
   const i = instance
   if (!i.ready) {
     i.y = engine.getVariable(constant.lineInitialOffset)
@@ -11,7 +13,7 @@ export const lineAction = (instance, engine, time) => {
   engine.getTimeMovement(
     constant.moveDownMovement,
     [[instance.y, instance.y + (getMoveDownValue(engine, { pixelsPerFrame: s => s / 2 }))]],
-    (value) => {
+    (value: number) => {
       instance.y = value
     },
     {
@@ -23,7 +25,7 @@ export const lineAction = (instance, engine, time) => {
   instance.collisionX += landBlockVelocity
 }
 
-export const linePainter = (instance, engine) => {
+export const linePainter = (instance: LineInstance, engine: Engine): void => {
   const { ctx, debug } = engine
   if (!debug) {
     return

@@ -7,22 +7,30 @@ import { hookAction, hookPainter } from './hook'
 import { tutorialAction, tutorialPainter } from './tutorial'
 import * as constant from './constant'
 import { startAnimate, endAnimate } from './animateFuncs'
+import { TowerGameOption, TowerGameInstance } from './types'
+import { initUI } from './ui'
 
-window.TowerGame = (option = {}) => {
+declare global {
+  interface Window {
+    TowerGame: (option: TowerGameOption) => TowerGameInstance;
+  }
+}
+
+window.TowerGame = (option: TowerGameOption): TowerGameInstance => {
   const {
     width,
     height,
     canvasId,
     soundOn
   } = option
-  const game = new Engine({
+  const game = new (Engine as any)({
     canvasId,
     highResolution: true,
     width,
     height,
     soundOn
-  })
-  const pathGenerator = (path) => `./assets/${path}`
+  }) as TowerGameInstance
+  const pathGenerator = (path: string): string => `./assets/${path}`
 
   game.addImg('background', pathGenerator('background.png'))
   game.addImg('hook', pathGenerator('hook.png'))
@@ -32,11 +40,11 @@ window.TowerGame = (option = {}) => {
   for (let i = 1; i <= 8; i += 1) {
     game.addImg(`c${i}`, pathGenerator(`c${i}.png`))
   }
-  game.addLayer(constant.flightLayer)
+  // game.addLayer(constant.flightLayer)
   for (let i = 1; i <= 7; i += 1) {
     game.addImg(`f${i}`, pathGenerator(`f${i}.png`))
   }
-  game.swapLayer(0, 1)
+  // game.swapLayer(0, 1)
   game.addImg('tutorial', pathGenerator('tutorial.png'))
   game.addImg('tutorial-arrow', pathGenerator('tutorial-arrow.png'))
   game.addImg('heart', pathGenerator('heart.png'))
@@ -117,3 +125,5 @@ window.TowerGame = (option = {}) => {
 
   return game
 }
+
+initUI()

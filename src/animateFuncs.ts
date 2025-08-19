@@ -1,4 +1,5 @@
 import { Instance } from 'cooljs'
+import { Engine } from './types'
 import { blockAction, blockPainter } from './block'
 import {
   checkMoveDown,
@@ -9,12 +10,12 @@ import {
 import { addFlight } from './flight'
 import * as constant from './constant'
 
-export const endAnimate = (engine) => {
-  const gameStartNow = engine.getVariable(constant.gameStartNow)
+export const endAnimate = (engine: Engine): void => {
+  const gameStartNow: boolean = engine.getVariable(constant.gameStartNow)
   if (!gameStartNow) return
-  const successCount = engine.getVariable(constant.successCount, 0)
-  const failedCount = engine.getVariable(constant.failedCount)
-  const gameScore = engine.getVariable(constant.gameScore, 0)
+  const successCount: number = engine.getVariable(constant.successCount, 0)
+  const failedCount: number = engine.getVariable(constant.failedCount)
+  const gameScore: number = engine.getVariable(constant.gameScore, 0)
   const threeFiguresOffset = Number(successCount) > 99 ? engine.width * 0.1 : 0
 
   drawYellowString(engine, {
@@ -27,7 +28,7 @@ export const endAnimate = (engine) => {
     fontWeight: 'bold'
   })
   drawYellowString(engine, {
-    string: successCount,
+    string: String(successCount),
     size: engine.width * 0.17,
     x: (engine.width * 0.22) + threeFiguresOffset,
     y: engine.width * 0.2,
@@ -46,7 +47,7 @@ export const endAnimate = (engine) => {
     zoomedHeight
   )
   drawYellowString(engine, {
-    string: gameScore,
+    string: String(gameScore),
     size: engine.width * 0.06,
     x: engine.width * 0.9,
     y: engine.width * 0.11,
@@ -74,12 +75,12 @@ export const endAnimate = (engine) => {
   }
 }
 
-export const startAnimate = (engine) => {
-  const gameStartNow = engine.getVariable(constant.gameStartNow)
+export const startAnimate = (engine: Engine): void => {
+  const gameStartNow: boolean = engine.getVariable(constant.gameStartNow)
   if (!gameStartNow) return
-  const lastBlock = engine.getInstance(`block_${engine.getVariable(constant.blockCount)}`)
+  const lastBlock: InstanceType<typeof Instance> = engine.getInstance(`block_${engine.getVariable(constant.blockCount)}`)
   if (!lastBlock || [constant.land, constant.out].indexOf(lastBlock.status) > -1) {
-    if (checkMoveDown(engine) && getMoveDownValue(engine)) return
+    if (checkMoveDown(engine) && getMoveDownValue(engine, null)) return
     if (engine.checkTimeMovement(constant.hookUpMovement)) return
     const angleBase = getAngleBase(engine)
     const initialAngle = (Math.PI

@@ -1,8 +1,10 @@
 import { getSwingBlockVelocity } from './utils'
 import * as constant from './constant'
+import { Engine } from './types'
+import { Instance } from 'cooljs'
 
-export const hookAction = (instance, engine, time) => {
-  const ropeHeight = engine.getVariable(constant.ropeHeight)
+export const hookAction = (instance: InstanceType<typeof Instance>, engine: Engine, time: number): void => {
+  const ropeHeight: number = engine.getVariable(constant.ropeHeight)
   if (!instance.ready) {
     instance.x = engine.width / 2
     instance.y = ropeHeight * -1.5
@@ -11,7 +13,7 @@ export const hookAction = (instance, engine, time) => {
   engine.getTimeMovement(
     constant.hookUpMovement,
     [[instance.y, instance.y - ropeHeight]],
-    (value) => {
+    (value: number) => {
       instance.y = value
     },
     {
@@ -23,14 +25,14 @@ export const hookAction = (instance, engine, time) => {
   engine.getTimeMovement(
     constant.hookDownMovement,
     [[instance.y, instance.y + ropeHeight]],
-    (value) => {
+    (value: number) => {
       instance.y = value
     },
     {
       name: 'hook'
     }
   )
-  const initialAngle = engine.getVariable(constant.initialAngle)
+  const initialAngle: number = engine.getVariable(constant.initialAngle)
   instance.angle = initialAngle *
     getSwingBlockVelocity(engine, time)
   instance.weightX = instance.x +
@@ -39,9 +41,9 @@ export const hookAction = (instance, engine, time) => {
     (Math.cos(instance.angle) * ropeHeight)
 }
 
-export const hookPainter = (instance, engine) => {
+export const hookPainter = (instance: InstanceType<typeof Instance>, engine: Engine): void => {
   const { ctx } = engine
-  const ropeHeight = engine.getVariable(constant.ropeHeight)
+  const ropeHeight: number = engine.getVariable(constant.ropeHeight)
   const ropeWidth = ropeHeight * 0.1
   const hook = engine.getImg('hook')
   ctx.save()

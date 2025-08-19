@@ -1,22 +1,23 @@
 import * as constant from './constant'
+import { Engine, GameUserOption, Store, DrawYellowStringOption } from './types'
 
-export const checkMoveDown = engine =>
+export const checkMoveDown = (engine: Engine): boolean =>
   (engine.checkTimeMovement(constant.moveDownMovement))
 
-export const getMoveDownValue = (engine, store) => {
+export const getMoveDownValue = (engine: Engine, store: Store | null): number => {
   const pixelsPerFrame = store ? store.pixelsPerFrame : engine.pixelsPerFrame.bind(engine)
-  const successCount = engine.getVariable(constant.successCount)
-  const calHeight = engine.getVariable(constant.blockHeight) * 2
+  const successCount: number = engine.getVariable(constant.successCount)
+  const calHeight: number = engine.getVariable(constant.blockHeight) * 2
   if (successCount <= 4) {
     return pixelsPerFrame(calHeight * 1.25)
   }
   return pixelsPerFrame(calHeight)
 }
 
-export const getAngleBase = (engine) => {
-  const successCount = engine.getVariable(constant.successCount)
-  const gameScore = engine.getVariable(constant.gameScore)
-  const { hookAngle } = engine.getVariable(constant.gameUserOption)
+export const getAngleBase = (engine: Engine): number => {
+  const successCount: number = engine.getVariable(constant.successCount)
+  const gameScore: number = engine.getVariable(constant.gameScore)
+  const { hookAngle }: GameUserOption = engine.getVariable(constant.gameUserOption)
   if (hookAngle) {
     return hookAngle(successCount, gameScore)
   }
@@ -33,14 +34,14 @@ export const getAngleBase = (engine) => {
   }
 }
 
-export const getSwingBlockVelocity = (engine, time) => {
-  const successCount = engine.getVariable(constant.successCount)
-  const gameScore = engine.getVariable(constant.gameScore)
-  const { hookSpeed } = engine.getVariable(constant.gameUserOption)
+export const getSwingBlockVelocity = (engine: Engine, time: number): number => {
+  const successCount: number = engine.getVariable(constant.successCount)
+  const gameScore: number = engine.getVariable(constant.gameScore)
+  const { hookSpeed }: GameUserOption = engine.getVariable(constant.gameUserOption)
   if (hookSpeed) {
     return hookSpeed(successCount, gameScore)
   }
-  let hard
+  let hard: number
   switch (true) {
     case successCount < 1:
       hard = 0
@@ -64,15 +65,15 @@ export const getSwingBlockVelocity = (engine, time) => {
   return Math.sin(time / (200 / hard))
 }
 
-export const getLandBlockVelocity = (engine, time) => {
-  const successCount = engine.getVariable(constant.successCount)
-  const gameScore = engine.getVariable(constant.gameScore)
-  const { landBlockSpeed } = engine.getVariable(constant.gameUserOption)
+export const getLandBlockVelocity = (engine: Engine, time: number): number => {
+  const successCount: number = engine.getVariable(constant.successCount)
+  const gameScore: number = engine.getVariable(constant.gameScore)
+  const { landBlockSpeed }: GameUserOption = engine.getVariable(constant.gameUserOption)
   if (landBlockSpeed) {
     return landBlockSpeed(successCount, gameScore)
   }
   const { width } = engine
-  let hard
+  let hard: number
   switch (true) {
     case successCount < 5:
       hard = 0
@@ -90,7 +91,7 @@ export const getLandBlockVelocity = (engine, time) => {
   return Math.cos(time / 200) * hard * width
 }
 
-export const getHookStatus = (engine) => {
+export const getHookStatus = (engine: Engine): string => {
   if (engine.checkTimeMovement(constant.hookDownMovement)) {
     return constant.hookDown
   }
@@ -100,7 +101,7 @@ export const getHookStatus = (engine) => {
   return constant.hookNormal
 }
 
-export const touchEventHandler = (engine) => {
+export const touchEventHandler = (engine: Engine): void => {
   if (!engine.getVariable(constant.gameStartNow)) return
   if (engine.debug && engine.paused) {
     return
@@ -117,9 +118,9 @@ export const touchEventHandler = (engine) => {
   }
 }
 
-export const addSuccessCount = (engine) => {
-  const { setGameSuccess } = engine.getVariable(constant.gameUserOption)
-  const lastSuccessCount = engine.getVariable(constant.successCount)
+export const addSuccessCount = (engine: Engine): void => {
+  const { setGameSuccess }: GameUserOption = engine.getVariable(constant.gameUserOption)
+  const lastSuccessCount: number = engine.getVariable(constant.successCount)
   const success = lastSuccessCount + 1
   engine.setVariable(constant.successCount, success)
   if (engine.getVariable(constant.hardMode)) {
@@ -128,9 +129,9 @@ export const addSuccessCount = (engine) => {
   if (setGameSuccess) setGameSuccess(success)
 }
 
-export const addFailedCount = (engine) => {
-  const { setGameFailed } = engine.getVariable(constant.gameUserOption)
-  const lastFailedCount = engine.getVariable(constant.failedCount)
+export const addFailedCount = (engine: Engine): void => {
+  const { setGameFailed }: GameUserOption = engine.getVariable(constant.gameUserOption)
+  const lastFailedCount: number = engine.getVariable(constant.failedCount)
   const failed = lastFailedCount + 1
   engine.setVariable(constant.failedCount, failed)
   engine.setVariable(constant.perfectCount, 0)
@@ -142,10 +143,10 @@ export const addFailedCount = (engine) => {
   }
 }
 
-export const addScore = (engine, isPerfect) => {
-  const { setGameScore, successScore, perfectScore } = engine.getVariable(constant.gameUserOption)
-  const lastPerfectCount = engine.getVariable(constant.perfectCount, 0)
-  const lastGameScore = engine.getVariable(constant.gameScore)
+export const addScore = (engine: Engine, isPerfect: boolean): void => {
+  const { setGameScore, successScore, perfectScore }: GameUserOption = engine.getVariable(constant.gameUserOption)
+  const lastPerfectCount: number = engine.getVariable(constant.perfectCount, 0)
+  const lastGameScore: number = engine.getVariable(constant.gameScore)
   const perfect = isPerfect ? lastPerfectCount + 1 : 0
   const score = lastGameScore + (successScore || 25) + ((perfectScore || 25) * perfect)
   engine.setVariable(constant.gameScore, score)
@@ -153,7 +154,7 @@ export const addScore = (engine, isPerfect) => {
   if (setGameScore) setGameScore(score)
 }
 
-export const drawYellowString = (engine, option) => {
+export const drawYellowString = (engine: Engine, option: DrawYellowStringOption): void => {
   const {
     string, size, x, y, textAlign, fontName = 'wenxue', fontWeight = 'normal'
   } = option

@@ -2,14 +2,15 @@ import {
   getMoveDownValue,
   getLandBlockVelocity,
   getSwingBlockVelocity,
-  touchEventHandler,
   addSuccessCount,
   addFailedCount,
   addScore
 } from './utils'
 import * as constant from './constant'
+import { Engine, LineInstance } from './types'
+import { Instance } from 'cooljs'
 
-const checkCollision = (block, line) => {
+const checkCollision = (block: InstanceType<typeof Instance>, line: LineInstance): number => {
   // 0 goon 1 drop 2 rotate left 3 rotate right 4 ok 5 perfect
   if (block.y + block.height >= line.y) {
     if (block.x < line.x - block.calWidth || block.x > line.collisionX + block.calWidth) {
@@ -29,11 +30,11 @@ const checkCollision = (block, line) => {
   }
   return 0
 }
-const swing = (instance, engine, time) => {
-  const ropeHeight = engine.getVariable(constant.ropeHeight)
+const swing = (instance: InstanceType<typeof Instance>, engine: Engine, time: number): void => {
+  const ropeHeight: number = engine.getVariable(constant.ropeHeight)
   if (instance.status !== constant.swing) return
   const i = instance
-  const initialAngle = engine.getVariable(constant.initialAngle)
+  const initialAngle: number = engine.getVariable(constant.initialAngle)
   i.angle = initialAngle *
     getSwingBlockVelocity(engine, time)
   i.weightX = i.x +
@@ -42,7 +43,7 @@ const swing = (instance, engine, time) => {
     (Math.cos(i.angle) * ropeHeight)
 }
 
-const checkBlockOut = (instance, engine) => {
+const checkBlockOut = (instance: InstanceType<typeof Instance>, engine: Engine): void => {
   if (instance.status === constant.rotateLeft) {
     // 左转 要等右上角消失才算消失
     if (instance.y - instance.width >= engine.height) {
@@ -57,9 +58,9 @@ const checkBlockOut = (instance, engine) => {
   }
 }
 
-export const blockAction = (instance, engine, time) => {
+export const blockAction = (instance: InstanceType<typeof Instance>, engine: Engine, time: number): void => {
   const i = instance
-  const ropeHeight = engine.getVariable(constant.ropeHeight)
+  const ropeHeight: number = engine.getVariable(constant.ropeHeight)
   if (!i.visible) {
     return
   }
@@ -71,13 +72,13 @@ export const blockAction = (instance, engine, time) => {
     instance.x = engine.width / 2
     instance.y = ropeHeight * -1.5
   }
-  const line = engine.getInstance('line')
+  const line: LineInstance = engine.getInstance('line')
   switch (i.status) {
     case constant.swing:
       engine.getTimeMovement(
         constant.hookDownMovement,
         [[instance.y, instance.y + ropeHeight]],
-        (value) => {
+        (value: number) => {
           instance.y = value
         },
         {
@@ -90,6 +91,7 @@ export const blockAction = (instance, engine, time) => {
       i.x = instance.weightX - instance.calWidth
       i.y = instance.weightY + (0.3 * instance.height) // add rope height
       i.rotate = 0
+      i.vy = 0
       i.ay = engine.pixelsPerFrame(0.0003 * engine.height) // acceleration of gravity
       i.startDropTime = time
       i.status = constant.drop
@@ -101,7 +103,7 @@ export const blockAction = (instance, engine, time) => {
       i.y += (i.vy * deltaTime) + (0.5 * i.ay * (deltaTime ** 2))
       const collision = checkCollision(instance, line)
       const blockY = line.y - instance.height
-      const calRotate = (ins) => {
+      const calRotate = (ins: InstanceType<typeof Instance>): void => {
         ins.originOutwardAngle = Math.atan(ins.height / ins.outwardOffset)
         ins.originHypotenuse = Math.sqrt((ins.height ** 2)
           + (ins.outwardOffset ** 2))
@@ -126,7 +128,7 @@ export const blockAction = (instance, engine, time) => {
         case 4:
         case 5:
           i.status = constant.land
-          const lastSuccessCount = engine.getVariable(constant.successCount)
+          const lastSuccessCount: number = engine.getVariable(constant.successCount)
           addSuccessCount(engine)
           engine.setTimeMovement(constant.moveDownMovement, 500)
           if (lastSuccessCount === 10 || lastSuccessCount === 15) {
@@ -147,7 +149,7 @@ export const blockAction = (instance, engine, time) => {
             addScore(engine, true)
             engine.playAudio('drop-perfect')
           } else {
-            addScore(engine)
+            addScore(engine, false)
             engine.playAudio('drop')
           }
           break
@@ -159,7 +161,7 @@ export const blockAction = (instance, engine, time) => {
       engine.getTimeMovement(
         constant.moveDownMovement,
         [[instance.y, instance.y + (getMoveDownValue(engine, { pixelsPerFrame: s => s / 2 }))]],
-        (value) => {
+        (value: number) => {
           if (!instance.visible) return
           instance.y = value
           if (instance.y > engine.height) {
@@ -203,7 +205,7 @@ export const blockAction = (instance, engine, time) => {
   }
 }
 
-const drawSwingBlock = (instance, engine) => {
+const drawSwingBlock = (instance: InstanceType<typeof Instance>, engine: Engine): void => {
   const bl = engine.getImg('blockRope')
   engine.ctx.drawImage(
     bl, instance.weightX - instance.calWidth
@@ -211,16 +213,16 @@ const drawSwingBlock = (instance, engine) => {
     , instance.width, instance.height * 1.3
   )
   const leftX = instance.weightX - instance.calWidth
-  engine.debugLineY(leftX)
+  // engine.debugLineY(leftX)
 }
 
-const drawBlock = (instance, engine) => {
+const drawBlock = (instance: InstanceType<typeof Instance>, engine: Engine): void => {
   const { perfect } = instance
   const bl = engine.getImg(perfect ? 'block-perfect' : 'block')
   engine.ctx.drawImage(bl, instance.x, instance.y, instance.width, instance.height)
 }
 
-const drawRotatedBlock = (instance, engine) => {
+const drawRotatedBlock = (instance: InstanceType<typeof Instance>, engine: Engine): void => {
   const { ctx } = engine
   ctx.save()
   ctx.translate(instance.x, instance.y)
@@ -230,7 +232,7 @@ const drawRotatedBlock = (instance, engine) => {
   ctx.restore()
 }
 
-export const blockPainter = (instance, engine) => {
+export const blockPainter = (instance: InstanceType<typeof Instance>, engine: Engine): void => {
   const { status } = instance
   switch (status) {
     case constant.swing:
