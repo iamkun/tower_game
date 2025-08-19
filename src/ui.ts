@@ -9,11 +9,11 @@ declare global {
 export function initUI(): void {
   let domReady: boolean, loadFinish: boolean, canvasReady: boolean, loadError: boolean, gameStart: boolean, game: TowerGameInstance, score: number, successCount: number
 
-  const gameWidth = window.innerWidth
-  let gameHeight = window.innerHeight
+  let gameWidth = window.innerWidth
+  const gameHeight = window.innerHeight
   const ratio = 1.5
   if (gameHeight / gameWidth < ratio) {
-    gameHeight = Math.ceil(gameWidth * ratio)
+    gameWidth = Math.ceil(gameHeight / ratio);
   }
   $('.content').css({ "height": `${gameHeight}px`, "width": `${gameWidth}px` })
   $('.js-modal-content').css({ "width": `${gameWidth}px` })
