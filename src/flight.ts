@@ -1,13 +1,23 @@
-import { Instance } from 'cooljs'
+import { Engine } from './types'
 import * as constant from './constant'
+import { Instance } from 'cooljs'
 
-const getActionConfig = (engine, type) => {
+type ActionType = 'bottomToTop' | 'leftToRight' | 'rightToLeft' | 'rightTopToLeft';
+
+interface ActionConfig {
+  x: number;
+  y: number;
+  vx: number;
+  vy: number;
+}
+
+const getActionConfig = (engine: Engine, type: ActionType): ActionConfig => {
   const {
     width, height, utils
   } = engine
   const { random } = utils
-  const size = engine.getVariable(constant.cloudSize)
-  const actionTypes = {
+  const size: number = engine.getVariable(constant.cloudSize)
+  const actionTypes: Record<ActionType, ActionConfig> = {
     bottomToTop: {
       x: width * random(0.3, 0.7),
       y: height,
@@ -37,12 +47,12 @@ const getActionConfig = (engine, type) => {
 }
 
 
-export const flightAction = (instance, engine) => {
+export const flightAction = (instance: InstanceType<typeof Instance>, engine: Engine): void => {
   const { visible, ready, type } = instance
   if (!visible) return
-  const size = engine.getVariable(constant.cloudSize)
+  const size: number = engine.getVariable(constant.cloudSize)
   if (!ready) {
-    const action = getActionConfig(engine, type)
+    const action = getActionConfig(engine, type as ActionType)
     instance.ready = true
     instance.width = size
     instance.height = size
@@ -61,14 +71,14 @@ export const flightAction = (instance, engine) => {
   }
 }
 
-export const flightPainter = (instance, engine) => {
+export const flightPainter = (instance: InstanceType<typeof Instance>, engine: Engine): void => {
   const { ctx } = engine
   const flight = engine.getImg(instance.imgName)
   ctx.drawImage(flight, instance.x, instance.y, instance.width, instance.height)
 }
 
-export const addFlight = (engine, number, type) => {
-  const flightCount = engine.getVariable(constant.flightCount)
+export const addFlight = (engine: Engine, number: number, type: ActionType): void => {
+  const flightCount: number = engine.getVariable(constant.flightCount)
   if (flightCount === number) return
   const flight = new Instance({
     name: `flight_${number}`,
@@ -77,6 +87,6 @@ export const addFlight = (engine, number, type) => {
   })
   flight.imgName = `f${number}`
   flight.type = type
-  engine.addInstance(flight, constant.flightLayer)
+  engine.addInstance(flight)
   engine.setVariable(constant.flightCount, number)
 }

@@ -1,15 +1,17 @@
 import { checkMoveDown, getMoveDownValue } from './utils'
 import * as constant from './constant'
+import { Engine } from './types'
+import { Instance } from 'cooljs'
 
-const randomCloudImg = (instance) => {
+const randomCloudImg = (instance: InstanceType<typeof Instance>): void => {
   const { count } = instance
   const clouds = ['c1', 'c2', 'c3']
   const stones = ['c4', 'c5', 'c6', 'c7', 'c8']
-  const randomImg = array => (array[Math.floor(Math.random() * array.length)])
+  const randomImg = (array: string[]): string => (array[Math.floor(Math.random() * array.length)])
   instance.imgName = count > 6 ? randomImg(stones) : randomImg(clouds)
 }
 
-export const cloudAction = (instance, engine) => {
+export const cloudAction = (instance: InstanceType<typeof Instance>, engine: Engine): void => {
   if (!instance.ready) {
     instance.ready = true
     randomCloudImg(instance)
@@ -36,7 +38,7 @@ export const cloudAction = (instance, engine) => {
     instance.ax *= -1
   }
   if (checkMoveDown(engine)) {
-    instance.y += getMoveDownValue(engine) * 1.2
+    instance.y += getMoveDownValue(engine, null) * 1.2
   }
   if (instance.y >= engine.height) {
     instance.y = -engine.height * 0.66
@@ -45,7 +47,7 @@ export const cloudAction = (instance, engine) => {
   }
 }
 
-export const cloudPainter = (instance, engine) => {
+export const cloudPainter = (instance: InstanceType<typeof Instance>, engine: Engine): void => {
   const { ctx } = engine
   const cloud = engine.getImg(instance.imgName)
   ctx.drawImage(cloud, instance.x, instance.y, instance.width, instance.height)
